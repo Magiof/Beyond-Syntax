@@ -5,6 +5,7 @@ import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import { CheckCircle, BookOpen, Lightbulb, Code2 } from 'lucide-react';
 import type { Module } from '../data/curriculumData';
+import Mermaid from './Mermaid';
 
 interface Props {
   module: Module;
@@ -42,6 +43,11 @@ export const ModuleDetail: React.FC<Props> = ({ module, onComplete, isCompleted 
                 const isMultiLine = content.includes('\n');
 
                 if (!inline && (match || isMultiLine)) {
+                  // Handle Mermaid diagrams
+                  if (match && match[1] === 'mermaid') {
+                    return <Mermaid chart={content} />;
+                  }
+
                   return match ? (
                     <div className="rounded-lg overflow-hidden shadow-lg border border-gray-800 my-6">
                       <div className="bg-[#1e1e1e] px-4 py-2 flex items-center border-b border-gray-700">
@@ -94,6 +100,9 @@ export const ModuleDetail: React.FC<Props> = ({ module, onComplete, isCompleted 
               },
               td({children}) {
                 return <td className="px-6 py-4 whitespace-pre-wrap text-sm text-gray-700 align-top">{children}</td>;
+              },
+              strong({children}) {
+                return <strong className="font-extrabold text-gray-900">{children}</strong>;
               }
             }}
           >

@@ -1,5 +1,5 @@
 import React from 'react';
-import { CheckCircle2, Circle, ChevronRight, Layout } from 'lucide-react';
+import { CheckCircle2, ChevronRight, Layout } from 'lucide-react';
 import type { Phase, Module } from '../data/curriculumData';
 
 interface Props {
