@@ -1,19 +1,30 @@
-import React, { useState } from 'react';
-import type { Track, Module } from '../data/curriculumData';
+'use client';
+
+import React, { useState, useEffect } from 'react';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import type { Track } from '@/data/curriculumData';
 
 interface Props {
   tracks: Track[];
-  currentModuleId: string;
-  onSelectModule: (module: Module) => void;
 }
 
-export const Sidebar: React.FC<Props> = ({
-  tracks,
-  currentModuleId,
-  onSelectModule
-}) => {
+export const Sidebar: React.FC<Props> = ({ tracks }) => {
+  const pathname = usePathname();
+  // Extract currentModuleId from pathname e.g. /learn/java-setup -> java-setup
+  const currentModuleId = pathname?.startsWith('/learn/')
+    ? pathname.split('/').pop() || ''
+    : '';
+
   // 현재 모듈이 속한 Track과 Phase 찾기
   const findCurrentLocation = () => {
+    if (!currentModuleId) {
+      return {
+        trackId: tracks[0]?.id || '',
+        phaseId: tracks[0]?.phases[0]?.id || ''
+      };
+    }
+
     for (const track of tracks) {
       for (const phase of track.phases) {
         if (phase.modules.some(m => m.id === currentModuleId)) {
@@ -31,6 +42,20 @@ export const Sidebar: React.FC<Props> = ({
 
   const [activeTrackId, setActiveTrackId] = useState(initialTrackId);
   const [openPhases, setOpenPhases] = useState<string[]>([initialPhaseId]);
+
+  // Update active state when URL changes (e.g. user navigates directly or back/forward)
+  useEffect(() => {
+    const loc = findCurrentLocation();
+    if (currentModuleId) {
+      setActiveTrackId(loc.trackId);
+      setOpenPhases(prev => {
+        if (!prev.includes(loc.phaseId)) {
+          return [...prev, loc.phaseId];
+        }
+        return prev;
+      });
+    }
+  }, [currentModuleId]);
 
   const togglePhase = (phaseId: string) => {
     setOpenPhases(prev =>
@@ -54,7 +79,7 @@ export const Sidebar: React.FC<Props> = ({
     <aside className="w-72 flex-shrink-0 flex flex-col border-r border-gray-200 bg-white h-screen">
       {/* Brand Logo Area */}
       <div className="h-16 flex items-center px-4 border-b border-gray-100 bg-white/50 backdrop-blur-sm sticky top-0 z-10">
-        <div className="flex items-center gap-3 group cursor-pointer w-full">
+        <Link href="/" className="flex items-center gap-3 group cursor-pointer w-full">
           <div className="relative w-10 h-10 flex items-center justify-center bg-gray-900 rounded-xl shadow-lg group-hover:shadow-blue-500/20 transition-all duration-300 overflow-hidden">
             <div className="absolute inset-0 bg-gradient-to-br from-blue-600 to-purple-600 opacity-20 group-hover:opacity-30 transition-opacity"></div>
             <span className="text-xl font-bold bg-gradient-to-br from-blue-400 to-purple-400 bg-clip-text text-transparent font-mono pt-1">
@@ -72,7 +97,7 @@ export const Sidebar: React.FC<Props> = ({
               Depth First Learning
             </span>
           </div>
-        </div>
+        </Link>
       </div>
 
       {/* Track Tabs */}
@@ -150,11 +175,11 @@ export const Sidebar: React.FC<Props> = ({
                   const colors = trackColors[activeTrack.color] || trackColors.blue;
 
                   return (
-                    <button
+                    <Link
                       key={module.id}
-                      onClick={() => onSelectModule(module)}
+                      href={`/learn/${module.id}`}
                       className={`
-                        w-full text-left flex items-center justify-between px-3 py-2 text-sm rounded-md transition-colors
+                        w-full text-left flex items-center justify-between px-3 py-2 text-sm rounded-md transition-colors block
                         ${isActive
                           ? `${colors.bg} text-white font-medium shadow-sm`
                           : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900'
@@ -165,7 +190,7 @@ export const Sidebar: React.FC<Props> = ({
                       {isActive && (
                         <span className="material-icons text-sm">chevron_right</span>
                       )}
-                    </button>
+                    </Link>
                   );
                 })}
               </div>
@@ -177,11 +202,11 @@ export const Sidebar: React.FC<Props> = ({
       {/* User Footer */}
       <div className="p-4 border-t border-gray-200 flex items-center gap-3">
         <div className="w-8 h-8 rounded-full bg-yellow-400 flex items-center justify-center text-white text-sm font-bold shadow-sm">
-          황
+          🔥
         </div>
         <div className="flex-1 min-w-0">
-          <p className="text-sm font-medium text-gray-900 truncate">황성원</p>
-          <p className="text-xs text-gray-500 truncate">Keep going! 🔥</p>
+          <p className="text-sm font-medium text-gray-900 truncate">Made by <Link href="https://about.magiof.com" className="text-blue-600 hover:underline font-bold">황성원</Link></p>
+          {/* <p className="text-xs text-gray-500 truncate">Keep going! 🔥</p> */}
         </div>
       </div>
     </aside>
