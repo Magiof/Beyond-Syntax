@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import type { Track, Phase, Module } from '../data/curriculumData';
+import type { Track, Module } from '../data/curriculumData';
 
 interface Props {
   tracks: Track[];
@@ -7,10 +7,10 @@ interface Props {
   onSelectModule: (module: Module) => void;
 }
 
-export const Sidebar: React.FC<Props> = ({ 
-  tracks, 
-  currentModuleId, 
-  onSelectModule 
+export const Sidebar: React.FC<Props> = ({
+  tracks,
+  currentModuleId,
+  onSelectModule
 }) => {
   // 현재 모듈이 속한 Track과 Phase 찾기
   const findCurrentLocation = () => {
@@ -21,20 +21,20 @@ export const Sidebar: React.FC<Props> = ({
         }
       }
     }
-    return { 
-      trackId: tracks[0]?.id || '', 
-      phaseId: tracks[0]?.phases[0]?.id || '' 
+    return {
+      trackId: tracks[0]?.id || '',
+      phaseId: tracks[0]?.phases[0]?.id || ''
     };
   };
 
   const { trackId: initialTrackId, phaseId: initialPhaseId } = findCurrentLocation();
-  
+
   const [activeTrackId, setActiveTrackId] = useState(initialTrackId);
   const [openPhases, setOpenPhases] = useState<string[]>([initialPhaseId]);
 
   const togglePhase = (phaseId: string) => {
-    setOpenPhases(prev => 
-      prev.includes(phaseId) 
+    setOpenPhases(prev =>
+      prev.includes(phaseId)
         ? prev.filter(id => id !== phaseId)
         : [...prev, phaseId]
     );
@@ -80,7 +80,7 @@ export const Sidebar: React.FC<Props> = ({
         {tracks.map((track) => {
           const isActive = activeTrackId === track.id;
           const colors = trackColors[track.color] || trackColors.blue;
-          
+
           return (
             <button
               key={track.id}
@@ -93,8 +93,8 @@ export const Sidebar: React.FC<Props> = ({
               }}
               className={`
                 flex-1 flex flex-col items-center gap-1 py-2.5 px-2 rounded-t-lg transition-all text-sm font-medium
-                ${isActive 
-                  ? `${colors.bg} text-white` 
+                ${isActive
+                  ? `${colors.bg} text-white`
                   : `text-gray-500 hover:bg-gray-100`
                 }
               `}
@@ -115,13 +115,13 @@ export const Sidebar: React.FC<Props> = ({
 
       {/* Phase & Chapter List */}
       <nav className="flex-1 overflow-y-auto custom-scrollbar py-3 px-3 space-y-2">
-        {activeTrack?.phases.map((phase, phaseIndex) => {
+        {activeTrack?.phases.map((phase) => {
           const isOpen = openPhases.includes(phase.id);
           const colors = trackColors[activeTrack.color] || trackColors.blue;
-          
+
           return (
-            <details 
-              key={phase.id} 
+            <details
+              key={phase.id}
               className="group"
               open={isOpen}
               onToggle={(e) => {
@@ -142,7 +142,7 @@ export const Sidebar: React.FC<Props> = ({
                   expand_more
                 </span>
               </summary>
-              
+
               {/* Chapter List */}
               <div className="space-y-0.5 ml-3 mt-1 pl-3 border-l border-gray-200">
                 {phase.modules.map((module) => {
@@ -155,8 +155,8 @@ export const Sidebar: React.FC<Props> = ({
                       onClick={() => onSelectModule(module)}
                       className={`
                         w-full text-left flex items-center justify-between px-3 py-2 text-sm rounded-md transition-colors
-                        ${isActive 
-                          ? `${colors.bg} text-white font-medium shadow-sm` 
+                        ${isActive
+                          ? `${colors.bg} text-white font-medium shadow-sm`
                           : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900'
                         }
                       `}
