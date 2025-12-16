@@ -80,11 +80,13 @@ export const Sidebar: React.FC<Props> = ({ tracks }) => {
       {/* Brand Logo Area */}
       <div className="h-16 flex items-center px-4 border-b border-gray-100 bg-white/50 backdrop-blur-sm sticky top-0 z-10">
         <Link href="/" className="flex items-center gap-3 group cursor-pointer w-full">
-          <div className="relative w-10 h-10 flex items-center justify-center bg-gray-900 rounded-xl shadow-lg group-hover:shadow-blue-500/20 transition-all duration-300 overflow-hidden">
-            <div className="absolute inset-0 bg-gradient-to-br from-blue-600 to-purple-600 opacity-20 group-hover:opacity-30 transition-opacity"></div>
-            <span className="text-xl font-bold bg-gradient-to-br from-blue-400 to-purple-400 bg-clip-text text-transparent font-mono pt-1">
-              {`>_`}
-            </span>
+          <div className="relative w-10 h-10 flex items-center justify-center rounded-xl shadow-lg transition-all duration-300 overflow-hidden bg-black">
+            <img
+              src="/brand/logo.png"
+              alt="Beyond Syntax"
+              className="w-full h-full object-contain"
+              draggable={false}
+            />
           </div>
           <div className="flex flex-col">
             <h1 className="text-lg font-bold tracking-tight text-gray-900 leading-none group-hover:text-blue-600 transition-colors font-display">
