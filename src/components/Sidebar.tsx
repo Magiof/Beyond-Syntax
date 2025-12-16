@@ -52,15 +52,25 @@ export const Sidebar: React.FC<Props> = ({
 
   return (
     <aside className="w-72 flex-shrink-0 flex flex-col border-r border-gray-200 bg-white h-screen">
-      {/* Brand Header */}
-      <div className="h-16 flex items-center px-4 border-b border-gray-200">
-        <div className="flex items-center gap-2">
-          <div className="w-8 h-8 bg-blue-500 rounded-lg flex items-center justify-center text-white">
-            <span className="material-icons text-lg">code</span>
+      {/* Brand Logo Area */}
+      <div className="h-16 flex items-center px-4 border-b border-gray-100 bg-white/50 backdrop-blur-sm sticky top-0 z-10">
+        <div className="flex items-center gap-3 group cursor-pointer w-full">
+          <div className="relative w-10 h-10 flex items-center justify-center bg-gray-900 rounded-xl shadow-lg group-hover:shadow-blue-500/20 transition-all duration-300 overflow-hidden">
+            <div className="absolute inset-0 bg-gradient-to-br from-blue-600 to-purple-600 opacity-20 group-hover:opacity-30 transition-opacity"></div>
+            <span className="text-xl font-bold bg-gradient-to-br from-blue-400 to-purple-400 bg-clip-text text-transparent font-mono pt-1">
+              {`>_`}
+            </span>
           </div>
-          <div>
-            <h1 className="font-bold text-sm text-gray-900">Dev Course</h1>
-            <p className="text-xs text-gray-500">Full-Stack Expert Curriculum</p>
+          <div className="flex flex-col">
+            <h1 className="text-lg font-bold tracking-tight text-gray-900 leading-none group-hover:text-blue-600 transition-colors font-display">
+              Beyond
+              <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent ml-1">
+                Syntax
+              </span>
+            </h1>
+            <span className="text-[10px] uppercase tracking-widest text-gray-400 font-medium mt-1 group-hover:text-purple-500 transition-colors">
+              Depth First Learning
+            </span>
           </div>
         </div>
       </div>
