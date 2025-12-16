@@ -1,83 +1,177 @@
-import React from 'react';
-import { CheckCircle2, ChevronRight, Layout } from 'lucide-react';
-import type { Phase, Module } from '../data/curriculumData';
+import React, { useState } from 'react';
+import type { Track, Phase, Module } from '../data/curriculumData';
 
 interface Props {
-  curriculum: Phase[];
+  tracks: Track[];
   currentModuleId: string;
-  completedModuleIds: string[];
   onSelectModule: (module: Module) => void;
 }
 
 export const Sidebar: React.FC<Props> = ({ 
-  curriculum, 
+  tracks, 
   currentModuleId, 
-  completedModuleIds, 
   onSelectModule 
 }) => {
+  // 현재 모듈이 속한 Track과 Phase 찾기
+  const findCurrentLocation = () => {
+    for (const track of tracks) {
+      for (const phase of track.phases) {
+        if (phase.modules.some(m => m.id === currentModuleId)) {
+          return { trackId: track.id, phaseId: phase.id };
+        }
+      }
+    }
+    return { 
+      trackId: tracks[0]?.id || '', 
+      phaseId: tracks[0]?.phases[0]?.id || '' 
+    };
+  };
+
+  const { trackId: initialTrackId, phaseId: initialPhaseId } = findCurrentLocation();
+  
+  const [activeTrackId, setActiveTrackId] = useState(initialTrackId);
+  const [openPhases, setOpenPhases] = useState<string[]>([initialPhaseId]);
+
+  const togglePhase = (phaseId: string) => {
+    setOpenPhases(prev => 
+      prev.includes(phaseId) 
+        ? prev.filter(id => id !== phaseId)
+        : [...prev, phaseId]
+    );
+  };
+
+  // Track 색상 매핑
+  const trackColors: Record<string, { bg: string; bgHover: string; text: string; border: string }> = {
+    orange: { bg: 'bg-orange-500', bgHover: 'hover:bg-orange-600', text: 'text-orange-600', border: 'border-orange-500' },
+    purple: { bg: 'bg-purple-500', bgHover: 'hover:bg-purple-600', text: 'text-purple-600', border: 'border-purple-500' },
+    green: { bg: 'bg-green-500', bgHover: 'hover:bg-green-600', text: 'text-green-600', border: 'border-green-500' },
+    blue: { bg: 'bg-blue-500', bgHover: 'hover:bg-blue-600', text: 'text-blue-600', border: 'border-blue-500' },
+  };
+
+  const activeTrack = tracks.find(t => t.id === activeTrackId);
+
   return (
-    <aside className="w-80 h-screen bg-slate-50 border-r border-gray-200 flex flex-col fixed left-0 top-0 overflow-hidden">
+    <aside className="w-72 flex-shrink-0 flex flex-col border-r border-gray-200 bg-white h-screen">
       {/* Brand Header */}
-      <div className="p-6 border-b border-gray-200 bg-white">
-        <h1 className="flex items-center gap-3 text-xl font-extrabold text-slate-900 tracking-tight">
-          <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center text-white shadow-blue-200 shadow-lg">
-            <Layout size={18} />
-          </div>
-          Dev Course
-        </h1>
-        <p className="text-xs text-gray-500 font-medium mt-2 ml-11">
-          Full-Stack Expert Curriculum
-        </p>
-      </div>
-
-      {/* Navigation List */}
-      <div className="flex-1 overflow-y-auto p-4 space-y-8">
-        {curriculum.map((phase) => (
-          <div key={phase.id}>
-            <h2 className="px-3 text-xs font-bold text-slate-400 uppercase tracking-wider mb-3">
-              {phase.title}
-            </h2>
-            <div className="space-y-1">
-              {phase.modules.map((module) => {
-                const isActive = currentModuleId === module.id;
-                const isCompleted = completedModuleIds.includes(module.id);
-
-                return (
-                  <button
-                    key={module.id}
-                    onClick={() => onSelectModule(module)}
-                    className={`
-                      w-full text-left px-3 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 group flex items-center justify-between
-                      ${isActive 
-                        ? 'bg-blue-600 text-white shadow-md shadow-blue-200' 
-                        : 'text-gray-600 hover:bg-gray-200/50 hover:text-gray-900'
-                      }
-                    `}
-                  >
-                    <span className="truncate mr-2">{module.title}</span>
-                    {isCompleted ? (
-                      <CheckCircle2 size={16} className={isActive ? 'text-blue-200' : 'text-green-500'} />
-                    ) : (
-                      isActive && <ChevronRight size={16} className="text-blue-200 opacity-50" />
-                    )}
-                  </button>
-                );
-              })}
-            </div>
-          </div>
-        ))}
-      </div>
-
-      {/* User Progress Footer (Optional) */}
-      <div className="p-4 border-t border-gray-200 bg-white">
-        <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center text-lg">
-            🧑‍💻
+      <div className="h-16 flex items-center px-4 border-b border-gray-200">
+        <div className="flex items-center gap-2">
+          <div className="w-8 h-8 bg-blue-500 rounded-lg flex items-center justify-center text-white">
+            <span className="material-icons text-lg">code</span>
           </div>
           <div>
-            <p className="text-sm font-bold text-gray-900">황성원</p>
-            <p className="text-xs text-gray-500">Keep going! 🔥</p>
+            <h1 className="font-bold text-sm text-gray-900">Dev Course</h1>
+            <p className="text-xs text-gray-500">Full-Stack Expert Curriculum</p>
           </div>
+        </div>
+      </div>
+
+      {/* Track Tabs */}
+      <div className="flex border-b border-gray-200 px-2 pt-2">
+        {tracks.map((track) => {
+          const isActive = activeTrackId === track.id;
+          const colors = trackColors[track.color] || trackColors.blue;
+          
+          return (
+            <button
+              key={track.id}
+              onClick={() => {
+                setActiveTrackId(track.id);
+                // Open first phase of this track
+                if (track.phases.length > 0) {
+                  setOpenPhases([track.phases[0].id]);
+                }
+              }}
+              className={`
+                flex-1 flex flex-col items-center gap-1 py-2.5 px-2 rounded-t-lg transition-all text-sm font-medium
+                ${isActive 
+                  ? `${colors.bg} text-white` 
+                  : `text-gray-500 hover:bg-gray-100`
+                }
+              `}
+            >
+              <span className="material-icons text-lg">{track.icon}</span>
+              <span className="text-xs">{track.title}</span>
+            </button>
+          );
+        })}
+      </div>
+
+      {/* Track Description */}
+      {activeTrack && (
+        <div className="px-4 py-3 bg-gray-50 border-b border-gray-200">
+          <p className="text-xs text-gray-600">{activeTrack.description}</p>
+        </div>
+      )}
+
+      {/* Phase & Chapter List */}
+      <nav className="flex-1 overflow-y-auto custom-scrollbar py-3 px-3 space-y-2">
+        {activeTrack?.phases.map((phase, phaseIndex) => {
+          const isOpen = openPhases.includes(phase.id);
+          const colors = trackColors[activeTrack.color] || trackColors.blue;
+          
+          return (
+            <details 
+              key={phase.id} 
+              className="group"
+              open={isOpen}
+              onToggle={(e) => {
+                const target = e.target as HTMLDetailsElement;
+                if (target.open !== isOpen) {
+                  togglePhase(phase.id);
+                }
+              }}
+            >
+              {/* Phase Header */}
+              <summary className={`flex items-center justify-between px-3 py-2.5 cursor-pointer rounded-lg transition-all select-none border-l-4 ${colors.border} bg-gray-50 hover:bg-gray-100`}>
+                <div className="flex items-center gap-2">
+                  <span className={`text-xs font-bold ${colors.text} uppercase tracking-wide`}>
+                    {phase.title}
+                  </span>
+                </div>
+                <span className={`material-icons text-base transition-transform duration-200 text-gray-400 ${isOpen ? 'rotate-180' : ''}`}>
+                  expand_more
+                </span>
+              </summary>
+              
+              {/* Chapter List */}
+              <div className="space-y-0.5 ml-3 mt-1 pl-3 border-l border-gray-200">
+                {phase.modules.map((module) => {
+                  const isActive = currentModuleId === module.id;
+                  const colors = trackColors[activeTrack.color] || trackColors.blue;
+
+                  return (
+                    <button
+                      key={module.id}
+                      onClick={() => onSelectModule(module)}
+                      className={`
+                        w-full text-left flex items-center justify-between px-3 py-2 text-sm rounded-md transition-colors
+                        ${isActive 
+                          ? `${colors.bg} text-white font-medium shadow-sm` 
+                          : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900'
+                        }
+                      `}
+                    >
+                      <span className="truncate">{module.title}</span>
+                      {isActive && (
+                        <span className="material-icons text-sm">chevron_right</span>
+                      )}
+                    </button>
+                  );
+                })}
+              </div>
+            </details>
+          );
+        })}
+      </nav>
+
+      {/* User Footer */}
+      <div className="p-4 border-t border-gray-200 flex items-center gap-3">
+        <div className="w-8 h-8 rounded-full bg-yellow-400 flex items-center justify-center text-white text-sm font-bold shadow-sm">
+          황
+        </div>
+        <div className="flex-1 min-w-0">
+          <p className="text-sm font-medium text-gray-900 truncate">황성원</p>
+          <p className="text-xs text-gray-500 truncate">Keep going! 🔥</p>
         </div>
       </div>
     </aside>

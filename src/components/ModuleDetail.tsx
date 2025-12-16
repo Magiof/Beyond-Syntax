@@ -3,7 +3,6 @@ import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism';
-import { CheckCircle, BookOpen, Lightbulb, Code2 } from 'lucide-react';
 import type { Module } from '../data/curriculumData';
 import Mermaid from './Mermaid';
 
@@ -13,20 +12,67 @@ interface Props {
   isCompleted: boolean;
 }
 
+// 코드를 라인별로 분리하여 테이블 형식으로 렌더링
+const CodeBlockWithLineNumbers: React.FC<{ code: string; language: string; title?: string }> = ({ code, language, title }) => {
+  const lines = code.split('\n');
+  
+  return (
+    <div className="dark-code-block bg-[#1e1e1e] rounded-xl overflow-hidden shadow-2xl my-6 border border-gray-800">
+      <div className="flex justify-between items-center px-4 py-2 bg-[#2d2d2d]">
+        <div className="flex gap-1.5">
+          <div className="w-3 h-3 rounded-full bg-[#ff5f56]"></div>
+          <div className="w-3 h-3 rounded-full bg-[#ffbd2e]"></div>
+          <div className="w-3 h-3 rounded-full bg-[#27c93f]"></div>
+        </div>
+        {title && <span className="text-xs text-gray-400 font-mono">{title}</span>}
+        <span className="text-xs text-gray-500 font-bold uppercase">{language}</span>
+      </div>
+      <div className="p-4 overflow-x-auto">
+        <table className="w-full text-left border-collapse">
+          <tbody className="font-mono text-sm leading-6">
+            {lines.map((line, idx) => (
+              <tr key={idx}>
+                <td className="select-none text-gray-600 text-right pr-4 w-8 border-r border-gray-700">
+                  {idx + 1}
+                </td>
+                <td className="pl-4">
+                  <SyntaxHighlighter
+                    language={language}
+                    style={vscDarkPlus}
+                    customStyle={{
+                      margin: 0,
+                      padding: 0,
+                      background: 'transparent',
+                      display: 'inline',
+                    }}
+                    PreTag="span"
+                  >
+                    {line || ' '}
+                  </SyntaxHighlighter>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  );
+};
+
 export const ModuleDetail: React.FC<Props> = ({ module, onComplete, isCompleted }) => {
 
   return (
     <div className="max-w-4xl mx-auto pb-20">
       {/* Header Section */}
       <header className="mb-12 border-b border-gray-200 pb-8">
-        <div className="flex items-center gap-2 text-sm font-semibold text-blue-600 mb-3 uppercase tracking-wider">
-          <BookOpen size={16} />
-          <span>Learning Module</span>
+        <div className="flex items-center gap-2 mb-6">
+          <span className="material-icons text-blue-500 text-sm">book</span>
+          <span className="text-xs font-bold text-blue-500 tracking-wide uppercase">Learning Module</span>
         </div>
-        <h1 className="text-4xl font-extrabold text-gray-900 mb-4 leading-tight">
+        <h1 className="text-3xl md:text-4xl font-extrabold text-gray-900 mb-4">
           {module.title}
         </h1>
-        <p className="text-xl text-gray-600 leading-relaxed font-light">
+        <p className="text-lg text-gray-500">
           {module.topic}
         </p>
       </header>
@@ -42,45 +88,48 @@ export const ModuleDetail: React.FC<Props> = ({ module, onComplete, isCompleted 
                 const content = String(children).replace(/\n$/, '');
                 const isMultiLine = content.includes('\n');
 
-                if (!inline && (match || isMultiLine)) {
-                  // Handle Mermaid diagrams
-                  if (match && match[1] === 'mermaid') {
-                    return <Mermaid chart={content} />;
+                  let language = match ? match[1] : '';
+
+                  // Fallback: className이 없어도 내용이 Mermaid 키워드로 시작하면 Mermaid로 처리
+                  if (!language && (content.trim().startsWith('graph ') || content.trim().startsWith('sequenceDiagram') || content.trim().startsWith('classDiagram') || content.trim().startsWith('flowchart'))) {
+                    language = 'mermaid';
                   }
 
-                  return match ? (
-                    <div className="rounded-lg overflow-hidden shadow-lg border border-gray-800 my-6">
-                      <div className="bg-[#1e1e1e] px-4 py-2 flex items-center border-b border-gray-700">
-                        <span className="text-xs text-gray-400 font-mono">{match[1]}</span>
+                  if (!inline && (match || isMultiLine || language === 'mermaid')) {
+                    // Handle Mermaid diagrams
+                    if (language === 'mermaid') {
+                      return <Mermaid chart={content} />;
+                    }
+
+                    return language ? (
+                      <CodeBlockWithLineNumbers code={content} language={language} />
+                    ) : (
+                      // 언어 미지정 코드블록 (ASCII 아트, 다이어그램 등) - 라이트 배경
+                      <div className="rounded-lg overflow-x-auto my-6 bg-gray-100 border border-gray-200 p-6">
+                         <pre className="whitespace-pre font-mono text-sm text-gray-800 leading-relaxed">{content}</pre>
                       </div>
-                      <SyntaxHighlighter
-                        style={vscDarkPlus}
-                        language={match[1]}
-                        PreTag="div"
-                        customStyle={{ margin: 0, padding: '1.5rem', fontSize: '0.95rem' }}
-                        {...props}
-                      >
-                        {content}
-                      </SyntaxHighlighter>
-                    </div>
-                  ) : (
-                    <div className="rounded-lg overflow-x-auto shadow-sm border border-gray-200 my-6 bg-gray-50 p-6 font-mono text-sm text-gray-800">
-                       <pre className="whitespace-pre">{content}</pre>
-                    </div>
-                  );
-                }
+                    );
+                  }
+                // 인라인 코드
                 return (
-                  <code className="bg-gray-100 text-red-500 rounded px-1.5 py-0.5 font-mono text-sm border border-gray-200" {...props}>
+                  <code className="bg-red-50 text-red-600 px-1.5 py-0.5 rounded-md font-mono text-sm border border-red-100 not-prose" {...props}>
                     {children}
                   </code>
                 );
               },
               h1: ({children}) => <h1 className="text-3xl font-extrabold text-gray-900 mt-12 mb-6 pb-4 border-b border-gray-200">{children}</h1>,
-              h2: ({children}) => <h2 className="text-2xl font-bold text-gray-900 mt-12 mb-6 flex items-center gap-2"><span className="w-1.5 h-8 bg-blue-600 rounded-full inline-block"></span>{children}</h2>,
-              h3: ({children}) => <h3 className="text-xl font-bold text-gray-800 mt-8 mb-4 ml-4 pl-4 border-l-4 border-gray-200">{children}</h3>,
-              h4: ({children}) => <h4 className="text-lg font-bold text-gray-800 mt-6 mb-3 ml-6">{children}</h4>,
+              h2: ({children}) => (
+                <div className="flex items-center gap-3 mb-6 mt-16">
+                  <div className="w-1 h-8 bg-blue-500 rounded-full"></div>
+                  <h2 className="text-2xl font-bold text-gray-900">{children}</h2>
+                </div>
+              ),
+              h3: ({children}) => <h3 className="text-lg font-bold text-gray-900 mt-8 mb-4 pl-4 border-l-2 border-gray-200">{children}</h3>,
+              h4: ({children}) => <h4 className="font-semibold text-gray-900 mt-6 mb-2">{children}</h4>,
+              p: ({children}) => <p className="mb-6 leading-relaxed text-gray-600">{children}</p>,
+              ul: ({children}) => <ul className="list-disc pl-5 space-y-1 text-gray-600 text-sm">{children}</ul>,
+              li: ({children}) => <li>{children}</li>,
               table({children}) {
-
                 return (
                   <div className="overflow-x-auto my-8 border border-gray-200 rounded-xl shadow-sm">
                     <table className="min-w-full divide-y divide-gray-200">
@@ -93,16 +142,16 @@ export const ModuleDetail: React.FC<Props> = ({ module, onComplete, isCompleted 
                 return <thead className="bg-gray-50">{children}</thead>;
               },
               th({children}) {
-                return <th className="px-6 py-4 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">{children}</th>;
+                return <th className="px-6 py-3 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">{children}</th>;
               },
               tr({children}) {
-                return <tr className="divide-x divide-gray-200 hover:bg-gray-50/50 transition-colors">{children}</tr>;
+                return <tr className="bg-white divide-x divide-gray-200 hover:bg-gray-50/50 transition-colors">{children}</tr>;
               },
               td({children}) {
-                return <td className="px-6 py-4 whitespace-pre-wrap text-sm text-gray-700 align-top">{children}</td>;
+                return <td className="px-6 py-4 whitespace-pre-wrap text-sm text-gray-600 align-top">{children}</td>;
               },
               strong({children}) {
-                return <strong className="font-extrabold text-gray-900">{children}</strong>;
+                return <strong className="font-bold text-gray-900">{children}</strong>;
               }
             }}
           >
@@ -113,18 +162,18 @@ export const ModuleDetail: React.FC<Props> = ({ module, onComplete, isCompleted 
 
       {/* Key Points */}
       {module.keyPoints && (
-        <section className="mt-16 bg-amber-50/50 rounded-2xl p-8 border border-amber-100">
-          <h3 className="flex items-center gap-3 text-xl font-bold text-amber-900 mb-6">
-            <Lightbulb className="text-amber-500" />
+        <section className="mt-16 bg-yellow-50 rounded-xl p-6 border border-yellow-200">
+          <h3 className="flex items-center gap-2 text-lg font-bold text-yellow-800 mb-4">
+            <span className="material-icons text-xl">lightbulb</span>
             핵심 요약
           </h3>
-          <ul className="space-y-4">
+          <ul className="space-y-3">
             {module.keyPoints.map((point, idx) => (
-              <li key={idx} className="flex gap-4 items-start text-amber-900/80 font-medium">
-                <span className="flex-shrink-0 w-6 h-6 rounded-full bg-amber-200 text-amber-800 flex items-center justify-center text-sm font-bold mt-0.5">
+              <li key={idx} className="flex items-start gap-3">
+                <span className="flex-shrink-0 w-6 h-6 rounded-full bg-yellow-200 text-yellow-800 text-xs font-bold flex items-center justify-center">
                   {idx + 1}
                 </span>
-                {point}
+                <span className="text-sm text-yellow-900 mt-0.5">{point}</span>
               </li>
             ))}
           </ul>
@@ -134,67 +183,39 @@ export const ModuleDetail: React.FC<Props> = ({ module, onComplete, isCompleted 
       {/* Code Examples */}
       {module.codeExamples && module.codeExamples.length > 0 && (
         <section className="mt-16">
-          <h3 className="flex items-center gap-3 text-2xl font-bold text-gray-900 mb-8">
-            <Code2 className="text-blue-600" />
-            실전 코드 예제
-          </h3>
-          <div className="space-y-12">
+          <div className="flex items-center gap-3 mb-8">
+            <span className="material-icons text-blue-500">code</span>
+            <h2 className="text-xl font-bold text-gray-900">실전 코드 예제</h2>
+          </div>
+          <div className="space-y-8">
             {module.codeExamples.map((ex, idx) => (
-              <div key={idx} className="group relative rounded-xl overflow-hidden shadow-2xl bg-[#1e1e1e] ring-1 ring-white/10">
-                <div className="flex items-center justify-between px-4 py-3 bg-[#252526] border-b border-white/5">
-                  <div className="flex items-center gap-3">
-                    <span className="flex gap-1.5">
-                      <div className="w-3 h-3 rounded-full bg-[#ff5f56]" />
-                      <div className="w-3 h-3 rounded-full bg-[#ffbd2e]" />
-                      <div className="w-3 h-3 rounded-full bg-[#27c93f]" />
-                    </span>
-                    <span className="text-gray-400 text-sm font-medium font-mono ml-2">
-                      {ex.title}
-                    </span>
-                  </div>
-                  <span className="text-xs font-bold text-gray-500 uppercase font-mono tracking-wider">
-                    {ex.language}
-                  </span>
-                </div>
-                <SyntaxHighlighter
-                  language={ex.language}
-                  style={vscDarkPlus}
-                  customStyle={{
-                    margin: 0,
-                    padding: '1.5rem',
-                    fontSize: '14px',
-                    lineHeight: '1.6',
-                    background: 'transparent',
-                  }}
-                  showLineNumbers={true}
-                  wrapLines={true}
-                >
-                  {ex.code}
-                </SyntaxHighlighter>
-              </div>
+              <CodeBlockWithLineNumbers 
+                key={idx} 
+                code={ex.code} 
+                language={ex.language} 
+                title={ex.title} 
+              />
             ))}
           </div>
         </section>
       )}
 
       {/* Completion Footer */}
-      <section className="mt-20 flex flex-col items-center gap-8 border-t border-gray-200 pt-16">
-        
-        {/* Complete Button */}
+      <div className="flex justify-center mt-12 pb-12">
         <button
           onClick={onComplete}
           className={`
-            group flex items-center gap-3 px-8 py-4 rounded-full text-lg font-bold transition-all duration-300
+            flex items-center gap-2 px-8 py-3 rounded-full font-bold transition-colors shadow-lg
             ${isCompleted 
               ? 'bg-green-100 text-green-700 hover:bg-green-200 ring-2 ring-green-500 ring-offset-2' 
-              : 'bg-gray-900 text-white hover:bg-gray-800 hover:scale-105 shadow-xl hover:shadow-2xl'
+              : 'bg-gray-900 text-white hover:bg-gray-800'
             }
           `}
         >
-          <CheckCircle className={isCompleted ? 'fill-green-600 text-white' : ''} />
+          <span className="material-icons text-sm">check_circle</span>
           {isCompleted ? '학습 완료됨 (다시 보기)' : '이 모듈 학습 완료'}
         </button>
-      </section>
+      </div>
     </div>
   );
 };

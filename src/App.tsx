@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { curriculumData, type Module } from './data/curriculumData';
+import { trackData, curriculumData, type Module } from './data/curriculumData';
 import { Sidebar } from './components/Sidebar';
 import { ModuleDetail } from './components/ModuleDetail';
 import { Menu } from 'lucide-react';
@@ -39,20 +39,19 @@ function App() {
   };
 
   return (
-    <div className="flex min-h-screen bg-white font-sans text-slate-900 selection:bg-blue-100 selection:text-blue-900">
+    <div className="flex h-screen overflow-hidden bg-white font-sans text-slate-900 selection:bg-blue-100 selection:text-blue-900">
       
       {/* Sidebar - Fixed */}
-      <div className={`${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'} fixed inset-y-0 left-0 z-50 w-80 transition-transform duration-300 ease-in-out lg:translate-x-0 lg:static lg:inset-0`}>
+      <aside className={`${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'} fixed inset-y-0 left-0 z-50 w-72 transition-transform duration-300 ease-in-out lg:translate-x-0`}>
         <Sidebar 
-          curriculum={curriculumData}
+          tracks={trackData}
           currentModuleId={currentModule.id}
-          completedModuleIds={completedModules}
           onSelectModule={handleModuleSelect}
         />
-      </div>
+      </aside>
 
-      {/* Main Content - Scrollable */}
-      <main className="flex-1 min-w-0 bg-white">
+      {/* Main Content - Scrollable with left margin for sidebar */}
+      <main className="flex-1 overflow-y-auto custom-scrollbar bg-white lg:ml-64">
         {/* Mobile Header */}
         <div className="lg:hidden flex items-center p-4 border-b border-gray-100 bg-white sticky top-0 z-40">
           <button onClick={() => setIsSidebarOpen(!isSidebarOpen)} className="p-2 -ml-2 text-gray-600">
