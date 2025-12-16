@@ -1,16 +1,16 @@
 import type { Phase } from '../curriculumData';
 
 export const javaBasicsPhase: Phase = {
-  id: "phase0",
-  title: "Phase 0: Java 완전 기초",
-  goal: "Java 문법을 처음부터 체계적으로 학습합니다. 변수, 조건문, 반복문, 클래스, 객체지향까지 공식 문서 수준으로 상세하게 다룹니다.",
-  modules: [
-    {
-      id: "p0-m1",
-      title: "Chapter 1: Java란 무엇인가",
-      topic: "Java의 역사, 특징, JDK/JRE/JVM의 차이, 첫 프로그램 작성",
-      content: `
-## 1. Java란 무엇인가?
+    id: "phase0",
+    title: "Phase 0: Java 완전 기초",
+    goal: "Java 문법을 처음부터 체계적으로 학습합니다. 변수, 조건문, 반복문, 클래스, 객체지향까지 공식 문서 수준으로 상세하게 다룹니다.",
+    modules: [
+        {
+            id: "p0-m1",
+            title: "Chapter 1: Java란 무엇인가",
+            topic: "Java의 역사, 특징, JDK/JRE/JVM의 차이, 첫 프로그램 작성",
+            content: `
+## 1. Java란 무엇인가? 
 
 **Java**는 1995년 Sun Microsystems(현재 Oracle)의 제임스 고슬링(James Gosling)이 개발한 **객체지향 프로그래밍 언어**입니다.
 
@@ -139,20 +139,20 @@ public static void main(String[] args)
 | \`main\` | 메서드 이름. JVM이 찾는 고정된 이름 |
 | \`String[] args\` | 매개변수. 명령줄 인자를 배열로 받음 |
 `,
-      codeExamples: [
-        {
-          title: "Hello World 기본",
-          language: "java",
-          code: `public class HelloWorld {
+            codeExamples: [
+                {
+                    title: "Hello World 기본",
+                    language: "java",
+                    code: `public class HelloWorld {
     public static void main(String[] args) {
         System.out.println("Hello, World!");
     }
 }`
-        },
-        {
-          title: "명령줄 인자 사용하기",
-          language: "java",
-          code: `public class Greeting {
+                },
+                {
+                    title: "명령줄 인자 사용하기",
+                    language: "java",
+                    code: `public class Greeting {
     public static void main(String[] args) {
         // args 배열에 명령줄 인자가 들어옴
         if (args.length > 0) {
@@ -165,21 +165,21 @@ public static void main(String[] args)
 
 // 실행: java Greeting 홍길동
 // 출력: 안녕하세요, 홍길동님!`
-        }
-      ],
-      keyPoints: [
-        "Java는 '한 번 작성하면 어디서든 실행(Write Once, Run Anywhere)'을 목표로 설계된 객체지향 언어입니다.",
-        "JDK는 개발 도구, JRE는 실행 환경, JVM은 바이트코드를 실행하는 가상 머신입니다.",
-        "모든 Java 코드는 클래스 안에 작성되어야 합니다.",
-        "main 메서드는 프로그램의 시작점이며, public static void main(String[] args) 형식이어야 합니다.",
-        "소스 파일(.java)은 javac로 컴파일하여 바이트코드(.class)를 생성하고, java 명령으로 실행합니다."
-      ]
-    },
-    {
-      id: "p0-m2",
-      title: "Chapter 2: 변수와 자료형",
-      topic: "변수 선언, 기본형 8가지, 참조형, 형변환, 리터럴, 상수",
-      content: `
+                }
+            ],
+            keyPoints: [
+                "Java는 '한 번 작성하면 어디서든 실행(Write Once, Run Anywhere)'을 목표로 설계된 객체지향 언어입니다.",
+                "JDK는 개발 도구, JRE는 실행 환경, JVM은 바이트코드를 실행하는 가상 머신입니다.",
+                "모든 Java 코드는 클래스 안에 작성되어야 합니다.",
+                "main 메서드는 프로그램의 시작점이며, public static void main(String[] args) 형식이어야 합니다.",
+                "소스 파일(.java)은 javac로 컴파일하여 바이트코드(.class)를 생성하고, java 명령으로 실행합니다."
+            ]
+        },
+        {
+            id: "p0-m2",
+            title: "Chapter 2: 변수와 자료형",
+            topic: "변수 선언, 기본형 8가지, 참조형, 형변환, 리터럴, 상수",
+            content: `
 ## 1. 변수(Variable)란?
 
 **변수**는 데이터를 저장하기 위한 **메모리 공간의 이름**입니다.
@@ -366,11 +366,11 @@ double result1 = a / b;       // 2.0 (정수 나눗셈 먼저 수행)
 double result2 = (double) a / b; // 2.5 (원하는 결과)
 \`\`\`
 `,
-      codeExamples: [
-        {
-          title: "기본형 변수 선언 및 사용",
-          language: "java",
-          code: `public class DataTypes {
+            codeExamples: [
+                {
+                    title: "기본형 변수 선언 및 사용",
+                    language: "java",
+                    code: `public class DataTypes {
     public static void main(String[] args) {
         // 정수형
         byte smallNum = 127;
@@ -397,11 +397,11 @@ double result2 = (double) a / b; // 2.5 (원하는 결과)
         System.out.println("boolean: " + isJavaFun);
     }
 }`
-        },
-        {
-          title: "형변환 예제",
-          language: "java",
-          code: `public class TypeCasting {
+                },
+                {
+                    title: "형변환 예제",
+                    language: "java",
+                    code: `public class TypeCasting {
     public static void main(String[] args) {
         // 1. 자동 형변환 (작은 → 큰)
         int intVal = 100;
@@ -424,21 +424,21 @@ double result2 = (double) a / b; // 2.5 (원하는 결과)
         System.out.println("66의 문자: " + backToChar);
     }
 }`
-        }
-      ],
-      keyPoints: [
-        "Java의 기본형은 8가지입니다: byte, short, int, long, float, double, char, boolean",
-        "정수는 기본적으로 int, 실수는 double로 취급됩니다. long은 L, float은 f 접미사가 필요합니다.",
-        "참조형은 객체의 메모리 주소를 저장하며, String, 배열, 클래스 등이 해당됩니다.",
-        "final 키워드로 상수를 선언하면 값을 변경할 수 없습니다.",
-        "작은 타입 → 큰 타입은 자동 형변환, 큰 타입 → 작은 타입은 (타입) 캐스팅이 필요합니다."
-      ]
-    },
-    {
-      id: "p0-m3",
-      title: "Chapter 3: 연산자",
-      topic: "산술, 비교, 논리, 대입, 비트, 삼항 연산자와 연산자 우선순위",
-      content: `
+                }
+            ],
+            keyPoints: [
+                "Java의 기본형은 8가지입니다: byte, short, int, long, float, double, char, boolean",
+                "정수는 기본적으로 int, 실수는 double로 취급됩니다. long은 L, float은 f 접미사가 필요합니다.",
+                "참조형은 객체의 메모리 주소를 저장하며, String, 배열, 클래스 등이 해당됩니다.",
+                "final 키워드로 상수를 선언하면 값을 변경할 수 없습니다.",
+                "작은 타입 → 큰 타입은 자동 형변환, 큰 타입 → 작은 타입은 (타입) 캐스팅이 필요합니다."
+            ]
+        },
+        {
+            id: "p0-m3",
+            title: "Chapter 3: 연산자",
+            topic: "산술, 비교, 논리, 대입, 비트, 삼항 연산자와 연산자 우선순위",
+            content: `
 ## 1. 연산자(Operator)란?
 
 **연산자**는 변수나 값에 대해 **연산을 수행**하는 기호입니다. 연산의 대상이 되는 것을 **피연산자(Operand)** 라고 합니다.
@@ -582,11 +582,11 @@ System.out.println(status);  // "성인"
 
 > **팁**: 헷갈리면 괄호 \`()\`를 사용하세요!
 `,
-      codeExamples: [
-        {
-          title: "산술 및 증감 연산자",
-          language: "java",
-          code: `public class ArithmeticDemo {
+            codeExamples: [
+                {
+                    title: "산술 및 증감 연산자",
+                    language: "java",
+                    code: `public class ArithmeticDemo {
     public static void main(String[] args) {
         // 기본 산술
         int x = 10, y = 3;
@@ -603,11 +603,11 @@ System.out.println(status);  // "성인"
         System.out.println(++a);  // 7 (전위: 증가 후 출력)
     }
 }`
-        },
-        {
-          title: "논리 연산자와 삼항 연산자",
-          language: "java",
-          code: `public class LogicalDemo {
+                },
+                {
+                    title: "논리 연산자와 삼항 연산자",
+                    language: "java",
+                    code: `public class LogicalDemo {
     public static void main(String[] args) {
         int age = 25;
         boolean hasLicense = true;
@@ -628,21 +628,21 @@ System.out.println(status);  // "성인"
         System.out.println("결과: " + result);  // false
     }
 }`
-        }
-      ],
-      keyPoints: [
-        "정수끼리 나눗셈(/)은 정수 결과만 나옵니다. 실수 결과가 필요하면 형변환하세요.",
-        "전위(++a)는 증가 후 사용, 후위(a++)는 사용 후 증가입니다.",
-        "문자열 비교는 == 대신 .equals() 메서드를 사용해야 합니다.",
-        "&&와 ||는 단락 평가를 수행하여 불필요한 연산을 건너뜁니다.",
-        "삼항 연산자(조건 ? A : B)는 간단한 if-else를 한 줄로 표현합니다."
-      ]
-    },
-    {
-      id: "p0-m4",
-      title: "Chapter 4: 조건문",
-      topic: "if-else, switch-case, switch expression (Java 14+)",
-      content: `
+                }
+            ],
+            keyPoints: [
+                "정수끼리 나눗셈(/)은 정수 결과만 나옵니다. 실수 결과가 필요하면 형변환하세요.",
+                "전위(++a)는 증가 후 사용, 후위(a++)는 사용 후 증가입니다.",
+                "문자열 비교는 == 대신 .equals() 메서드를 사용해야 합니다.",
+                "&&와 ||는 단락 평가를 수행하여 불필요한 연산을 건너뜁니다.",
+                "삼항 연산자(조건 ? A : B)는 간단한 if-else를 한 줄로 표현합니다."
+            ]
+        },
+        {
+            id: "p0-m4",
+            title: "Chapter 4: 조건문",
+            topic: "if-else, switch-case, switch expression (Java 14+)",
+            content: `
 ## 1. 조건문이란?
 
 **조건문**은 주어진 조건에 따라 **다른 코드를 실행**하게 하는 제어 구조입니다.
@@ -835,11 +835,11 @@ System.out.println(month + "월은 " + days + "일");
 3. **표현식**: 값 반환 가능
 4. **완전성 검사**: 모든 케이스를 다루지 않으면 컴파일 에러
 `,
-      codeExamples: [
-        {
-          title: "if-else if-else 학점 계산",
-          language: "java",
-          code: `public class GradeCalculator {
+            codeExamples: [
+                {
+                    title: "if-else if-else 학점 계산",
+                    language: "java",
+                    code: `public class GradeCalculator {
     public static void main(String[] args) {
         int score = 87;
         char grade;
@@ -867,11 +867,11 @@ System.out.println(month + "월은 " + days + "일");
         System.out.println(message);
     }
 }`
-        },
-        {
-          title: "switch 표현식 (Java 14+)",
-          language: "java",
-          code: `public class SwitchExpressionDemo {
+                },
+                {
+                    title: "switch 표현식 (Java 14+)",
+                    language: "java",
+                    code: `public class SwitchExpressionDemo {
     public static void main(String[] args) {
         String day = "수";
         
@@ -901,21 +901,21 @@ System.out.println(month + "월은 " + days + "일");
         System.out.println("일주일 중 " + dayNumber + "번째 날");
     }
 }`
-        }
-      ],
-      keyPoints: [
-        "if 문은 조건이 true일 때만 해당 블록을 실행합니다.",
-        "else if를 사용하면 여러 조건을 순차적으로 검사할 수 있습니다.",
-        "switch 문에서 break를 빠뜨리면 다음 case로 넘어갑니다 (fall-through).",
-        "Java 14+의 switch 표현식은 -> 문법으로 더 간결하고 안전합니다.",
-        "switch 표현식에서 블록을 사용할 때는 yield로 값을 반환합니다."
-      ]
-    },
-    {
-      id: "p0-m5",
-      title: "Chapter 5: 반복문",
-      topic: "for, while, do-while, enhanced for, break/continue, 중첩 반복문",
-      content: `
+                }
+            ],
+            keyPoints: [
+                "if 문은 조건이 true일 때만 해당 블록을 실행합니다.",
+                "else if를 사용하면 여러 조건을 순차적으로 검사할 수 있습니다.",
+                "switch 문에서 break를 빠뜨리면 다음 case로 넘어갑니다 (fall-through).",
+                "Java 14+의 switch 표현식은 -> 문법으로 더 간결하고 안전합니다.",
+                "switch 표현식에서 블록을 사용할 때는 yield로 값을 반환합니다."
+            ]
+        },
+        {
+            id: "p0-m5",
+            title: "Chapter 5: 반복문",
+            topic: "for, while, do-while, enhanced for, break/continue, 중첩 반복문",
+            content: `
 ## 1. 반복문이란?
 
 **반복문**은 특정 코드 블록을 **조건이 만족하는 동안 반복** 실행하는 제어 구조입니다.
@@ -1117,11 +1117,11 @@ for (int dan = 2; dan <= 9; dan++) {
 }
 \`\`\`
 `,
-      codeExamples: [
-        {
-          title: "다양한 for 문 활용",
-          language: "java",
-          code: `public class ForLoopDemo {
+            codeExamples: [
+                {
+                    title: "다양한 for 문 활용",
+                    language: "java",
+                    code: `public class ForLoopDemo {
     public static void main(String[] args) {
         // 1. 기본 for문: 1부터 10까지 합계
         int sum = 0;
@@ -1144,11 +1144,11 @@ for (int dan = 2; dan <= 9; dan++) {
         }
     }
 }`
-        },
-        {
-          title: "별 찍기 (중첩 반복문)",
-          language: "java",
-          code: `public class StarPattern {
+                },
+                {
+                    title: "별 찍기 (중첩 반복문)",
+                    language: "java",
+                    code: `public class StarPattern {
     public static void main(String[] args) {
         int n = 5;
         
@@ -1181,21 +1181,21 @@ for (int dan = 2; dan <= 9; dan++) {
         }
     }
 }`
-        }
-      ],
-      keyPoints: [
-        "for 문은 반복 횟수가 정해져 있을 때, while 문은 조건 기반 반복에 적합합니다.",
-        "do-while은 조건과 관계없이 최소 1번은 실행됩니다.",
-        "Enhanced for(for-each)는 배열/컬렉션 순회에 가장 간결하지만 인덱스 접근이 불가합니다.",
-        "break는 반복문을 즉시 종료하고, continue는 현재 반복만 건너뜁니다.",
-        "중첩 반복문에서 바깥 루프를 탈출하려면 레이블(label)과 함께 break를 사용합니다."
-      ]
-    },
-    {
-      id: "p0-m6",
-      title: "Chapter 6: 배열",
-      topic: "1차원 배열, 다차원 배열, 배열 복사, Arrays 유틸리티",
-      content: `
+                }
+            ],
+            keyPoints: [
+                "for 문은 반복 횟수가 정해져 있을 때, while 문은 조건 기반 반복에 적합합니다.",
+                "do-while은 조건과 관계없이 최소 1번은 실행됩니다.",
+                "Enhanced for(for-each)는 배열/컬렉션 순회에 가장 간결하지만 인덱스 접근이 불가합니다.",
+                "break는 반복문을 즉시 종료하고, continue는 현재 반복만 건너뜁니다.",
+                "중첩 반복문에서 바깥 루프를 탈출하려면 레이블(label)과 함께 break를 사용합니다."
+            ]
+        },
+        {
+            id: "p0-m6",
+            title: "Chapter 6: 배열",
+            topic: "1차원 배열, 다차원 배열, 배열 복사, Arrays 유틸리티",
+            content: `
 ## 1. 배열(Array)이란?
 
 **배열**은 **같은 타입**의 데이터를 **연속된 메모리 공간**에 저장하는 자료구조입니다.
@@ -1392,11 +1392,11 @@ int[] arr2 = {1, 2, 3};
 System.out.println(Arrays.equals(arr1, arr2));  // true
 \`\`\`
 `,
-      codeExamples: [
-        {
-          title: "배열 기본 사용법",
-          language: "java",
-          code: `public class ArrayBasics {
+            codeExamples: [
+                {
+                    title: "배열 기본 사용법",
+                    language: "java",
+                    code: `public class ArrayBasics {
     public static void main(String[] args) {
         // 1. 배열 생성과 초기화
         int[] scores = {85, 90, 77, 92, 88};
@@ -1421,11 +1421,11 @@ System.out.println(Arrays.equals(arr1, arr2));  // true
         System.out.println("최저점: " + min);
     }
 }`
-        },
-        {
-          title: "2차원 배열과 Arrays 활용",
-          language: "java",
-          code: `import java.util.Arrays;
+                },
+                {
+                    title: "2차원 배열과 Arrays 활용",
+                    language: "java",
+                    code: `import java.util.Arrays;
 
 public class Array2DDemo {
     public static void main(String[] args) {
@@ -1457,21 +1457,21 @@ public class Array2DDemo {
         System.out.println("복사: " + Arrays.toString(copy));
     }
 }`
-        }
-      ],
-      keyPoints: [
-        "배열은 같은 타입의 데이터를 연속된 메모리에 저장하며, 크기는 생성 시 고정됩니다.",
-        "배열 인덱스는 0부터 시작하며, 범위를 벗어나면 ArrayIndexOutOfBoundsException이 발생합니다.",
-        "배열 참조를 복사하면 같은 배열을 공유합니다. 독립적인 복사본은 Arrays.copyOf() 등을 사용하세요.",
-        "2차원 배열은 '배열의 배열'이며, 각 행의 길이가 다를 수 있습니다 (가변 배열).",
-        "Arrays 클래스는 정렬(sort), 검색(binarySearch), 비교(equals), 출력(toString) 등을 제공합니다."
-      ]
-    },
-    {
-      id: "p0-m7",
-      title: "Chapter 7: 문자열 (String)",
-      topic: "String 클래스, 불변성, StringBuilder, 주요 메서드, 문자열 비교",
-      content: `
+                }
+            ],
+            keyPoints: [
+                "배열은 같은 타입의 데이터를 연속된 메모리에 저장하며, 크기는 생성 시 고정됩니다.",
+                "배열 인덱스는 0부터 시작하며, 범위를 벗어나면 ArrayIndexOutOfBoundsException이 발생합니다.",
+                "배열 참조를 복사하면 같은 배열을 공유합니다. 독립적인 복사본은 Arrays.copyOf() 등을 사용하세요.",
+                "2차원 배열은 '배열의 배열'이며, 각 행의 길이가 다를 수 있습니다 (가변 배열).",
+                "Arrays 클래스는 정렬(sort), 검색(binarySearch), 비교(equals), 출력(toString) 등을 제공합니다."
+            ]
+        },
+        {
+            id: "p0-m7",
+            title: "Chapter 7: 문자열 (String)",
+            topic: "String 클래스, 불변성, StringBuilder, 주요 메서드, 문자열 비교",
+            content: `
 ## 1. String 클래스란?
 
 **String**은 Java에서 문자열을 다루는 **클래스**입니다. 기본형(primitive)이 아닌 **참조형(reference type)** 입니다.
@@ -1657,11 +1657,11 @@ sb.toString();          // String으로 변환
 | 성능 | 빠름 | 느림 |
 | 사용 상황 | 단일 스레드 | 멀티스레드 |
 `,
-      codeExamples: [
-        {
-          title: "String 주요 메서드 활용",
-          language: "java",
-          code: `public class StringDemo {
+            codeExamples: [
+                {
+                    title: "String 주요 메서드 활용",
+                    language: "java",
+                    code: `public class StringDemo {
     public static void main(String[] args) {
         String email = "user@example.com";
         
@@ -1689,11 +1689,11 @@ sb.toString();          // String으로 변환
         System.out.println("도시: " + parts[2]);
     }
 }`
-        },
-        {
-          title: "StringBuilder 성능 비교",
-          language: "java",
-          code: `public class StringBuilderDemo {
+                },
+                {
+                    title: "StringBuilder 성능 비교",
+                    language: "java",
+                    code: `public class StringBuilderDemo {
     public static void main(String[] args) {
         int n = 10000;
         
@@ -1728,21 +1728,21 @@ sb.toString();          // String으로 변환
         System.out.println(html);
     }
 }`
-        }
-      ],
-      keyPoints: [
-        "String은 불변(immutable)입니다. 수정하면 새 객체가 생성됩니다.",
-        "문자열 비교는 반드시 == 대신 .equals() 메서드를 사용하세요.",
-        "문자열 리터럴은 String Pool에 저장되어 같은 값은 재사용됩니다.",
-        "많은 문자열 연결 작업에는 StringBuilder를 사용하여 성능을 향상시키세요.",
-        "String의 주요 메서드: length(), charAt(), substring(), split(), contains(), replace(), trim() 등"
-      ]
-    },
-    {
-      id: "p0-m8",
-      title: "Chapter 8: 메서드 (Method)",
-      topic: "메서드 정의, 매개변수, 반환값, 오버로딩, 가변인자, 재귀",
-      content: `
+                }
+            ],
+            keyPoints: [
+                "String은 불변(immutable)입니다. 수정하면 새 객체가 생성됩니다.",
+                "문자열 비교는 반드시 == 대신 .equals() 메서드를 사용하세요.",
+                "문자열 리터럴은 String Pool에 저장되어 같은 값은 재사용됩니다.",
+                "많은 문자열 연결 작업에는 StringBuilder를 사용하여 성능을 향상시키세요.",
+                "String의 주요 메서드: length(), charAt(), substring(), split(), contains(), replace(), trim() 등"
+            ]
+        },
+        {
+            id: "p0-m8",
+            title: "Chapter 8: 메서드 (Method)",
+            topic: "메서드 정의, 매개변수, 반환값, 오버로딩, 가변인자, 재귀",
+            content: `
 ## 1. 메서드(Method)란?
 
 **메서드**는 특정 작업을 수행하는 **코드의 묶음**입니다. 다른 언어에서는 함수(function)라고 부르기도 합니다.
@@ -1952,11 +1952,11 @@ public static int factorial(int n) {
 1. **기본 케이스 (Base Case)**: 재귀를 멈추는 조건
 2. **재귀 단계**: 문제를 더 작은 부분으로 분할
 `,
-      codeExamples: [
-        {
-          title: "메서드 정의와 오버로딩",
-          language: "java",
-          code: `public class MethodDemo {
+            codeExamples: [
+                {
+                    title: "메서드 정의와 오버로딩",
+                    language: "java",
+                    code: `public class MethodDemo {
     public static void main(String[] args) {
         // 1. 기본 메서드 호출
         sayHello();
@@ -2008,11 +2008,11 @@ public static int factorial(int n) {
         return total;
     }
 }`
-        },
-        {
-          title: "재귀 메서드 예제",
-          language: "java",
-          code: `public class RecursionDemo {
+                },
+                {
+                    title: "재귀 메서드 예제",
+                    language: "java",
+                    code: `public class RecursionDemo {
     public static void main(String[] args) {
         // 1. 팩토리얼
         System.out.println("5! = " + factorial(5));  // 120
@@ -2055,21 +2055,21 @@ public static int factorial(int n) {
         }
     }
 }`
-        }
-      ],
-      keyPoints: [
-        "메서드는 코드 재사용성, 가독성, 유지보수성을 높이는 핵심 구조입니다.",
-        "Java는 Call by Value입니다. 기본형은 값이 복사되고, 참조형은 주소가 복사됩니다.",
-        "오버로딩은 같은 이름의 메서드를 매개변수를 다르게 하여 여러 개 정의하는 것입니다.",
-        "가변인자(...)를 사용하면 매개변수 개수를 유연하게 받을 수 있습니다.",
-        "재귀 메서드는 반드시 기본 케이스(탈출 조건)가 있어야 무한 호출을 방지합니다."
-      ]
-    },
-    {
-      id: "p0-m9",
-      title: "Chapter 9: 클래스와 객체",
-      topic: "클래스 정의, 필드, 생성자, this 키워드, 인스턴스 vs 클래스 변수",
-      content: `
+                }
+            ],
+            keyPoints: [
+                "메서드는 코드 재사용성, 가독성, 유지보수성을 높이는 핵심 구조입니다.",
+                "Java는 Call by Value입니다. 기본형은 값이 복사되고, 참조형은 주소가 복사됩니다.",
+                "오버로딩은 같은 이름의 메서드를 매개변수를 다르게 하여 여러 개 정의하는 것입니다.",
+                "가변인자(...)를 사용하면 매개변수 개수를 유연하게 받을 수 있습니다.",
+                "재귀 메서드는 반드시 기본 케이스(탈출 조건)가 있어야 무한 호출을 방지합니다."
+            ]
+        },
+        {
+            id: "p0-m9",
+            title: "Chapter 9: 클래스와 객체",
+            topic: "클래스 정의, 필드, 생성자, this 키워드, 인스턴스 vs 클래스 변수",
+            content: `
 ## 1. 객체지향 프로그래밍 (OOP)
 
 **객체지향 프로그래밍(Object-Oriented Programming)** 은 프로그램을 **객체(Object)** 들의 상호작용으로 설계하는 패러다임입니다.
@@ -2301,11 +2301,11 @@ int result = Calculator.add(5, 3);
 
 > **주의**: static 메서드에서는 인스턴스 변수에 **직접 접근할 수 없습니다**.
 `,
-      codeExamples: [
-        {
-          title: "클래스 정의와 객체 생성",
-          language: "java",
-          code: `public class Car {
+            codeExamples: [
+                {
+                    title: "클래스 정의와 객체 생성",
+                    language: "java",
+                    code: `public class Car {
     // 필드 (속성)
     String brand;
     String model;
@@ -2350,11 +2350,11 @@ public class Main {
         myCar.refuel(20);     // 주유 완료. 현재 연료: 110.0L
     }
 }`
-        },
-        {
-          title: "static 변수와 메서드",
-          language: "java",
-          code: `public class BankAccount {
+                },
+                {
+                    title: "static 변수와 메서드",
+                    language: "java",
+                    code: `public class BankAccount {
     // 인스턴스 변수
     private String owner;
     private double balance;
@@ -2412,21 +2412,21 @@ public class Main {
         acc2.showInfo();  // 잔액: 20600.0
     }
 }`
-        }
-      ],
-      keyPoints: [
-        "클래스는 객체의 설계도이며, 객체는 클래스의 인스턴스(실체)입니다.",
-        "생성자는 객체 생성 시 자동 호출되며, 클래스명과 같고 반환 타입이 없습니다.",
-        "this는 현재 객체 자신을 가리키며, 필드와 매개변수 이름이 같을 때 구분에 사용됩니다.",
-        "static 변수는 모든 객체가 공유하고, static 메서드는 객체 없이 호출할 수 있습니다.",
-        "static 메서드에서는 인스턴스 변수에 직접 접근할 수 없습니다."
-      ]
-    },
-    {
-      id: "p0-m10",
-      title: "Chapter 10: 접근 제어자와 캡슐화",
-      topic: "public/private/protected/default, getter/setter, 정보 은닉",
-      content: `
+                }
+            ],
+            keyPoints: [
+                "클래스는 객체의 설계도이며, 객체는 클래스의 인스턴스(실체)입니다.",
+                "생성자는 객체 생성 시 자동 호출되며, 클래스명과 같고 반환 타입이 없습니다.",
+                "this는 현재 객체 자신을 가리키며, 필드와 매개변수 이름이 같을 때 구분에 사용됩니다.",
+                "static 변수는 모든 객체가 공유하고, static 메서드는 객체 없이 호출할 수 있습니다.",
+                "static 메서드에서는 인스턴스 변수에 직접 접근할 수 없습니다."
+            ]
+        },
+        {
+            id: "p0-m10",
+            title: "Chapter 10: 접근 제어자와 캡슐화",
+            topic: "public/private/protected/default, getter/setter, 정보 은닉",
+            content: `
 ## 1. 접근 제어자 (Access Modifiers)
 
 **접근 제어자**는 클래스, 변수, 메서드에 대한 **접근 범위를 제한**하는 키워드입니다.
@@ -2635,11 +2635,11 @@ public class Student {
 }
 \`\`\`
 `,
-      codeExamples: [
-        {
-          title: "캡슐화 적용 전후 비교",
-          language: "java",
-          code: `// ===== 캡슐화 적용 전 (나쁜 예) =====
+            codeExamples: [
+                {
+                    title: "캡슐화 적용 전후 비교",
+                    language: "java",
+                    code: `// ===== 캡슐화 적용 전 (나쁜 예) =====
 class BadBankAccount {
     public double balance;
     public String owner;
@@ -2695,11 +2695,11 @@ class GoodBankAccount {
         return false;
     }
 }`
-        },
-        {
-          title: "접근 제어자 실습",
-          language: "java",
-          code: `// Person.java
+                },
+                {
+                    title: "접근 제어자 실습",
+                    language: "java",
+                    code: `// Person.java
 package com.example.model;
 
 public class Person {
@@ -2744,21 +2744,21 @@ public class OtherPackage {
         // System.out.println(p.privateField);   // ❌ private
     }
 }`
-        }
-      ],
-      keyPoints: [
-        "접근 제어자는 public(전체) > protected(상속) > default(패키지) > private(클래스) 순으로 범위가 좁아집니다.",
-        "캡슐화는 필드를 private으로 숨기고 메서드로 접근하게 하여 데이터를 보호합니다.",
-        "Getter는 필드 값을 읽고, Setter는 유효성 검사 후 값을 설정합니다.",
-        "boolean 타입의 Getter는 is로 시작합니다 (isActive, isValid 등).",
-        "불변 객체를 만들려면 모든 필드를 final로 선언하고 Setter를 제공하지 않습니다."
-      ]
-    },
-    {
-      id: "p0-m11",
-      title: "Chapter 11: 상속 (Inheritance)",
-      topic: "extends, 메서드 오버라이딩, super 키워드, Object 클래스",
-      content: `
+                }
+            ],
+            keyPoints: [
+                "접근 제어자는 public(전체) > protected(상속) > default(패키지) > private(클래스) 순으로 범위가 좁아집니다.",
+                "캡슐화는 필드를 private으로 숨기고 메서드로 접근하게 하여 데이터를 보호합니다.",
+                "Getter는 필드 값을 읽고, Setter는 유효성 검사 후 값을 설정합니다.",
+                "boolean 타입의 Getter는 is로 시작합니다 (isActive, isValid 등).",
+                "불변 객체를 만들려면 모든 필드를 final로 선언하고 Setter를 제공하지 않습니다."
+            ]
+        },
+        {
+            id: "p0-m11",
+            title: "Chapter 11: 상속 (Inheritance)",
+            topic: "extends, 메서드 오버라이딩, super 키워드, Object 클래스",
+            content: `
 ## 1. 상속(Inheritance)이란?
 
 **상속**은 기존 클래스(부모)의 필드와 메서드를 새 클래스(자식)가 **물려받는** 것입니다.
@@ -2973,11 +2973,11 @@ class Parent {
 }
 \`\`\`
 `,
-      codeExamples: [
-        {
-          title: "상속과 오버라이딩 예제",
-          language: "java",
-          code: `// 부모 클래스
+            codeExamples: [
+                {
+                    title: "상속과 오버라이딩 예제",
+                    language: "java",
+                    code: `// 부모 클래스
 class Vehicle {
     String brand;
     int speed;
@@ -3050,11 +3050,11 @@ public class Main {
         bike.describe();
     }
 }`
-        },
-        {
-          title: "super 키워드 활용",
-          language: "java",
-          code: `class Employee {
+                },
+                {
+                    title: "super 키워드 활용",
+                    language: "java",
+                    code: `class Employee {
     protected String name;
     protected double salary;
     
@@ -3108,21 +3108,21 @@ public class Main {
         // 보너스: 500000 + 100000 = 600000
     }
 }`
-        }
-      ],
-      keyPoints: [
-        "상속은 extends 키워드를 사용하며, Java는 단일 상속만 허용합니다 (클래스는 하나만 상속 가능).",
-        "오버라이딩은 부모의 메서드를 자식이 재정의하는 것이며, @Override 어노테이션 사용을 권장합니다.",
-        "super 키워드로 부모의 필드, 메서드, 생성자에 접근할 수 있습니다.",
-        "자식 생성자는 반드시 부모 생성자를 호출하며, super()는 첫 줄에 위치해야 합니다.",
-        "모든 클래스는 Object 클래스를 상속받으며, toString(), equals(), hashCode() 등을 오버라이드할 수 있습니다."
-      ]
-    },
-    {
-      id: "p0-m12",
-      title: "Chapter 12: 다형성 (Polymorphism)",
-      topic: "업캐스팅/다운캐스팅, instanceof, 동적 바인딩",
-      content: `
+                }
+            ],
+            keyPoints: [
+                "상속은 extends 키워드를 사용하며, Java는 단일 상속만 허용합니다 (클래스는 하나만 상속 가능).",
+                "오버라이딩은 부모의 메서드를 자식이 재정의하는 것이며, @Override 어노테이션 사용을 권장합니다.",
+                "super 키워드로 부모의 필드, 메서드, 생성자에 접근할 수 있습니다.",
+                "자식 생성자는 반드시 부모 생성자를 호출하며, super()는 첫 줄에 위치해야 합니다.",
+                "모든 클래스는 Object 클래스를 상속받으며, toString(), equals(), hashCode() 등을 오버라이드할 수 있습니다."
+            ]
+        },
+        {
+            id: "p0-m12",
+            title: "Chapter 12: 다형성 (Polymorphism)",
+            topic: "업캐스팅/다운캐스팅, instanceof, 동적 바인딩",
+            content: `
 ## 1. 다형성(Polymorphism)이란?
 
 **다형성**은 "하나의 타입으로 여러 형태의 객체를 참조"할 수 있는 능력입니다.
@@ -3310,11 +3310,11 @@ void makeSound(Animal animal) {
 }
 \`\`\`
 `,
-      codeExamples: [
-        {
-          title: "다형성을 활용한 결제 시스템",
-          language: "java",
-          code: `// 부모 클래스 (또는 인터페이스)
+            codeExamples: [
+                {
+                    title: "다형성을 활용한 결제 시스템",
+                    language: "java",
+                    code: `// 부모 클래스 (또는 인터페이스)
 abstract class PaymentMethod {
     protected double balance;
     
@@ -3387,11 +3387,11 @@ public class PaymentProcessor {
         processPayment(bank, 30000);  // 계좌이체 결제
     }
 }`
-        },
-        {
-          title: "instanceof와 다운캐스팅",
-          language: "java",
-          code: `abstract class Shape {
+                },
+                {
+                    title: "instanceof와 다운캐스팅",
+                    language: "java",
+                    code: `abstract class Shape {
     abstract double area();
     abstract void draw();
 }
@@ -3451,21 +3451,21 @@ public class Main {
         }
     }
 }`
-        }
-      ],
-      keyPoints: [
-        "다형성은 부모 타입 참조 변수로 여러 자식 타입 객체를 다룰 수 있게 합니다.",
-        "업캐스팅(자식→부모)은 자동이고, 다운캐스팅(부모→자식)은 명시적 캐스팅이 필요합니다.",
-        "다운캐스팅 전에 instanceof로 타입을 확인해야 ClassCastException을 방지할 수 있습니다.",
-        "동적 바인딩에 의해 실행 시점에 실제 객체의 오버라이딩된 메서드가 호출됩니다.",
-        "다형성을 활용하면 새로운 타입 추가 시 기존 코드 수정 없이 확장이 가능합니다 (OCP)."
-      ]
-    },
-    {
-      id: "p0-m13",
-      title: "Chapter 13: 추상 클래스와 인터페이스",
-      topic: "abstract 클래스, interface, default 메서드, 다중 구현",
-      content: `
+                }
+            ],
+            keyPoints: [
+                "다형성은 부모 타입 참조 변수로 여러 자식 타입 객체를 다룰 수 있게 합니다.",
+                "업캐스팅(자식→부모)은 자동이고, 다운캐스팅(부모→자식)은 명시적 캐스팅이 필요합니다.",
+                "다운캐스팅 전에 instanceof로 타입을 확인해야 ClassCastException을 방지할 수 있습니다.",
+                "동적 바인딩에 의해 실행 시점에 실제 객체의 오버라이딩된 메서드가 호출됩니다.",
+                "다형성을 활용하면 새로운 타입 추가 시 기존 코드 수정 없이 확장이 가능합니다 (OCP)."
+            ]
+        },
+        {
+            id: "p0-m13",
+            title: "Chapter 13: 추상 클래스와 인터페이스",
+            topic: "abstract 클래스, interface, default 메서드, 다중 구현",
+            content: `
 ## 1. 추상화 (Abstraction)
 
 **추상화**는 복잡한 시스템에서 **핵심 개념만 추출**하여 단순화하는 것입니다. Java에서는 **추상 클래스**와 **인터페이스**를 통해 추상화를 구현합니다.
@@ -3685,11 +3685,11 @@ class Dog extends Pet implements Trainable, Playable {
 }
 \`\`\`
 `,
-      codeExamples: [
-        {
-          title: "추상 클래스 예제",
-          language: "java",
-          code: `// 추상 클래스: 도형
+            codeExamples: [
+                {
+                    title: "추상 클래스 예제",
+                    language: "java",
+                    code: `// 추상 클래스: 도형
 abstract class Shape {
     protected String color;
     
@@ -3765,11 +3765,11 @@ public class Main {
         }
     }
 }`
-        },
-        {
-          title: "인터페이스와 다중 구현",
-          language: "java",
-          code: `// 인터페이스 정의
+                },
+                {
+                    title: "인터페이스와 다중 구현",
+                    language: "java",
+                    code: `// 인터페이스 정의
 interface Flyable {
     void fly();
 }
@@ -3829,21 +3829,21 @@ public class Main {
         walker.rest();    // default 메서드
     }
 }`
-        }
-      ],
-      keyPoints: [
-        "추상 클래스는 abstract 키워드로 선언하며, 직접 인스턴스화할 수 없습니다.",
-        "추상 메서드는 구현 없이 시그니처만 정의하며, 자식 클래스가 반드시 구현해야 합니다.",
-        "인터페이스는 다중 구현이 가능하며, 클래스는 extends로 하나, implements로 여러 인터페이스를 조합할 수 있습니다.",
-        "Java 8+에서 인터페이스는 default 메서드(기본 구현)와 static 메서드를 가질 수 있습니다.",
-        "추상 클래스는 'is-a' 관계와 공통 상태에, 인터페이스는 'can-do' 능력 정의에 적합합니다."
-      ]
-    },
-    {
-      id: "p0-m14",
-      title: "Chapter 14: 예외 처리",
-      topic: "try-catch-finally, throw/throws, 체크/언체크 예외, 사용자 정의 예외",
-      content: `
+                }
+            ],
+            keyPoints: [
+                "추상 클래스는 abstract 키워드로 선언하며, 직접 인스턴스화할 수 없습니다.",
+                "추상 메서드는 구현 없이 시그니처만 정의하며, 자식 클래스가 반드시 구현해야 합니다.",
+                "인터페이스는 다중 구현이 가능하며, 클래스는 extends로 하나, implements로 여러 인터페이스를 조합할 수 있습니다.",
+                "Java 8+에서 인터페이스는 default 메서드(기본 구현)와 static 메서드를 가질 수 있습니다.",
+                "추상 클래스는 'is-a' 관계와 공통 상태에, 인터페이스는 'can-do' 능력 정의에 적합합니다."
+            ]
+        },
+        {
+            id: "p0-m14",
+            title: "Chapter 14: 예외 처리",
+            topic: "try-catch-finally, throw/throws, 체크/언체크 예외, 사용자 정의 예외",
+            content: `
 ## 1. 예외(Exception)란?
 
 **예외**는 프로그램 실행 중 발생하는 **비정상적인 상황**입니다. 예외 처리를 통해 프로그램이 갑자기 종료되지 않고 **적절히 대응**할 수 있습니다.
@@ -4077,11 +4077,11 @@ try {
 }
 \`\`\`
 `,
-      codeExamples: [
-        {
-          title: "기본 예외 처리",
-          language: "java",
-          code: `public class ExceptionDemo {
+            codeExamples: [
+                {
+                    title: "기본 예외 처리",
+                    language: "java",
+                    code: `public class ExceptionDemo {
     public static void main(String[] args) {
         // 1. 기본 try-catch
         try {
@@ -4118,11 +4118,11 @@ try {
         return a / b;
     }
 }`
-        },
-        {
-          title: "사용자 정의 예외",
-          language: "java",
-          code: `// 커스텀 예외 정의
+                },
+                {
+                    title: "사용자 정의 예외",
+                    language: "java",
+                    code: `// 커스텀 예외 정의
 class InvalidScoreException extends Exception {
     private int score;
     
@@ -4180,21 +4180,21 @@ public class Main {
         }
     }
 }`
-        }
-      ],
-      keyPoints: [
-        "예외는 Checked(컴파일러가 검사, 처리 강제)와 Unchecked(RuntimeException 하위, 처리 선택)로 나뉩니다.",
-        "try-catch로 예외를 잡고, finally는 예외 발생 여부와 관계없이 항상 실행됩니다.",
-        "try-with-resources는 AutoCloseable 리소스를 자동으로 닫아줍니다 (Java 7+).",
-        "throw로 예외를 발생시키고, throws로 호출자에게 예외 처리를 위임합니다.",
-        "사용자 정의 예외는 Exception(Checked) 또는 RuntimeException(Unchecked)을 상속합니다."
-      ]
-    },
-    {
-      id: "p0-m15",
-      title: "Chapter 15: 컬렉션 프레임워크",
-      topic: "List, Set, Map, Iterator, ArrayList vs LinkedList",
-      content: `
+                }
+            ],
+            keyPoints: [
+                "예외는 Checked(컴파일러가 검사, 처리 강제)와 Unchecked(RuntimeException 하위, 처리 선택)로 나뉩니다.",
+                "try-catch로 예외를 잡고, finally는 예외 발생 여부와 관계없이 항상 실행됩니다.",
+                "try-with-resources는 AutoCloseable 리소스를 자동으로 닫아줍니다 (Java 7+).",
+                "throw로 예외를 발생시키고, throws로 호출자에게 예외 처리를 위임합니다.",
+                "사용자 정의 예외는 Exception(Checked) 또는 RuntimeException(Unchecked)을 상속합니다."
+            ]
+        },
+        {
+            id: "p0-m15",
+            title: "Chapter 15: 컬렉션 프레임워크",
+            topic: "List, Set, Map, Iterator, ArrayList vs LinkedList",
+            content: `
 ## 1. 컬렉션 프레임워크란?
 
 **컬렉션 프레임워크**는 데이터를 저장하고 관리하는 **자료구조와 알고리즘을 표준화**한 라이브러리입니다.
@@ -4456,11 +4456,11 @@ int min = Collections.min(nums); // 최솟값
 int freq = Collections.frequency(nums, 1);  // 1의 개수
 \`\`\`
 `,
-      codeExamples: [
-        {
-          title: "List 활용 예제",
-          language: "java",
-          code: `import java.util.*;
+            codeExamples: [
+                {
+                    title: "List 활용 예제",
+                    language: "java",
+                    code: `import java.util.*;
 
 public class ListDemo {
     public static void main(String[] args) {
@@ -4499,11 +4499,11 @@ public class ListDemo {
         System.out.println("김씨 제거 후: " + students);
     }
 }`
-        },
-        {
-          title: "Map 활용 예제",
-          language: "java",
-          code: `import java.util.*;
+                },
+                {
+                    title: "Map 활용 예제",
+                    language: "java",
+                    code: `import java.util.*;
 
 public class MapDemo {
     public static void main(String[] args) {
@@ -4548,21 +4548,21 @@ public class MapDemo {
         return "F";
     }
 }`
-        }
-      ],
-      keyPoints: [
-        "List는 순서가 있고 중복을 허용하며, ArrayList(배열 기반)와 LinkedList(노드 기반)가 있습니다.",
-        "Set은 중복을 허용하지 않으며, HashSet(순서 X), LinkedHashSet(입력 순서), TreeSet(정렬)이 있습니다.",
-        "Map은 Key-Value 쌍으로 저장하며, 키는 중복 불가합니다. HashMap이 가장 많이 사용됩니다.",
-        "for-each 중 컬렉션 수정은 ConcurrentModificationException을 발생시킵니다. Iterator.remove()를 사용하세요.",
-        "Collections 유틸리티 클래스는 정렬, 역순, 섞기, 최대/최소값 등의 기능을 제공합니다."
-      ]
-    },
-    {
-      id: "p0-m16",
-      title: "Chapter 16: 제네릭 (Generics)",
-      topic: "제네릭 클래스/메서드, 타입 파라미터, 와일드카드, 타입 소거",
-      content: `
+                }
+            ],
+            keyPoints: [
+                "List는 순서가 있고 중복을 허용하며, ArrayList(배열 기반)와 LinkedList(노드 기반)가 있습니다.",
+                "Set은 중복을 허용하지 않으며, HashSet(순서 X), LinkedHashSet(입력 순서), TreeSet(정렬)이 있습니다.",
+                "Map은 Key-Value 쌍으로 저장하며, 키는 중복 불가합니다. HashMap이 가장 많이 사용됩니다.",
+                "for-each 중 컬렉션 수정은 ConcurrentModificationException을 발생시킵니다. Iterator.remove()를 사용하세요.",
+                "Collections 유틸리티 클래스는 정렬, 역순, 섞기, 최대/최소값 등의 기능을 제공합니다."
+            ]
+        },
+        {
+            id: "p0-m16",
+            title: "Chapter 16: 제네릭 (Generics)",
+            topic: "제네릭 클래스/메서드, 타입 파라미터, 와일드카드, 타입 소거",
+            content: `
 ## 1. 제네릭이란?
 
 **제네릭**은 클래스나 메서드에서 사용할 **데이터 타입을 나중에 지정**할 수 있게 하는 기능입니다.
@@ -4784,11 +4784,11 @@ List<Integer> intList = new ArrayList<>();
 System.out.println(stringList.getClass() == intList.getClass());  // true!
 \`\`\`
 `,
-      codeExamples: [
-        {
-          title: "제네릭 클래스 구현",
-          language: "java",
-          code: `// 제네릭 Pair 클래스
+            codeExamples: [
+                {
+                    title: "제네릭 클래스 구현",
+                    language: "java",
+                    code: `// 제네릭 Pair 클래스
 class Pair<K, V> {
     private K key;
     private V value;
@@ -4859,11 +4859,11 @@ public class Main {
         }
     }
 }`
-        },
-        {
-          title: "와일드카드 활용",
-          language: "java",
-          code: `import java.util.*;
+                },
+                {
+                    title: "와일드카드 활용",
+                    language: "java",
+                    code: `import java.util.*;
 
 public class WildcardDemo {
     public static void main(String[] args) {
@@ -4915,21 +4915,21 @@ public class WildcardDemo {
         return max;
     }
 }`
-        }
-      ],
-      keyPoints: [
-        "제네릭은 타입을 파라미터로 받아 컴파일 시점에 타입 안전성을 보장합니다.",
-        "제네릭 클래스는 <T>, 제네릭 메서드는 반환타입 앞에 <T>를 붙여 정의합니다.",
-        "extends로 타입 파라미터의 상한을 제한할 수 있습니다 (T extends Number).",
-        "와일드카드(?)는 읽기 전용(? extends)과 쓰기 전용(? super)으로 구분합니다. PECS 원칙을 기억하세요.",
-        "제네릭 타입 정보는 컴파일 후 제거됩니다 (타입 소거). 런타임에는 원시 타입으로 동작합니다."
-      ]
-    },
-    {
-      id: "p0-m17",
-      title: "Chapter 17: 람다 표현식",
-      topic: "함수형 인터페이스, 람다 문법, 메서드 참조, 클로저",
-      content: `
+                }
+            ],
+            keyPoints: [
+                "제네릭은 타입을 파라미터로 받아 컴파일 시점에 타입 안전성을 보장합니다.",
+                "제네릭 클래스는 <T>, 제네릭 메서드는 반환타입 앞에 <T>를 붙여 정의합니다.",
+                "extends로 타입 파라미터의 상한을 제한할 수 있습니다 (T extends Number).",
+                "와일드카드(?)는 읽기 전용(? extends)과 쓰기 전용(? super)으로 구분합니다. PECS 원칙을 기억하세요.",
+                "제네릭 타입 정보는 컴파일 후 제거됩니다 (타입 소거). 런타임에는 원시 타입으로 동작합니다."
+            ]
+        },
+        {
+            id: "p0-m17",
+            title: "Chapter 17: 람다 표현식",
+            topic: "함수형 인터페이스, 람다 문법, 메서드 참조, 클로저",
+            content: `
 ## 1. 람다 표현식이란?
 
 **람다 표현식(Lambda Expression)** 은 **익명 함수**를 간결하게 표현하는 문법입니다. Java 8에서 도입되었습니다.
@@ -5108,11 +5108,11 @@ numbers.stream()
     .forEach(System.out::println);  // 2, 4, 6, 8, 10
 \`\`\`
 `,
-      codeExamples: [
-        {
-          title: "람다 기본 예제",
-          language: "java",
-          code: `import java.util.*;
+            codeExamples: [
+                {
+                    title: "람다 기본 예제",
+                    language: "java",
+                    code: `import java.util.*;
 import java.util.function.*;
 
 public class LambdaDemo {
@@ -5144,11 +5144,11 @@ public class LambdaDemo {
         System.out.println("5 * 3 = " + multiply.apply(5, 3));
     }
 }`
-        },
-        {
-          title: "사용자 정의 함수형 인터페이스",
-          language: "java",
-          code: `// 함수형 인터페이스 정의
+                },
+                {
+                    title: "사용자 정의 함수형 인터페이스",
+                    language: "java",
+                    code: `// 함수형 인터페이스 정의
 @FunctionalInterface
 interface StringProcessor {
     String process(String input);
@@ -5187,21 +5187,21 @@ public class CustomFunctionalInterface {
         System.out.println(op + ": " + calc.calculate(a, b));
     }
 }`
-        }
-      ],
-      keyPoints: [
-        "람다 표현식은 (매개변수) -> { 실행문 } 형태로 익명 함수를 간결하게 표현합니다.",
-        "함수형 인터페이스는 추상 메서드가 1개인 인터페이스이며, @FunctionalInterface로 명시할 수 있습니다.",
-        "주요 내장 인터페이스: Consumer(소비), Supplier(공급), Function(변환), Predicate(조건검사).",
-        "메서드 참조(::)는 람다를 더 간결하게 표현합니다. 예: System.out::println",
-        "람다가 외부 변수를 캡처할 때 해당 변수는 effectively final이어야 합니다."
-      ]
-    },
-    {
-      id: "p0-m18",
-      title: "Chapter 18: 스트림 API",
-      topic: "Stream 생성, 중간 연산, 최종 연산, 병렬 스트림",
-      content: `
+                }
+            ],
+            keyPoints: [
+                "람다 표현식은 (매개변수) -> { 실행문 } 형태로 익명 함수를 간결하게 표현합니다.",
+                "함수형 인터페이스는 추상 메서드가 1개인 인터페이스이며, @FunctionalInterface로 명시할 수 있습니다.",
+                "주요 내장 인터페이스: Consumer(소비), Supplier(공급), Function(변환), Predicate(조건검사).",
+                "메서드 참조(::)는 람다를 더 간결하게 표현합니다. 예: System.out::println",
+                "람다가 외부 변수를 캡처할 때 해당 변수는 effectively final이어야 합니다."
+            ]
+        },
+        {
+            id: "p0-m18",
+            title: "Chapter 18: 스트림 API",
+            topic: "Stream 생성, 중간 연산, 최종 연산, 병렬 스트림",
+            content: `
 ## 1. 스트림(Stream)이란?
 
 **스트림**은 컬렉션, 배열 등의 데이터를 **함수형 스타일로 처리**하는 API입니다. Java 8에서 도입되었습니다.
@@ -5431,11 +5431,11 @@ numbers.stream()
 - **순서 보장 X**: parallelStream에서 순서가 필요하면 forEachOrdered 사용
 - **항상 빠르진 않음**: 데이터 양이 적으면 오버헤드만 증가
 `,
-      codeExamples: [
-        {
-          title: "스트림 기본 활용",
-          language: "java",
-          code: `import java.util.*;
+            codeExamples: [
+                {
+                    title: "스트림 기본 활용",
+                    language: "java",
+                    code: `import java.util.*;
 import java.util.stream.*;
 
 public class StreamDemo {
@@ -5469,11 +5469,11 @@ public class StreamDemo {
         System.out.println("음수 있음? " + hasNegative);  // false
     }
 }`
-        },
-        {
-          title: "스트림 실전 예제",
-          language: "java",
-          code: `import java.util.*;
+                },
+                {
+                    title: "스트림 실전 예제",
+                    language: "java",
+                    code: `import java.util.*;
 import java.util.stream.*;
 
 class Student {
@@ -5542,15 +5542,15 @@ public class StreamPractice {
         });
     }
 }`
+                }
+            ],
+            keyPoints: [
+                "스트림은 원본 데이터를 변경하지 않고 새로운 결과를 생성하는 함수형 API입니다.",
+                "중간 연산(filter, map, sorted)은 스트림을 반환하고, 최종 연산(collect, forEach)이 호출될 때 실행됩니다.",
+                "collect(Collectors.toList()/toSet()/toMap())로 결과를 수집합니다.",
+                "reduce는 스트림 요소를 하나로 누적합니다. (sum, max, min 등)",
+                "parallelStream()으로 병렬 처리가 가능하지만, 항상 빠른 것은 아니며 순서 보장이 안 될 수 있습니다."
+            ]
         }
-      ],
-      keyPoints: [
-        "스트림은 원본 데이터를 변경하지 않고 새로운 결과를 생성하는 함수형 API입니다.",
-        "중간 연산(filter, map, sorted)은 스트림을 반환하고, 최종 연산(collect, forEach)이 호출될 때 실행됩니다.",
-        "collect(Collectors.toList()/toSet()/toMap())로 결과를 수집합니다.",
-        "reduce는 스트림 요소를 하나로 누적합니다. (sum, max, min 등)",
-        "parallelStream()으로 병렬 처리가 가능하지만, 항상 빠른 것은 아니며 순서 보장이 안 될 수 있습니다."
-      ]
-    }
-  ]
+    ]
 };
