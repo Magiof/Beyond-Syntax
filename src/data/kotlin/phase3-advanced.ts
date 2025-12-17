@@ -102,6 +102,18 @@ public static void greet(String name) {
         "reified는 인라인의 특성을 이용해 런타임에도 제네릭 타입 정보를 유지합니다.",
         "value class는 런타임에 객체 할당 없이 기본 타입으로 동작하여 성능을 최적화합니다."
       ],
+      interviewQuestions: [
+        {
+          difficulty: 'Medium',
+          question: "inline 키워드를 사용하면 성능상 어떤 이점이 있나요?",
+          answer: "고차 함수 사용 시 람다 객체를 생성하는 오버헤드를 줄이기 위해, 컴파일러가 함수의 본문을 호출 지점에 직접 코드를 붙여넣습니다."
+        },
+        {
+          difficulty: 'Hard',
+          question: "reified 키워드는 언제, 왜 사용하나요?",
+          answer: "제네릭 타입 소거(Type Erasure)를 우회하여, inline 함수 내에서 런타임에 제네릭 타입 정보(T::class 등)에 접근하기 위해 사용합니다."
+        }
+      ],
       codeExamples: [
         {
           title: "inline 성능 비교",
@@ -215,6 +227,18 @@ class StringDelegate {
         "out(공변)은 읽기 전용으로, 하위 타입의 컨테이너를 상위 타입 컨테이너로 할당할 수 있게 합니다.",
         "in(반공변)은 쓰기 전용으로, 상위 타입의 컨슈머를 하위 타입 컨슈머로 사용할 수 있게 합니다.",
         "by 키워드를 통해 보일러플레이트 코드 없이 Composition(합성)을 상속처럼 간편하게 구현할 수 있습니다."
+      ],
+      interviewQuestions: [
+        {
+          difficulty: 'Hard',
+          question: "Kotlin 제네릭에서 in과 out의 차이는? (공변성/반공변성)",
+          answer: "out(공변)은 값을 꺼내기만 할 때(Producer) 사용하며 상위 타입으로 대입 가능하고, in(반공변)은 값을 넣기만 할 때(Consumer) 사용하며 하위 타입으로 대입 가능합니다."
+        },
+        {
+          difficulty: 'Medium',
+          question: "by lazy { ... } 의 동작 원리는?",
+          answer: "위임(Delegation) 패턴을 활용하여 프로퍼티에 처음 접근하는 시점에 람다를 실행하고 그 값을 캐싱하여 반환합니다."
+        }
       ],
       codeExamples: [
         {
@@ -349,6 +373,18 @@ sequenceDiagram
         "suspend 함수는 컴파일 시 Continuation 파라미터가 추가되며 상태 머신으로 변환됩니다.",
         "상태 머신은 label 변수를 사용하여 중단된 지점부터 코드를 다시 실행합니다.",
         "스레드는 블로킹되지 않고, 함수가 단순히 리턴되었다가 나중에 다시 호출되는 방식입니다."
+      ],
+      interviewQuestions: [
+        {
+          difficulty: 'Hard',
+          question: "suspend 함수는 내부적으로 어떻게 동작하나요? (CPS)",
+          answer: "컴파일러에 의해 Continuation 파라미터가 추가된 메서드로 변환되며, 상태 머신(State Machine)을 통해 중단 지점과 재개 지점을 관리합니다."
+        },
+        {
+          difficulty: 'Medium',
+          question: "코루틴(Coroutine)과 스레드(Thread)의 결정적 차이는?",
+          answer: "스레드는 OS가 관리하는 무거운 자원이며 문맥 교환 비용이 크지만, 코루틴은 사용자 수준에서 관리되는 경량 스레드로 하나의 스레드 위에서 여러 코루틴이 중단/재개를 반복할 수 있습니다."
+        }
       ]
     },
     {
@@ -411,6 +447,18 @@ val scope = CoroutineScope(Job() + handler)
         "Structured Concurrency는 비동기 작업의 누수(Leak)를 방지하고 관리를 단순화합니다.",
         "SupervisorJob은 자식의 실패가 전파되는 것을 막아 독립적인 실행을 보장합니다.",
         "async 사용 시 예외 전파 규칙에 주의해야 하며, 안전한 병렬 처리를 위해 supervisorScope를 활용해야 합니다."
+      ],
+      interviewQuestions: [
+        {
+          difficulty: 'Medium',
+          question: "Structured Concurrency(구조적 동시성)란 무엇인가요?",
+          answer: "비동기 작업을 부모-자식 관계로 구조화하여, 부모가 취소되면 자식도 취소되고, 자식의 예외가 부모로 전파되는 등 생명주기를 자동으로 관리하는 개념입니다."
+        },
+        {
+          difficulty: 'Medium',
+          question: "SupervisorJob이나 supervisorScope는 언제 사용하나요?",
+          answer: "자식 코루틴 중 하나가 실패해도 다른 형제 코루틴이나 부모 코루틴에게 취소를 전파하지 않고 독립적으로 실행되게 하고 싶을 때 사용합니다."
+        }
       ],
       codeExamples: [
         {
@@ -494,6 +542,18 @@ graph LR
         "Flow는 기본적으로 Cold Stream이며 collect 호출 시마다 처음부터 실행됩니다.",
         "StateFlow는 최신 상태 유지에, SharedFlow는 일회성 이벤트 전파에 사용됩니다.",
         "conflate나 collectLatest를 사용하여 배압(Backpressure)을 효율적으로 관리할 수 있습니다."
+      ],
+      interviewQuestions: [
+        {
+          difficulty: 'Medium',
+          question: "Flow와 Sequence의 차이점은?",
+          answer: "Sequence는 동기적으로(Synchronous) 데이터를 처리하지만, Flow는 코루틴 기반으로 비동기적(Asynchronous)으로 데이터를 스트리밍할 수 있습니다."
+        },
+        {
+          difficulty: 'Medium',
+          question: "StateFlow와 SharedFlow의 차이는?",
+          answer: "StateFlow는 항상 최신 상태 값 하나를 유지하며(초기값 필수) UI 상태 관리에 적합하고, SharedFlow는 이벤트를 여러 구독자에게 브로드캐스트하는 데 적합합니다."
+        }
       ]
     },
     {
@@ -564,6 +624,13 @@ Annotation Processing을 위한 차세대 도구입니다. (Java의 \`kapt\` 대
         "수신 객체 지정 람다(Type.() -> Unit)를 통해 this를 생략하고 직관적인 DSL을 만들 수 있습니다.",
         "invoke 연산자를 오버로딩하면 객체를 함수처럼 호출할 수 있어 설정 블록 구성에 유용합니다.",
         "KSP는 kapt보다 빠르고 강력한 코틀린 전용 어노테이션 처리 도구입니다."
+      ],
+      interviewQuestions: [
+        {
+          difficulty: 'Hard',
+          question: "수신 객체 지정 람다(Lambda with Receiver)란?",
+          answer: "람다 내부에서 특정 객체(Receiver)를 this로 접근할 수 있게 하는 기능으로, Kotlin DSL을 만들 때 핵심적으로 사용됩니다. (예: HTML { body { ... } })"
+        }
       ],
       codeExamples: [
         {

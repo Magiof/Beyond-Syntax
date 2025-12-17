@@ -232,6 +232,18 @@ fun main() {
         "세미콜론이 필요 없고, 타입 추론으로 타입 선언을 생략할 수 있습니다.",
         "문자열 템플릿($변수, \${표현식})으로 문자열을 간결하게 조합합니다.",
         "data class는 toString, equals, hashCode, copy를 자동 생성합니다."
+      ],
+      interviewQuestions: [
+        {
+          difficulty: 'Easy',
+          question: "Kotlin이 Java와 호환된다는 것은 무슨 의미인가요?",
+          answer: "Kotlin은 Java와 동일하게 JVM 바이트코드로 컴파일되므로, Java 클래스를 Kotlin에서 사용하거나 그 반대도 100% 가능합니다."
+        },
+        {
+          difficulty: 'Medium',
+          question: "Kotlin의 주요 특징 중 Null Safety란?",
+          answer: "타입 시스템 자체에서 Nullable과 Non-Null을 구분하여 컴파일 시점에 NullPointerException을 방지하는 기능입니다."
+        }
       ]
     },
     {
@@ -505,6 +517,18 @@ fun main() {
         "암시적 타입 변환이 없습니다. toInt(), toLong() 등으로 명시적 변환이 필요합니다.",
         "Any는 최상위 타입, Unit은 반환값 없음, Nothing은 절대 반환 안 함을 의미합니다.",
         "is로 타입 확인 시 스마트 캐스트가 적용되어 별도 캐스팅 없이 해당 타입으로 사용 가능합니다."
+      ],
+      interviewQuestions: [
+        {
+          difficulty: 'Easy',
+          question: "val과 var의 차이점은 무엇인가요?",
+          answer: "val(Value)은 한 번 초기화하면 변경할 수 없는 불변 변수(Java의 final)이고, var(Variable)는 값을 계속 변경할 수 있는 가변 변수입니다."
+        },
+        {
+          difficulty: 'Medium',
+          question: "Kotlin에는 Java의 int와 같은 원시 타입(Primitive Type)이 없나요?",
+          answer: "코드상으로는 모든 것이 객체(Int 등)지만, 컴파일 시 성능을 위해 가능한 경우 JVM의 원시 타입(int)으로 최적화됩니다."
+        }
       ]
     },
     {
@@ -775,6 +799,18 @@ fun main() {
         "!!는 NPE를 발생시킬 수 있으므로 가능하면 피하고, ?.이나 ?:를 사용하세요.",
         "let은 null이 아닐 때만 블록을 실행하며, 안전 호출과 함께 자주 사용됩니다.",
         "lateinit은 나중에 초기화할 var, lazy는 첫 접근 시 초기화되는 val에 사용합니다."
+      ],
+      interviewQuestions: [
+        {
+          difficulty: 'Medium',
+          question: "안전 호출 연산자(?.)와 엘비스 연산자(?:)의 차이는?",
+          answer: "?.는 객체가 null이면 null을 반환하고, ?:는 객체가 null일 때 사용할 기본값(디폴트 값)을 지정합니다."
+        },
+        {
+          difficulty: 'Hard',
+          question: "Non-null 단언 연산자(!!)는 왜 사용을 지양해야 하나요?",
+          answer: "!!는 객체가 null이 아님을 강제하는데, 만약 실제 값이 null이면 NPE가 즉시 발생하여 앱이 비정상 종료될 수 있기 때문입니다."
+        }
       ]
     },
     {
@@ -1092,6 +1128,18 @@ println('m' in letters)  // true
         "for 루프는 in 키워드로 범위나 컬렉션을 순회합니다. (.., until, downTo, step)",
         "withIndex()로 인덱스와 요소를 함께 가져올 수 있습니다.",
         "레이블(@label)로 중첩 루프에서 특정 루프를 break/continue 할 수 있습니다."
+      ],
+      interviewQuestions: [
+        {
+          difficulty: 'Easy',
+          question: "Kotlin에서 if가 Expression(표현식)이라는 말의 의미는?",
+          answer: "if문이 값을 반환할 수 있다는 뜻입니다. 따라서 삼항 연산자 대신 val max = if(a > b) a else b 처럼 변수에 할당할 수 있습니다."
+        },
+        {
+          difficulty: 'Medium',
+          question: "when 식의 장점은 무엇인가요?",
+          answer: "Java의 switch보다 강력하여 값뿐만 아니라 범위(in), 타입(is), 조건식 등 다양한 조건을 처리할 수 있고 값을 반환할 수도 있습니다."
+        }
       ]
     },
     {
@@ -1404,6 +1452,18 @@ fun main() {
         "이름 있는 인자를 사용하면 가독성이 높아지고 순서와 무관하게 호출 가능합니다.",
         "확장 함수는 기존 클래스를 수정하지 않고 새 함수를 추가합니다. (fun 수신타입.함수명())",
         "중위 함수는 infix 키워드로 정의하며, 매개변수가 1개일 때 . 과 () 없이 호출 가능합니다."
+      ],
+      interviewQuestions: [
+        {
+          difficulty: 'Medium',
+          question: "단일 표현식 함수(Single-Expression Function)란?",
+          answer: "함수 본문이 식 하나로 구성될 때 중괄호와 return을 생략하고 = 로 정의하는 함수입니다. (예: fun add(a: Int, b: Int) = a + b)"
+        },
+        {
+          difficulty: 'Easy',
+          question: "확장 함수(Extension Function)의 장점은?",
+          answer: "기존 클래스(심지어 라이브러리 클래스)를 수정하거나 상속받지 않고도 새로운 기능을 메서드처럼 추가할 수 있습니다."
+        }
       ]
     },
     {
@@ -1609,6 +1669,18 @@ fun main() {
         "data class는 equals, hashCode, toString, copy, componentN을 자동 생성합니다.",
         "object는 싱글톤 객체를, companion object는 클래스 내부 정적 멤버를 정의합니다.",
         "프로퍼티는 커스텀 getter/setter를 가질 수 있으며, field 키워드로 백킹 필드에 접근합니다."
+      ],
+      interviewQuestions: [
+        {
+          difficulty: 'Easy',
+          question: "data class를 사용하면 어떤 메서드들이 자동 생성되나요?",
+          answer: "equals(), hashCode(), toString(), copy(), componentN() 메서드가 주 생성자의 프로퍼티를 기반으로 자동 생성됩니다."
+        },
+        {
+          difficulty: 'Medium',
+          question: "object와 companion object의 차이는?",
+          answer: "object는 싱글톤 객체를 생성할 때 사용하고, companion object는 클래스 내부에서 static 멤버처럼 동작하는 객체를 정의할 때 사용합니다."
+        }
       ]
     },
     {
@@ -1798,6 +1870,18 @@ fun main() {
         "인터페이스는 추상 메서드와 기본 구현을 모두 가질 수 있습니다.",
         "sealed class는 제한된 상속 계층을 정의하며, when에서 else 없이 완전한 분기가 가능합니다.",
         "상속 시 부모 생성자 호출은 : ParentClass(args) 형태로 합니다."
+      ],
+      interviewQuestions: [
+        {
+          difficulty: 'Medium',
+          question: "Kotlin 클래스가 기본적으로 final인(상속 불가) 이유는?",
+          answer: "상속은 강력하지만 오용하면 캡슐화를 깨고 유지보수를 어렵게 하므로, 상속을 명시적으로 설계하고 허용(open)한 경우만 가능하게 하여 안전성을 높이기 위함입니다."
+        },
+        {
+          difficulty: 'Hard',
+          question: "sealed class는 어떤 경우에 유용한가요?",
+          answer: "상속받을 수 있는 자식 클래스를 제한하여, when 식에서 else 분기 없이 모든 하위 타입을 컴파일러가 체크할 수 있게 할 때 유용합니다. (상태 표현 등)"
+        }
       ]
     },
     {
@@ -1984,6 +2068,18 @@ fun main() {
         "filter, map, sorted 등 함수형 연산을 체이닝하여 간결하게 데이터를 처리합니다.",
         "groupBy는 키별 리스트로, associateBy는 키별 단일 값으로 Map을 생성합니다.",
         "any, all, none으로 조건을 검사하고, first, last, find로 요소를 찾습니다."
+      ],
+      interviewQuestions: [
+        {
+          difficulty: 'Easy',
+          question: "List와 MutableList의 차이점은?",
+          answer: "List는 읽기 전용으로 add, remove 등이 불가능하고, MutableList는 추가, 삭제, 수정이 가능합니다."
+        },
+        {
+          difficulty: 'Medium',
+          question: "Kotlin 컬렉션 함수인 filter와 map의 역할은?",
+          answer: "filter는 조건에 맞는 요소만 걸러내고, map은 요소를 변환하여 새로운 컬렉션을 만듭니다."
+        }
       ]
     },
     {
@@ -2187,6 +2283,18 @@ fun main() {
         "마지막 매개변수가 람다면 괄호 밖으로 뺄 수 있습니다. list.filter { ... }",
         "함수 참조(::함수명)로 기존 함수를 람다 대신 전달할 수 있습니다.",
         "inline 키워드는 람다의 오버헤드를 제거하여 성능을 최적화합니다."
+      ],
+      interviewQuestions: [
+        {
+          difficulty: 'Medium',
+          question: "고차 함수(Higher-Order Function)란 무엇인가요?",
+          answer: "함수를 매개변수로 받거나 함수를 반환값으로 주는 함수를 말합니다. Kotlin에서는 함수를 일급 객체로 취급하기 때문에 가능합니다."
+        },
+        {
+          difficulty: 'Easy',
+          question: "람다식에서 it은 무엇을 의미하나요?",
+          answer: "매개변수가 하나인 람다식에서 매개변수 이름을 생략할 경우 암시적으로 사용되는 이름입니다."
+        }
       ]
     },
     {
@@ -2380,6 +2488,18 @@ fun main() {
         "also: it으로 참조, 객체 자체 반환. 부수 효과(로깅)에 사용.",
         "run: this로 참조, 람다 결과 반환. 초기화 + 결과 계산에 사용.",
         "with: this로 참조, 람다 결과 반환. non-null 객체의 그룹 호출에 사용."
+      ],
+      interviewQuestions: [
+        {
+          difficulty: 'Medium',
+          question: "스코프 함수 apply와 also의 주요 차이점은?",
+          answer: "apply는 객체를 this로 참조하고 객체 자신을 반환하여 설정(init)에 적합하고, also는 객체를 it으로 참조하고 객체 자신을 반환하여 로깅 등 부가 작업에 적합합니다."
+        },
+        {
+          difficulty: 'Hard',
+          question: "let과 run은 언제 구분해서 사용하나요?",
+          answer: "let은 it을 사용하므로 null 체크나 매개변수 전달에 좋고, run은 this를 사용하므로 객체 내부 메서드를 여러 번 호출하거나 초기화 후 결과를 계산할 때 좋습니다."
+        }
       ]
     }
   ]
