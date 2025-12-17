@@ -16,11 +16,11 @@ export const TableOfContents = () => {
     // 약간의 지연을 주어 ReactMarkdown이 렌더링되고 rehype-slug가 ID를 붙인 후 실행되도록 함
     // (보통 useEffect는 렌더링 후 실행되지만, 안전장치)
     const scanHeadings = () => {
-      const elements = Array.from(document.querySelectorAll('.prose h1, .prose h2, .prose h3'))
+      const elements = Array.from(document.querySelectorAll('.prose h1, .prose h2, .prose h3, .toc-heading'))
         .map((element) => ({
           id: element.id,
           text: element.textContent || '',
-          level: Number(element.tagName.substring(1)),
+          level: element.classList.contains('toc-heading') ? 2 : Number(element.tagName.substring(1)),
         }))
         .filter((heading) => heading.id);
 
@@ -46,7 +46,7 @@ export const TableOfContents = () => {
     // 별도 useEffect로 분리하거나 DOM 요소를 직접 잡아서 observe.
     // DOM 요소는 이미 있으므로 직접 잡아서 observe 가능.
     const observeElements = () => {
-       const targets = document.querySelectorAll('.prose h1, .prose h2, .prose h3');
+       const targets = document.querySelectorAll('.prose h1, .prose h2, .prose h3, .toc-heading');
        targets.forEach(t => observer.observe(t));
     };
     

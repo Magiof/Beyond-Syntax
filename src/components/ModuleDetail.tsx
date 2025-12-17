@@ -221,6 +221,57 @@ export const ModuleDetail: React.FC<Props> = ({ module }) => {
             </section>
           )}
 
+          {/* Interview Questions */}
+          {module.interviewQuestions && module.interviewQuestions.length > 0 && (
+            <section className="mt-20 border-t border-gray-100 pt-12">
+              <div className="flex items-center gap-3 mb-8">
+                <span className="material-icons text-purple-600 text-2xl">psychology</span>
+                <div>
+                  <h2 id="tech-interview" className="text-2xl font-bold text-gray-900 toc-heading">Tech Interview Challenge</h2>
+                  <p className="text-gray-500 text-sm mt-1">현업 면접관이 실제로 던지는 질문입니다. 먼저 스스로 답해보세요.</p>
+                </div>
+              </div>
+              <div className="space-y-4">
+                {module.interviewQuestions.map((q, idx) => (
+                  <div key={idx} className="group border border-gray-200 rounded-xl overflow-hidden transition-all duration-300 hover:border-purple-200 hover:shadow-lg hover:shadow-purple-500/5 bg-white">
+                    <details className="group/details">
+                      <summary className="flex items-start justify-between p-6 cursor-pointer select-none list-none [&::-webkit-details-marker]:hidden bg-gray-50/50 group-open/details:bg-purple-50/30 transition-colors">
+                        <div className="flex items-start gap-4">
+                          <span className={`
+                            flex-shrink-0 px-3 py-1 rounded-md text-xs font-bold border shadow-sm
+                            ${q.difficulty === 'Easy' ? 'bg-gradient-to-br from-green-50 via-green-100 to-green-200 text-green-700 border-green-300' : ''}
+                            ${q.difficulty === 'Medium' ? 'bg-gradient-to-br from-blue-50 via-blue-100 to-blue-200 text-blue-700 border-blue-300' : ''}
+                            ${q.difficulty === 'Hard' ? 'bg-gradient-to-br from-orange-50 via-orange-100 to-orange-200 text-orange-800 border-orange-300' : ''}
+                            ${q.difficulty === 'Hell' ? 'bg-gradient-to-br from-red-50 via-red-100 to-red-200 text-red-800 border-red-300' : ''}
+                            ${!['Easy', 'Medium', 'Hard', 'Hell'].includes(q.difficulty) ? 'bg-gradient-to-br from-gray-50 via-gray-100 to-gray-200 text-gray-700 border-gray-300' : ''}
+                          `}>
+                            {q.difficulty}
+                          </span>
+                          <h3 className="text-lg font-bold text-gray-800 leading-snug group-hover:text-purple-700 transition-colors">
+                            {q.question}
+                          </h3>
+                        </div>
+                        <span className="material-icons text-gray-400 transform group-open/details:rotate-180 transition-transform duration-300">
+                          expand_more
+                        </span>
+                      </summary>
+                      <div className="p-6 pt-2 bg-white border-t border-gray-100">
+                        <div className="flex gap-4 mt-2">
+                          <div className="flex-shrink-0 w-8 h-8 rounded-full bg-purple-600 flex items-center justify-center text-white font-bold text-sm shadow-md">
+                            A
+                          </div>
+                          <div className="prose prose-slate prose-sm max-w-none text-gray-600 leading-relaxed">
+                            <ReactMarkdown remarkPlugins={[remarkGfm]}>{q.answer}</ReactMarkdown>
+                          </div>
+                        </div>
+                      </div>
+                    </details>
+                  </div>
+                ))}
+              </div>
+            </section>
+          )}
+
           {/* Completion Footer */}
           <div className="flex justify-center mt-12 pb-12">
             <button

@@ -4,6 +4,12 @@ export interface CodeExample {
   code: string;
 }
 
+export interface InterviewQuestion {
+  question: string;
+  answer: string;
+  difficulty: 'Easy' | 'Medium' | 'Hard' | 'Hell';
+}
+
 export interface Module {
   id: string;
   title: string;
@@ -11,6 +17,7 @@ export interface Module {
   content?: string;
   codeExamples?: CodeExample[];
   keyPoints?: string[];
+  interviewQuestions?: InterviewQuestion[];
 }
 
 export interface Phase {
