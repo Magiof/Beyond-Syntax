@@ -91,6 +91,18 @@ public int add(int a, int b) {
         'Class Loading은 Loading -> Linking -> Initialization 3단계를 거칩니다.',
         'Runtime Data Area 중 Heap과 Method Area는 모든 스레드가 공유하며, Stack, PC Register, Native Method Stack은 스레드마다 독립적입니다.',
         'JVM은 스택 기반으로 동작하며, JIT 컴파일러를 통해 자주 실행되는 코드를 네이티브 코드로 최적화합니다.'
+      ],
+      interviewQuestions: [
+        {
+          difficulty: 'Medium',
+          question: "JIT(Just-In-Time) 컴파일러의 역할은 무엇인가요?",
+          answer: "인터프리터 방식으로 실행하다가 자주 실행되는 코드(Hotspot)를 발견하면, 이를 기계어로 컴파일하고 캐싱하여 실행 속도를 향상시킵니다."
+        },
+        {
+          difficulty: 'Hard',
+          question: "JVM 메모리 영역 중 Stack과 Heap의 차이점과 스레드 공유 여부는?",
+          answer: "Heap은 객체가 저장되는 영역으로 모든 스레드가 공유하지만, Stack은 메서드 호출 시 지역 변수 등을 저장하며 각 스레드마다 독립적으로 생성됩니다."
+        }
       ]
     },
     {
@@ -152,6 +164,18 @@ Strong Reference 외에도 메모리 관리를 유연하게 할 수 있는 참�
         'Heap은 Young(Eden, Survivor)과 Old 영역으로 나뉘며, 대부분의 객체는 금방 사라진다는 가설(Weak Generational Hypothesis)에 기반합니다.',
         'STW(Stop-The-World)는 GC 수행 중 애플리케이션이 멈추는 시간이며, 튜닝의 주된 목표입니다.',
         'G1 GC는 Region 단위로 메모리를 관리하여 대용량 힙에서도 예측 가능한 성능을 제공하며, Java 9+부터 기본 GC입니다.'
+      ],
+      interviewQuestions: [
+        {
+          difficulty: 'Medium',
+          question: "Stop-The-World (STW) 현상이란 무엇인가요?",
+          answer: "GC를 실행하기 위해 JVM이 애플리케이션 실행을 멈추는 현상입니다. GC 튜닝은 이 시간을 줄이는 것이 핵심입니다."
+        },
+        {
+          difficulty: 'Hard',
+          question: "Strong Reference와 Weak Reference의 차이는?",
+          answer: "Strong Reference는 참조가 존재하는 한 절대 GC되지 않지만, Weak Reference는 참조가 있어도 다음 GC 때 무조건 수거됩니다."
+        }
       ]
     },
     {
@@ -208,6 +232,18 @@ Java의 \`ReentrantLock\`, \`CountDownLatch\`, \`Semaphore\` 등의 기반이 �
         'CPU 캐시로 인한 가시성 문제를 해결하기 위해 volatile이나 동기화가 필요합니다.',
         'CAS(Compare-And-Swap)는 락 없이 원자적 연산을 수행하는 하드웨어 지원 기술입니다.',
         'AQS는 int 상태 변수와 대기 큐(CLH)를 기반으로 하는 자바 동기화 라이브러리의 핵심 프레임워크입니다.'
+      ],
+      interviewQuestions: [
+        {
+          difficulty: 'Medium',
+          question: "volatile 키워드의 역할과 한계는?",
+          answer: "변수 값을 메인 메모리에 직접 읽고 쓰게 하여 가시성을 보장하지만, 여러 스레드가 동시에 쓸 때의 원자성(Atomicity)은 보장하지 않습니다."
+        },
+        {
+          difficulty: 'Hard',
+          question: "CAS (Compare-And-Swap) 알고리즘이란?",
+          answer: "현재 값과 기대하는 값이 같을 때만 새로운 값으로 업데이트하는 원자적 연산으로, 락(Lock) 없이 동기화를 구현할 때(Lock-Free) 사용됩니다."
+        }
       ]
     },
     {
@@ -265,6 +301,18 @@ Lombok(\`@Getter\`, \`@Setter\`)은 어떻게 동작할까요?
         'Reflection은 런타임에 객체의 구조를 분석하고 조작하는 강력하지만 비용이 비싼 기능입니다.',
         'JDK Dynamic Proxy는 인터페이스 기반, CGLIB는 상속(바이트코드 조작) 기반으로 프록시를 생성합니다.',
         'Lombok은 Annotation Processor를 사용하여 컴파일 타임에 AST를 수정, 보일러플레이트 코드를 자동 생성합니다.'
+      ],
+      interviewQuestions: [
+        {
+          difficulty: 'Medium',
+          question: "Reflection API 사용 시 주의할 점은?",
+          answer: "컴파일 타임 타입 체크가 불가능해 런타임 오류 위험이 있고, 접근 제어를 무시하여 캡슐화를 깰 수 있으며, 일반 호출보다 성능 오버헤드가 큽니다."
+        },
+        {
+          difficulty: 'Hard',
+          question: "JDK Dynamic Proxy와 CGLIB의 차이는?",
+          answer: "JDK Dynamic Proxy는 인터페이스가 반드시 필요하며 리플렉션을 사용하지만, CGLIB는 바이트코드를 조작하여 클래스를 상속받는 방식이라 인터페이스 없이도 가능합니다."
+        }
       ]
     },
     {
@@ -316,6 +364,18 @@ NIO는 로우 레벨이고 복잡해서 직접 사용하기 어렵습니다. 보
         '전통적인 IO는 Blocking 방식으로, 스레드를 많이 소모하여 대규모 동시 접속 처리에 불리합니다.',
         'NIO는 Channel, Buffer, Selector를 사용하여 Non-Blocking 및 Multiplexing I/O를 지원합니다.',
         'Selector를 사용하면 하나의 스레드로 수천 개의 연결을 효율적으로 관리할 수 있습니다.'
+      ],
+      interviewQuestions: [
+        {
+          difficulty: 'Medium',
+          question: "Blocking I/O와 Non-Blocking I/O의 차이는?",
+          answer: "Blocking은 데이터가 준비될 때까지 스레드가 대기하지만, Non-Blocking은 즉시 리턴하여 스레드가 다른 작업을 할 수 있게 합니다."
+        },
+        {
+          difficulty: 'Hard',
+          question: "Java NIO에서 Selector의 역할은?",
+          answer: "단일 스레드로 여러 채널(소켓 연결)의 이벤트를 감시하고 처리하는 멀티플렉싱(Multiplexing) 역할을 수행하여 효율적인 리소스 사용을 가능하게 합니다."
+        }
       ]
     },
     {
@@ -383,6 +443,18 @@ String result = switch (obj) {
         "Virtual Threads는 OS 스레드 모델의 한계를 극복하고 수백만 개의 동시 작업을 가능하게 합니다.",
         "Record와 Sealed Class를 통해 데이터를 더 안전하고 간결하게 표현할 수 있습니다.",
         "Pattern Matching은 조건부 로직을 더 선언적이고 읽기 쉽게 만듭니다."
+      ],
+      interviewQuestions: [
+        {
+          difficulty: 'Medium',
+          question: "Virtual Thread와 기존 Thread(Platform Thread)의 차이점은?",
+          answer: "기존 스레드는 OS 스레드와 1:1 매핑되어 비용이 비싸지만, Virtual Thread는 JVM이 관리하는 경량 스레드로 OS 스레드와 N:1 매핑되어 수백만 개 생성이 가능합니다."
+        },
+        {
+          difficulty: 'Easy',
+          question: "Java Record 클래스를 사용하는 이점은?",
+          answer: "데이터 보관용 불변(Immutable) 객체를 생성할 때 생성자, getter, equals, hashCode, toString을 자동으로 만들어주어 코드가 매우 간결해집니다."
+        }
       ],
       codeExamples: [
         {

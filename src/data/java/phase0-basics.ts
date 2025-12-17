@@ -173,6 +173,18 @@ public static void main(String[] args)
                 "모든 Java 코드는 클래스 안에 작성되어야 합니다.",
                 "main 메서드는 프로그램의 시작점이며, public static void main(String[] args) 형식이어야 합니다.",
                 "소스 파일(.java)은 javac로 컴파일하여 바이트코드(.class)를 생성하고, java 명령으로 실행합니다."
+            ],
+            interviewQuestions: [
+                {
+                    difficulty: 'Easy',
+                    question: "JDK, JRE, JVM의 차이점을 설명해주세요.",
+                    answer: "JDK는 개발 도구(javac 등)를 포함하고, JRE는 실행 환경(라이브러리)을 포함하며, JVM은 실제로 바이트코드를 실행하는 가상 머신입니다. (JDK ⊃ JRE ⊃ JVM)"
+                },
+                {
+                    difficulty: 'Medium',
+                    question: "main 메서드가 public static void인 이유는 무엇인가요?",
+                    answer: "JVM이 외부에서 접근해야 하므로 public, 객체 생성 없이 실행해야 하므로 static, 반환값이 없으므로 void이어야 합니다."
+                }
             ]
         },
         {
@@ -432,6 +444,18 @@ double result2 = (double) a / b; // 2.5 (원하는 결과)
                 "참조형은 객체의 메모리 주소를 저장하며, String, 배열, 클래스 등이 해당됩니다.",
                 "final 키워드로 상수를 선언하면 값을 변경할 수 없습니다.",
                 "작은 타입 → 큰 타입은 자동 형변환, 큰 타입 → 작은 타입은 (타입) 캐스팅이 필요합니다."
+            ],
+            interviewQuestions: [
+                {
+                    difficulty: 'Easy',
+                    question: "기본형(Primitive)과 참조형(Reference)의 차이는 무엇인가요?",
+                    answer: "기본형은 실제 값을 메모리(Stack)에 저장하고, 참조형은 객체의 주소값을 저장하여 Heap 영역의 객체를 가리킵니다."
+                },
+                {
+                    difficulty: 'Medium',
+                    question: "Java에서 정수 오버플로우가 발생하면 어떻게 되나요?",
+                    answer: "에러가 발생하지 않고, 최소값으로 순환(Wrap-around)합니다. 예를 들어 int 최대값 + 1은 int 최소값이 됩니다."
+                }
             ]
         },
         {
@@ -636,6 +660,18 @@ System.out.println(status);  // "성인"
                 "문자열 비교는 == 대신 .equals() 메서드를 사용해야 합니다.",
                 "&&와 ||는 단락 평가를 수행하여 불필요한 연산을 건너뜁니다.",
                 "삼항 연산자(조건 ? A : B)는 간단한 if-else를 한 줄로 표현합니다."
+            ],
+            interviewQuestions: [
+                {
+                    difficulty: 'Easy',
+                    question: "문자열을 비교할 때 == 대신 equals()를 써야 하는 이유는?",
+                    answer: "== 연산자는 메모리 주소를 비교하고, equals()는 문자열의 내용을 비교하기 때문입니다. 서로 다른 객체라도 내용이 같으면 equals는 true를 반환합니다."
+                },
+                {
+                    difficulty: 'Medium',
+                    question: "&&와 & 연산자의 차이점(단락 평가)은?",
+                    answer: "&&는 앞의 조건이 거짓이면 뒤의 조건을 실행하지 않지만(Short-circuit), &는 앞의 결과와 상관없이 뒤의 조건도 모두 실행합니다."
+                }
             ]
         },
         {
@@ -909,6 +945,18 @@ System.out.println(month + "월은 " + days + "일");
                 "switch 문에서 break를 빠뜨리면 다음 case로 넘어갑니다 (fall-through).",
                 "Java 14+의 switch 표현식은 -> 문법으로 더 간결하고 안전합니다.",
                 "switch 표현식에서 블록을 사용할 때는 yield로 값을 반환합니다."
+            ],
+            interviewQuestions: [
+                {
+                    difficulty: 'Easy',
+                    question: "switch 문에서 break를 생략하면 어떤 일이 발생하나요?",
+                    answer: "Fall-through 현상이 발생하여, 다음 case문의 코드까지 연속적으로 실행됩니다."
+                },
+                {
+                    difficulty: 'Medium',
+                    question: "Java 14의 switch 표현식(Expression)이 기존 switch 문과 다른 점은?",
+                    answer: "값을 반환할 수 있고, -> 화살표 문법을 사용하여 break 없이도 fall-through를 방지하며 더 간결합니다."
+                }
             ]
         },
         {
@@ -1189,6 +1237,18 @@ for (int dan = 2; dan <= 9; dan++) {
                 "Enhanced for(for-each)는 배열/컬렉션 순회에 가장 간결하지만 인덱스 접근이 불가합니다.",
                 "break는 반복문을 즉시 종료하고, continue는 현재 반복만 건너뜁니다.",
                 "중첩 반복문에서 바깥 루프를 탈출하려면 레이블(label)과 함께 break를 사용합니다."
+            ],
+            interviewQuestions: [
+                {
+                    difficulty: 'Easy',
+                    question: "for 문과 while 문은 각각 언제 사용하는 것이 좋은가요?",
+                    answer: "반복 횟수가 명확할 때는 for 문, 특정 조건이 만족될 때까지 반복해야 할 때는 while 문이 적합합니다."
+                },
+                {
+                    difficulty: 'Easy',
+                    question: "break와 continue의 차이점은?",
+                    answer: "break는 반복문을 완전히 종료하고 탈출하지만, continue는 현재 반복만 건너뛰고 다음 반복 조건 검사로 넘어갑니다."
+                }
             ]
         },
         {
@@ -1465,6 +1525,18 @@ public class Array2DDemo {
                 "배열 참조를 복사하면 같은 배열을 공유합니다. 독립적인 복사본은 Arrays.copyOf() 등을 사용하세요.",
                 "2차원 배열은 '배열의 배열'이며, 각 행의 길이가 다를 수 있습니다 (가변 배열).",
                 "Arrays 클래스는 정렬(sort), 검색(binarySearch), 비교(equals), 출력(toString) 등을 제공합니다."
+            ],
+            interviewQuestions: [
+                {
+                    difficulty: 'Easy',
+                    question: "배열의 가장 큰 단점은 무엇인가요?",
+                    answer: "생성 시 크기가 고정되어 변경할 수 없다는 점입니다. 데이터 추가/삭제가 불가능하고, 크기를 넘어가면 예외가 발생합니다."
+                },
+                {
+                    difficulty: 'Medium',
+                    question: "배열 복사 시 Shallow Copy와 Deep Copy의 차이는?",
+                    answer: "Shallow Copy는 주소값만 복사하여 원본과 같은 객체를 공유하지만, Deep Copy는 실제 데이터(객체)를 새로운 메모리에 복제하여 원본과 독립적입니다."
+                }
             ]
         },
         {
@@ -1735,7 +1807,19 @@ sb.toString();          // String으로 변환
                 "문자열 비교는 반드시 == 대신 .equals() 메서드를 사용하세요.",
                 "문자열 리터럴은 String Pool에 저장되어 같은 값은 재사용됩니다.",
                 "많은 문자열 연결 작업에는 StringBuilder를 사용하여 성능을 향상시키세요.",
-                "String의 주요 메서드: length(), charAt(), substring(), split(), contains(), replace(), trim() 등"
+                "String의 주요 메서드: length(), charAt(), substring(), split(), contains(), replace(), trim() 등이 있습니다."
+            ],
+            interviewQuestions: [
+                {
+                    difficulty: 'Medium',
+                    question: "String 객체가 불변(Immutable)인 이유는 무엇인가요?",
+                    answer: "보안(네트워크/DB 연결 문자열 변조 방지), 스레드 안전성(동기화 불필요), String Pool을 통한 메모리 절약(캐싱) 등을 위해서입니다."
+                },
+                {
+                    difficulty: 'Easy',
+                    question: "많은 문자열을 연결할 때 String + 연산 대신 StringBuilder를 써야 하는 이유는?",
+                    answer: "String은 불변이라 + 연산 시 매번 새로운 객체를 생성하여 메모리 낭비가 심하지만, StringBuilder는 내부 버퍼를 변경하므로 훨씬 효율적입니다."
+                }
             ]
         },
         {
@@ -2063,6 +2147,18 @@ public static int factorial(int n) {
                 "오버로딩은 같은 이름의 메서드를 매개변수를 다르게 하여 여러 개 정의하는 것입니다.",
                 "가변인자(...)를 사용하면 매개변수 개수를 유연하게 받을 수 있습니다.",
                 "재귀 메서드는 반드시 기본 케이스(탈출 조건)가 있어야 무한 호출을 방지합니다."
+            ],
+            interviewQuestions: [
+                {
+                    difficulty: 'Medium',
+                    question: "Java는 Call by Value인가요, Call by Reference인가요?",
+                    answer: "Java는 항상 **Call by Value**입니다. 기본형은 값 자체가 복사되고, 참조형은 '주소값'이 복사되어 전달됩니다. 객체 자체를 공유하는 것처럼 보이지만 실제로는 주소값을 복사해 주는 것입니다."
+                },
+                {
+                    difficulty: 'Easy',
+                    question: "오버로딩(Overloading)의 조건은 무엇인가요?",
+                    answer: "메서드 이름이 같아야 하고, 매개변수의 개수나 타입이 달라야 합니다. 반환 타입만 다른 경우는 오버로딩이 아닙니다."
+                }
             ]
         },
         {
@@ -2420,6 +2516,18 @@ public class Main {
                 "this는 현재 객체 자신을 가리키며, 필드와 매개변수 이름이 같을 때 구분에 사용됩니다.",
                 "static 변수는 모든 객체가 공유하고, static 메서드는 객체 없이 호출할 수 있습니다.",
                 "static 메서드에서는 인스턴스 변수에 직접 접근할 수 없습니다."
+            ],
+            interviewQuestions: [
+                {
+                    difficulty: 'Easy',
+                    question: "클래스와 객체(인스턴스)의 차이는?",
+                    answer: "클래스는 객체를 만들기 위한 설계도(틀)이고, 객체는 그 설계도를 통해 메모리에 실제 생성된 실체입니다."
+                },
+                {
+                    difficulty: 'Medium',
+                    question: "static 메서드에서 인스턴스 변수를 사용할 수 없는 이유는?",
+                    answer: "static 메서드는 객체 생성 없이 실행될 수 있지만, 인스턴스 변수는 객체가 생성되어야만 존재하기 때문입니다. (시점의 차이)"
+                }
             ]
         },
         {
@@ -2752,6 +2860,18 @@ public class OtherPackage {
                 "Getter는 필드 값을 읽고, Setter는 유효성 검사 후 값을 설정합니다.",
                 "boolean 타입의 Getter는 is로 시작합니다 (isActive, isValid 등).",
                 "불변 객체를 만들려면 모든 필드를 final로 선언하고 Setter를 제공하지 않습니다."
+            ],
+            interviewQuestions: [
+                {
+                    difficulty: 'Easy',
+                    question: "접근 제어자 4가지를 범위가 넓은 순서대로 나열하세요.",
+                    answer: "public > protected > default(package-private) > private"
+                },
+                {
+                    difficulty: 'Medium',
+                    question: "캡슐화(Encapsulation)를 하는 주된 목적은?",
+                    answer: "객체의 내부 데이터를 외부의 잘못된 접근으로부터 보호(정보 은닉)하고, 객체의 사용 방법(인터페이스)만 노출하여 결합도를 낮추기 위함입니다."
+                }
             ]
         },
         {
@@ -3116,6 +3236,18 @@ public class Main {
                 "super 키워드로 부모의 필드, 메서드, 생성자에 접근할 수 있습니다.",
                 "자식 생성자는 반드시 부모 생성자를 호출하며, super()는 첫 줄에 위치해야 합니다.",
                 "모든 클래스는 Object 클래스를 상속받으며, toString(), equals(), hashCode() 등을 오버라이드할 수 있습니다."
+            ],
+            interviewQuestions: [
+                {
+                    difficulty: 'Easy',
+                    question: "Java는 다중 상속을 지원하나요?",
+                    answer: "클래스 간의 다중 상속은 지원하지 않습니다(Diamond 문제 방지). 하지만 인터페이스는 다중 구현이 가능합니다."
+                },
+                {
+                    difficulty: 'Medium',
+                    question: "super()와 this()의 차이점은?",
+                    answer: "super()는 부모 클래스의 생성자를 호출하고, this()는 같은 클래스 내의 다른 생성자를 호출합니다. 둘 다 생성자의 첫 줄에만 올 수 있습니다."
+                }
             ]
         },
         {
@@ -3459,6 +3591,18 @@ public class Main {
                 "다운캐스팅 전에 instanceof로 타입을 확인해야 ClassCastException을 방지할 수 있습니다.",
                 "동적 바인딩에 의해 실행 시점에 실제 객체의 오버라이딩된 메서드가 호출됩니다.",
                 "다형성을 활용하면 새로운 타입 추가 시 기존 코드 수정 없이 확장이 가능합니다 (OCP)."
+            ],
+            interviewQuestions: [
+                {
+                    difficulty: 'Medium',
+                    question: "다형성(Polymorphism)이란 무엇인가요?",
+                    answer: "하나의 객체나 메서드가 여러 가지 형태를 가질 수 있는 성질입니다. 구체적으로는 부모 타입의 참조 변수로 여러 자식 객체를 참조하여, 동일한 호출로 다른 동작(오버라이딩된 메서드)을 실행하는 것입니다."
+                },
+                {
+                    difficulty: 'Hard',
+                    question: "instanceof 연산자는 언제, 왜 사용하나요?",
+                    answer: "다운캐스팅(Downcasting)을 하기 전에 해당 객체가 실제로 그 타입인지 확인하기 위해 사용합니다. 확인하지 않고 캐스팅하면 ClassCastException이 발생할 수 있습니다."
+                }
             ]
         },
         {
@@ -3837,6 +3981,18 @@ public class Main {
                 "인터페이스는 다중 구현이 가능하며, 클래스는 extends로 하나, implements로 여러 인터페이스를 조합할 수 있습니다.",
                 "Java 8+에서 인터페이스는 default 메서드(기본 구현)와 static 메서드를 가질 수 있습니다.",
                 "추상 클래스는 'is-a' 관계와 공통 상태에, 인터페이스는 'can-do' 능력 정의에 적합합니다."
+            ],
+            interviewQuestions: [
+                {
+                    difficulty: 'Medium',
+                    question: "추상 클래스와 인터페이스의 결정적인 차이는 무엇인가요?",
+                    answer: "추상 클래스는 '상태(필드)'와 '생성자'를 가질 수 있고 'is-a' 관계(본질)를 나타내지만, 인터페이스는 상수 외의 상태를 가질 수 없고 'can-do'(기능)를 정의하며 다중 구현이 가능합니다."
+                },
+                {
+                    difficulty: 'Easy',
+                    question: "인터페이스도 구현된 메서드를 가질 수 있나요?",
+                    answer: "네, Java 8부터는 default 메서드와 static 메서드를 통해 구현부를 가질 수 있습니다."
+                }
             ]
         },
         {
@@ -4188,6 +4344,18 @@ public class Main {
                 "try-with-resources는 AutoCloseable 리소스를 자동으로 닫아줍니다 (Java 7+).",
                 "throw로 예외를 발생시키고, throws로 호출자에게 예외 처리를 위임합니다.",
                 "사용자 정의 예외는 Exception(Checked) 또는 RuntimeException(Unchecked)을 상속합니다."
+            ],
+            interviewQuestions: [
+                {
+                    difficulty: 'Medium',
+                    question: "Checked Exception과 Unchecked Exception의 차이는?",
+                    answer: "Checked Exception(Exception 상속)은 컴파일러가 처리를 강제하며(try-catch 필수), Unchecked Exception(RuntimeException 상속)은 처리를 강제하지 않습니다."
+                },
+                {
+                    difficulty: 'Easy',
+                    question: "try-with-resources 구문을 사용하는 이유는?",
+                    answer: "파일이나 네트워크 연결 같은 리소스를 사용 후 자동으로 close() 해주어 자원 누수를 방지하고 코드를 간결하게 합니다."
+                }
             ]
         },
         {
@@ -4556,6 +4724,18 @@ public class MapDemo {
                 "Map은 Key-Value 쌍으로 저장하며, 키는 중복 불가합니다. HashMap이 가장 많이 사용됩니다.",
                 "for-each 중 컬렉션 수정은 ConcurrentModificationException을 발생시킵니다. Iterator.remove()를 사용하세요.",
                 "Collections 유틸리티 클래스는 정렬, 역순, 섞기, 최대/최소값 등의 기능을 제공합니다."
+            ],
+            interviewQuestions: [
+                {
+                    difficulty: 'Easy',
+                    question: "ArrayList와 LinkedList의 차이점은?",
+                    answer: "ArrayList는 배열 기반이라 조회가 빠르지만 중간 삽입/삭제가 느리고, LinkedList는 노드 연결 기반이라 조회는 느리지만 삽입/삭제가 빠릅니다."
+                },
+                {
+                    difficulty: 'Medium',
+                    question: "HashMap과 HashTable의 차이는?",
+                    answer: "HashMap은 동기화되지 않아 빠르고 null 키를 허용하지만, HashTable은 동기화되어 스레드 안전하지만 느리고 null을 허용하지 않습니다. (최신엔 ConcurrentHashMap 권장)"
+                }
             ]
         },
         {
@@ -4923,6 +5103,18 @@ public class WildcardDemo {
                 "extends로 타입 파라미터의 상한을 제한할 수 있습니다 (T extends Number).",
                 "와일드카드(?)는 읽기 전용(? extends)과 쓰기 전용(? super)으로 구분합니다. PECS 원칙을 기억하세요.",
                 "제네릭 타입 정보는 컴파일 후 제거됩니다 (타입 소거). 런타임에는 원시 타입으로 동작합니다."
+            ],
+            interviewQuestions: [
+                {
+                    difficulty: 'Easy',
+                    question: "제네릭(Generics)을 사용하는 주된 이유는?",
+                    answer: "컴파일 시점에 타입을 체크하여 타입 안전성을 높이고, 불필요한 캐스팅 코드를 줄이기 위해서입니다."
+                },
+                {
+                    difficulty: 'Hard',
+                    question: "타입 소거(Type Erasure)란 무엇인가요?",
+                    answer: "제네릭은 컴파일 타임에만 존재하고, 컴파일된 바이트코드(.class)에는 제네릭 타입 정보가 지워지고(Object 또는 상한타입으로 변환) 원시 타입으로 남는 것을 말합니다. 하위 호환성을 위함입니다."
+                }
             ]
         },
         {
@@ -5195,6 +5387,18 @@ public class CustomFunctionalInterface {
                 "주요 내장 인터페이스: Consumer(소비), Supplier(공급), Function(변환), Predicate(조건검사).",
                 "메서드 참조(::)는 람다를 더 간결하게 표현합니다. 예: System.out::println",
                 "람다가 외부 변수를 캡처할 때 해당 변수는 effectively final이어야 합니다."
+            ],
+            interviewQuestions: [
+                {
+                    difficulty: 'Medium',
+                    question: "람다 표현식이란 무엇인가요?",
+                    answer: "메서드를 하나의 식(Expression)으로 표현한 것으로, 익명 함수(Anonymous Function)를 생성하는 간결한 문법입니다."
+                },
+                {
+                    difficulty: 'Easy',
+                    question: "함수형 인터페이스(Functional Interface)의 조건은?",
+                    answer: "추상 메서드가 오직 하나만 존재해야 합니다. (default나 static 메서드는 있어도 됨)"
+                }
             ]
         },
         {
@@ -5550,6 +5754,18 @@ public class StreamPractice {
                 "collect(Collectors.toList()/toSet()/toMap())로 결과를 수집합니다.",
                 "reduce는 스트림 요소를 하나로 누적합니다. (sum, max, min 등)",
                 "parallelStream()으로 병렬 처리가 가능하지만, 항상 빠른 것은 아니며 순서 보장이 안 될 수 있습니다."
+            ],
+            interviewQuestions: [
+                {
+                    difficulty: 'Medium',
+                    question: "스트림(Stream)과 for 루프의 차이점은?",
+                    answer: "스트림은 '무엇을(What)' 할지 선언하는 내부 반복 방식이고, for 루프는 '어떻게(How)' 할지 명시하는 외부 반복 방식입니다. 스트림은 가독성이 좋고 병렬 처리가 쉽습니다."
+                },
+                {
+                    difficulty: 'Hard',
+                    question: "스트림의 지연 연산(Lazy Evaluation)이란?",
+                    answer: "중간 연산(filter, map)은 즉시 실행되지 않고, 최종 연산(collect 등)이 호출될 때까지 미뤄졌다가 한 번에 최적화되어 수행되는 특성입니다."
+                }
             ]
         }
     ]
