@@ -78,6 +78,18 @@ class HelloController {
         "Spring은 IoC, DI, AOP를 핵심으로 하는 Java 프레임워크입니다.",
         "Spring Boot는 자동 설정과 내장 서버로 빠른 개발을 지원합니다.",
         "start.spring.io에서 프로젝트를 쉽게 생성할 수 있습니다."
+      ],
+      interviewQuestions: [
+        {
+          difficulty: 'Easy',
+          question: "Spring Framework와 Spring Boot의 차이점은 무엇인가요?",
+          answer: "Spring은 DI, AOP 등을 제공하는 프레임워크이고, Spring Boot는 Spring을 더 쉽게 사용할 수 있도록 자동 설정(Auto Configuration)과 내장 서버(Embedded Server) 등을 제공하는 도구입니다."
+        },
+        {
+          difficulty: 'Medium',
+          question: "Spring Boot Starter란 무엇인가요?",
+          answer: "프로젝트에 필요한 의존성(라이브러리)들을 묶어서 제공하는 것으로, 호환되는 버전들을 자동으로 관리해줍니다. (예: spring-boot-starter-web)"
+        }
       ]
     },
     {
@@ -205,6 +217,18 @@ public class UserController {
         "DI는 의존 객체를 외부에서 주입받는 패턴입니다.",
         "생성자 주입을 사용하면 불변성과 테스트 용이성이 보장됩니다.",
         "@Component, @Service, @Repository로 빈을 등록합니다."
+      ],
+      interviewQuestions: [
+        {
+          difficulty: 'Easy',
+          question: "DI(Dependency Injection)를 사용하는 이유는 무엇인가요?",
+          answer: "객체 간의 결합도를 낮추어 코드의 재사용성을 높이고, 테스트하기 쉬운 코드를 만들기 위해서입니다."
+        },
+        {
+          difficulty: 'Medium',
+          question: "필드 주입보다 생성자 주입을 권장하는 이유는?",
+          answer: "생성자 주입은 불변성(final)을 보장할 수 있고, 순환 참조를 컴파일 시점에 방지할 수 있으며, 테스트 시 의존성을 명확하게 전달할 수 있기 때문입니다."
+        }
       ]
     },
     {
@@ -296,6 +320,18 @@ public class AppService {
         "application.yml로 설정을 관리합니다.",
         "프로파일(dev, prod)로 환경별 설정을 분리합니다.",
         "@ConfigurationProperties로 설정값을 객체에 바인딩합니다."
+      ],
+      interviewQuestions: [
+        {
+          difficulty: 'Medium',
+          question: "Spring Boot의 Auto Configuration(자동 설정)은 어떻게 동작하나요?",
+          answer: "@EnableAutoConfiguration 어노테이션이 classpath에 있는 jar 파일들을 감지하여(예: H2가 있으면 DB 설정), 적절한 빈들을 자동으로 등록해줍니다."
+        },
+        {
+          difficulty: 'Easy',
+          question: "Profile(프로파일) 기능은 언제 사용하나요?",
+          answer: "개발(dev), 운영(prod), 테스트(test) 등 환경에 따라 서로 다른 설정(DB 연결 정보 등)을 적용해야 할 때 사용합니다."
+        }
       ]
     },
     {
@@ -392,6 +428,18 @@ public class ProductController {
         "@Controller는 View를 반환하고, @RestController는 JSON을 반환합니다.",
         "@PathVariable, @RequestParam, @RequestBody로 파라미터를 바인딩합니다.",
         "Model 객체로 View에 데이터를 전달합니다."
+      ],
+      interviewQuestions: [
+        {
+          difficulty: 'Easy',
+          question: "@Controller와 @RestController의 차이는?",
+          answer: "@Controller는 주로 View(HTML)를 반환하는 데 사용되고, @RestController는 데이터(JSON 등)를 HTTP 본문에 직접 반환하는 데 사용됩니다."
+        },
+        {
+          difficulty: 'Medium',
+          question: "@RequestBody와 @RequestParam의 차이는?",
+          answer: "@RequestBody는 HTTP 요청 본문(Body)의 데이터(주로 JSON)를 자바 객체로 매핑하고, @RequestParam은 URL 쿼리 파라미터(?key=value)를 매핑합니다."
+        }
       ]
     },
     {
@@ -501,6 +549,18 @@ public class PostController {
         "@RestController는 JSON 응답을 반환합니다.",
         "ResponseEntity로 HTTP 상태 코드를 제어합니다.",
         "DTO를 사용하여 Entity를 직접 노출하지 않습니다."
+      ],
+      interviewQuestions: [
+        {
+          difficulty: 'Medium',
+          question: "Entity 대신 DTO(Data Transfer Object)를 사용하는 이유는?",
+          answer: "Entity는 데이터베이스 테이블과 매핑되는 핵심 모델이므로, 이를 직접 노출하면 내부 구조가 API에 의존하게 되고 보안 문제나 순환 참조 문제가 발생할 수 있기 때문입니다."
+        },
+        {
+          difficulty: 'Medium',
+          question: "ResponseEntity 클래스의 역할은?",
+          answer: "HTTP 상태 코드(200, 404 등), 헤더, 본문(Body)을 포함한 전체 HTTP 응답을 유연하게 구성하여 반환하는 데 사용됩니다."
+        }
       ]
     },
     {
@@ -612,6 +672,18 @@ public interface PostRepository extends JpaRepository<Post, Long> {
         "JpaRepository를 상속하면 기본 CRUD 메서드가 제공됩니다.",
         "메서드 이름으로 쿼리가 자동 생성됩니다 (findByXxx).",
         "연관관계는 @ManyToOne, @OneToMany 등으로 매핑합니다."
+      ],
+      interviewQuestions: [
+        {
+          difficulty: 'Easy',
+          question: "JPA와 Spring Data JPA의 관계는?",
+          answer: "JPA는 자바 표준 ORM 스펙이고, Spring Data JPA는 JPA를 추상화하여 Repository 인터페이스만으로 쉽게 DB 접근 코드를 짤 수 있게 해주는 라이브러리입니다."
+        },
+        {
+          difficulty: 'Hard',
+          question: "JPA에서 Lazy Loading(지연 로딩)이란?",
+          answer: "연관된 엔티티(예: 작성자)를 즉시 조회하지 않고, 실제로 사용할 때(getTitle() 등) 쿼리를 날려 조회하는 방식으로 성능 최적화에 사용됩니다."
+        }
       ]
     },
     {
@@ -716,6 +788,18 @@ public class GlobalExceptionHandler {
         "@Valid와 검증 어노테이션으로 입력값을 검증합니다.",
         "@RestControllerAdvice로 전역 예외 처리기를 만듭니다.",
         "커스텀 예외를 정의하여 비즈니스 로직의 예외를 처리합니다."
+      ],
+      interviewQuestions: [
+        {
+          difficulty: 'Medium',
+          question: "@ControllerAdvice (또는 @RestControllerAdvice)의 역할은?",
+          answer: "여러 컨트롤러에서 발생하는 예외를 한 곳에서 전역적으로 처리(Global Exception Handling)할 수 있게 해줍니다."
+        },
+        {
+          difficulty: 'Easy',
+          question: "@Valid 어노테이션은 언제 검증을 수행하나요?",
+          answer: "컨트롤러 메서드의 파라미터 바인딩 시점에 객체의 필드에 붙은 제약 조건(@NotNull 등)을 검사합니다."
+        }
       ]
     },
     {
@@ -826,9 +910,22 @@ class UserServiceTest {
       keyPoints: [
         "@SpringBootTest는 전체 애플리케이션 컨텍스트를 로드합니다.",
         "@WebMvcTest는 컨트롤러 계층만 테스트합니다.",
-        "@DataJpaTest는 JPA 관련 컴포넌트만 테스트합니다.",
+        "@DataJpaTest는 JPA 관련 컴포넌트만 로드하여 Repository를 테스트합니다.",
         "@MockBean으로 의존성을 Mock 객체로 대체합니다."
+      ],
+      interviewQuestions: [
+        {
+          difficulty: 'Medium',
+          question: "@SpringBootTest와 @WebMvcTest의 차이는?",
+          answer: "@SpringBootTest는 전체 애플리케이션 컨텍스트를 로드하여 통합 테스트를 수행하고, @WebMvcTest는 Web Layer(Controller 등)만 로드하여 빠르고 가볍게 테스트합니다."
+        },
+        {
+          difficulty: 'Medium',
+          question: "테스트에서 Mocking을 사용하는 이유는?",
+          answer: "실제 의존 객체(DB, 외부 API 등) 대신 가짜 객체(Mock)를 사용하여, 테스트 대상 코드를 격리시키고 원하는 동작을 제어하기 위함입니다."
+        }
       ]
     }
   ]
 };
+

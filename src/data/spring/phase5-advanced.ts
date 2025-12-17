@@ -47,6 +47,18 @@ graph TD
         "@SpringBootApplication은 @EnableAutoConfiguration을 포함하며, 이것이 자동 설정의 진입점입니다.",
         "자동 설정 클래스들은 @Conditional 어노테이션을 사용하여 특정 조건(라이브러리 존재 여부 등) 하에서만 빈을 등록합니다.",
         "사용자가 직접 빈을 정의하면 @ConditionalOnMissingBean에 의해 자동 설정이 물러나며 유연성을 제공합니다."
+      ],
+      interviewQuestions: [
+        {
+          difficulty: 'Medium',
+          question: "@SpringBootApplication에 포함된 3가지 핵심 어노테이션은 무엇인가요?",
+          answer: "**@Configuration**, **@ComponentScan**, **@EnableAutoConfiguration** 입니다. 특히 @EnableAutoConfiguration은 클래스패스에 있는 라이브러리를 감지하여 자동 설정을 적용하는 핵심 역할을 합니다."
+        },
+        {
+          difficulty: 'Hard',
+          question: "@ConditionalOnMissingBean은 어떤 상황에서 유용한가요?",
+          answer: "라이브러리나 스타터(Starter)를 만들 때 유용합니다. 사용자가 특정 빈을 직접 정의했다면 그 설정을 우선하고, 정의하지 않았을 때만 라이브러리에서 제공하는 기본값(Default Bean)을 등록하고 싶을 때 사용합니다."
+        }
       ]
     },
     {
@@ -113,6 +125,51 @@ public void inner() { ... }
         "스프링 AOP는 프록시 패턴으로 동작하므로 내부 호출(Self-Invocation) 시에는 적용되지 않습니다.",
         "REQUIRES_NEW는 물리적으로 다른 DB 커넥션을 사용하므로 데드락이나 리소스 고갈에 주의해야 합니다.",
         "readOnly=true 옵션은 더티 체킹 생략 등을 통해 조회 성능을 최적화합니다."
+      ],
+      interviewQuestions: [
+        {
+          difficulty: 'Hard',
+          question: "Spring AOP는 메서드 내부 호출(Self-Invocation) 시 동작하지 않습니다. 그 이유와 해결 방법 2가지를 설명해주세요.",
+          answer: `
+**이유**: 
+Spring AOP는 **프록시 패턴**을 기반으로 동작합니다. 클라이언트가 메서드를 호출할 때는 프록시 객체를 거치므로 AOP 로직이 실행되지만, **프록시 내부에서 자신의 다른 메서드(\`this.method()\`)를 호출할 때는 프록시를 거치지 않고 원본 객체(Target)의 메서드가 직접 호출**되기 때문에 AOP(트랜잭션 등)가 적용되지 않습니다.
+
+**해결 방법**:
+1.  **자기 자신 주입 (Self-Injection)**: \`@Autowired\` 또는 생성자 주입을 통해 자기 자신의 프록시 빈을 주입받아 호출합니다.
+    \`\`\`java
+    @Autowired
+    private MyService self; // 프록시가 주입됨
+    
+    public void outer() {
+        self.inner(); // 프록시를 통한 호출 -> AOP 적용됨
+    }
+    \`\`\`
+2.  **구조 변경 (권장)**: 내부 호출이 필요한 메서드를 **별도의 서비스 클래스(빈)로 분리**하여 호출합니다. 이는 객체지향 설계 관점(SRP)에서도 더 바람직한 경우가 많습니다.
+`
+        },
+        {
+          difficulty: 'Medium',
+          question: "@Transactional(readOnly = true)를 사용했을 때 얻을 수 있는 실제 성능 이점은 무엇인가요?",
+          answer: `
+단순히 "읽기 전용이라 빠르다"라고 답변하면 부족합니다. 구체적인 이점은 다음과 같습니다:
+
+1.  **더티 체킹(Dirty Checking) 생략**: Hibernate는 트랜잭션 커밋 시점에 엔티티의 변경을 감지하기 위해 스냅샷을 비교하는데, readOnly 모드에서는 이 스냅샷을 유지하거나 비교하는 작업을 생략하여 **메모리와 CPU 비용을 절약**합니다.
+2.  **DB 부하 분산 (Replication)**: 많은 프로덕션 환경에서 Master-Slave DB 구조를 사용합니다. \`readOnly=true\` 설정이 되어 있으면 Spring/드라이버 레벨에서 쿼리를 **Slave(Read Replica) DB로 라우팅**하도록 설정할 수 있어, Master DB의 부하를 줄일 수 있습니다.
+`
+        },
+        {
+          difficulty: 'Hard',
+          question: "트랜잭션 전파 속성 중 REQUIRES_NEW는 언제 사용하며, 사용 시 주의할 점은 무엇인가요?",
+          answer: `
+**사용 시점**:
+부모 트랜잭션의 성공/실패 여부와 관계없이 **반드시 독립적으로 실행되어야 하는 로직**에 사용합니다. 
+예: 메인 로직(주문)은 실패해서 롤백되더라도, **로그/알림 저장**이나 **감사(Audit) 기록**은 반드시 남겨야 할 때.
+
+**주의할 점**:
+1.  **DB 커넥션 고갈**: 부모 트랜잭션이 커넥션을 잡고 있는 상태에서 자식 트랜잭션(REQUIRES_NEW)을 위해 **새로운 커넥션**을 또 가져와야 합니다. 즉, 하나의 요청 처리에 2개의 커넥션이 사용되므로, 트래픽이 몰릴 경우 커넥션 풀이 빠르게 고갈될 수 있습니다.
+2.  **데드락 위험**: 부모와 자식이 같은 테이블/레코드를 다룰 때 잠금(Lock) 충돌이 발생할 수 있습니다.
+`
+        }
       ]
     },
     {
@@ -176,6 +233,27 @@ List<Post> findAll();
         "변경 감지(Dirty Checking) 덕분에 update 쿼리를 직접 짤 필요가 없습니다.",
         "N+1 문제는 지연 로딩에서도 발생하며, 주로 Fetch Join으로 해결합니다.",
         "OSIV는 편의성을 주지만, 대용량 트래픽 환경에서는 치명적인 장애 원인이 될 수 있어 끄는 것을 권장합니다."
+      ],
+      interviewQuestions: [
+        {
+          difficulty: 'Hard',
+          question: "JPA N+1 문제는 왜 발생하며, Fetch Join과 일반 Join의 차이점은 무엇인가요?",
+          answer: `
+**원인**: JpaRepository 메서드를 호출할 때(JPQL)는 우선 그 엔티티만 조회(1)합니다. 그 후 연관된 엔티티를 사용할 때마다 추가 쿼리(N)가 발생합니다 (Lazy Loading). Eager Loading이어도 최초 쿼리 후 즉시 N번의 쿼리가 나갑니다.
+
+**차이점**:
+- **일반 Join**: 연관 엔티티를 조인은 하지만, **SELECT 절에는 가져오지 않습니다.** 단순히 조건 필터링 용도입니다.
+- **Fetch Join**: 연관 엔티티까지 **SELECT 절에 포함하여 한 번에 영속화**합니다. 따라서 N+1 문제가 해결됩니다.
+`
+        },
+        {
+          difficulty: 'Medium',
+          question: "OSIV(Open Session In View)를 끄면(False) 발생할 수 있는 문제와 해결 방법은?",
+          answer: `
+**문제**: 트랜잭션 범위(Service 계층) 밖인 Controller나 View에서 지연 로딩(Lazy Loading)을 시도하면 \`LazyInitializationException\`이 발생합니다.
+**해결**: Service 계층에서 필요한 데이터를 모두 로딩해서 반환하거나, Fetch Join을 사용하여 DTO로 변환하여 반환해야 합니다.
+`
+        }
       ],
       codeExamples: [
         {
@@ -275,6 +353,27 @@ graph LR
         "Spring Security는 서블릿 필터 체인을 통해 DispatcherServlet 진입 전에 보안 로직을 수행합니다.",
         "SecurityContextHolder는 ThreadLocal을 사용하여 애플리케이션 전역에서 인증 정보에 접근할 수 있게 합니다.",
         "인증(Authentication)은 신원 확인, 인가(Authorization)는 권한 부여 프로세스입니다."
+      ],
+      interviewQuestions: [
+        {
+          difficulty: 'Medium',
+          question: "Spring Security의 인증(Authentication) 처리 흐름을 필터 관점에서 설명해주세요.",
+          answer: `
+1. 사용자가 로그인 요청을 보냅니다.
+2. \`UsernamePasswordAuthenticationFilter\`가 요청을 가로채 \`UsernamePasswordAuthenticationToken\`(미인증)을 생성합니다.
+3. \`AuthenticationManager\`(ProviderManager)에게 인증을 위임합니다.
+4. \`AuthenticationProvider\`(DaoAuthenticationProvider)가 \`UserDetailsService\`를 통해 DB에서 유저 정보를 조회하고 비밀번호를 검증합니다.
+5. 인증 성공 시, \`Authentication\` 객체(인증됨)를 생성하여 \`SecurityContextHolder\`에 저장합니다.
+`
+        },
+        {
+          difficulty: 'Hard',
+          question: "ThreadLocal 기반인 SecurityContextHolder가 비동기(@Async) 환경에서 문제가 되는 이유는?",
+          answer: `
+ThreadLocal은 **현재 스레드**에만 데이터를 저장합니다. \`@Async\`나 별도의 스레드를 생성하여 작업을 수행하면, 새로운 스레드는 부모 스레드의 SecurityContext(인증 정보)를 **공유받지 못합니다**.
+해결을 위해서는 \`SecurityContextHolder.setStrategyName(MODE_INHERITABLETHREADLOCAL)\`을 설정하거나, 스프링 시큐리티가 제공하는 \`DelegatingSecurityContextRunnable\` 등으로 컨텍스트를 전파해야 합니다.
+`
+        }
       ]
     },
     {
@@ -333,6 +432,29 @@ DB 부하를 줄이는 가장 효과적인 방법입니다.
         "HikariCP의 풀 사이즈는 무작정 늘리는 것이 아니라 CPU 코어 수와 디스크 I/O 성능에 맞춰 튜닝해야 합니다.",
         "로컬 캐시는 속도가 빠르지만 정합성 맞추기가 어렵고, 글로벌 캐시는 공유가 쉽지만 네트워크 비용이 듭니다.",
         "Bulkhead 패턴을 통해 특정 외부 의존성의 장애가 전체 시스템 장애로 확산되는 것을 방지할 수 있습니다."
+      ],
+      interviewQuestions: [
+        {
+          difficulty: 'Hard',
+          question: "DB 커넥션 풀(HikariCP) 설정을 무조건 크게 늘리면 성능이 좋아질까요?",
+          answer: `
+아닙니다. DB 처리는 결국 I/O보다는 **Disk나 CPU** 속도에 의존적일 때가 많고, 너무 많은 커넥션은 **Context Switching 비용**과 **메모리 사용량**을 증가시켜 오히려 성능을 저하시킬 수 있습니다. 
+일반적으로 \`CPU Core * 2 + Disk Count\` 공식을 권장하며, 모니터링을 통해 적절한 값을 찾아야 합니다.
+`
+        },
+        {
+          difficulty: 'Medium',
+          question: "Look Aside (Lazy Loading) 캐시 전략의 장단점은?",
+          answer: `
+**장점**: 
+- 실제로 사용되는 데이터만 캐시하므로 메모리 효율이 좋습니다.
+- Redis가 다운되어도 DB에서 조회하면 되므로 서비스 장애로 직결되지 않습니다 (물론 DB 부하는 급증함).
+
+**단점**: 
+- 캐시 미스(Miss)가 발생해야 DB를 조회하고 캐시에 넣으므로, 초기 조회 시 지연이 발생합니다.
+- DB 데이터가 변경되었을 때 캐시와 불일치(Inconsistency)가 발생할 수 있어 만료 시간(TTL) 설정이나 갱신 전략이 필요합니다.
+`
+        }
       ]
     },
     {
@@ -393,6 +515,25 @@ graph TD
         "WebFlux는 Event Loop와 Non-blocking I/O를 사용하여 스레드 효율성을 극대화합니다.",
         "Mono는 0~1개, Flux는 0~N개의 데이터를 다루는 리액티브 스트림 구현체입니다.",
         "WebFlux 애플리케이션에서는 블로킹 호출을 절대적으로 피해야 전체 성능이 붕괴되지 않습니다."
+      ],
+      interviewQuestions: [
+        {
+          difficulty: 'Medium',
+          question: "Spring WebFlux에서 블로킹(Blocking) 호출을 하면 어떤 문제가 발생하나요?",
+          answer: `
+WebFlux는 소수의 스레드(Event Loop)로 모든 요청을 처리합니다. 만약 이 중 하나라도 \`Thread.sleep\`이나 블로킹 I/O(JDBC 등)로 인해 멈추게 되면, 해당 스레드는 다른 요청을 처리할 수 없게 됩니다.
+결과적으로 **전체 애플리케이션의 처리량(Throughput)이 급격히 저하**되거나, 요청이 타임아웃되어 시스템 장애로 이어질 수 있습니다. 이를 "Event Loop Blocking"이라고 합니다.
+`
+        },
+        {
+          difficulty: 'Hard',
+          question: "Mono.just()와 Mono.fromSupplier()의 차이점은 무엇인가요?",
+          answer: `
+**실행 시점(Laziness)**의 차이입니다.
+- \`Mono.just(data)\`: 메서드가 **호출되는 시점(Assembly time)**에 데이터가 생성됩니다. 이미 데이터가 준비된 경우에 사용합니다.
+- \`Mono.fromSupplier(() -> data)\`: 누군가가 **구독(Subscribe)하는 시점**에 람다가 실행되어 데이터가 생성됩니다. 비용이 큰 연산이나 DB 조회 등은 반드시 \`fromSupplier\`(또는 \`defer\`)를 사용해야 불필요한 연산을 막을 수 있습니다.
+`
+        }
       ]
     }
   ]
