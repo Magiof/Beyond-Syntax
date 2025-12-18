@@ -67,7 +67,18 @@ export const ModuleDetail: React.FC<Props> = ({ module }) => {
   const [isCompleted, setIsCompleted] = useState(false);
   const pathname = usePathname();
   // Extract trackId from URL /learn/[trackId]/[moduleId]
-  const trackId = pathname?.split('/')[2] || 'unknown-track';
+  const trackId = pathname?.split('/')[2] || 'java';
+
+  // Track별 테마 컬러 매핑
+  const themeColors: Record<string, { primary: string, text: string, bg: string, ring: string, border: string }> = {
+    java: { primary: 'bg-orange-500', text: 'text-orange-500', bg: 'bg-orange-50', ring: 'ring-orange-500', border: 'border-orange-500' },
+    kotlin: { primary: 'bg-purple-600', text: 'text-purple-600', bg: 'bg-purple-50', ring: 'ring-purple-600', border: 'border-purple-600' },
+    spring: { primary: 'bg-emerald-600', text: 'text-emerald-600', bg: 'bg-emerald-50', ring: 'ring-emerald-600', border: 'border-emerald-600' },
+    // Default fallback
+    unknown: { primary: 'bg-blue-500', text: 'text-blue-500', bg: 'bg-blue-50', ring: 'ring-blue-500', border: 'border-blue-500' }
+  };
+
+  const theme = themeColors[trackId] || themeColors.unknown;
 
   useEffect(() => {
     // Check localStorage
@@ -93,8 +104,8 @@ export const ModuleDetail: React.FC<Props> = ({ module }) => {
       {/* Header Section */}
       <header className="mb-12 border-b border-gray-200 pb-8 pt-8">
         <div className="flex items-center gap-2 mb-6">
-          <span className="material-icons text-blue-500 text-sm">book</span>
-          <span className="text-xs font-bold text-blue-500 tracking-wide uppercase">Learning Module</span>
+          <span className={`material-icons ${theme.text} text-sm`}>book</span>
+          <span className={`text-xs font-bold ${theme.text} tracking-wide uppercase`}>Learning Module</span>
         </div>
         <h1 className="text-3xl md:text-4xl font-extrabold text-gray-900 mb-4">
           {module.title}
@@ -128,15 +139,23 @@ export const ModuleDetail: React.FC<Props> = ({ module }) => {
                       if (!inline && (match || isMultiLine || language === 'mermaid')) {
                         // Handle Mermaid diagrams
                         if (language === 'mermaid') {
-                          return <Mermaid chart={content} />;
+                          return (
+                            <div className="mermaid-container my-10 p-8 bg-[#0f172a] rounded-2xl shadow-xl border border-slate-800 overflow-hidden group transition-all hover:shadow-2xl hover:border-slate-700">
+                              <div className="flex items-center gap-2 mb-4 opacity-50 group-hover:opacity-100 transition-opacity">
+                                <span className="material-icons text-slate-400 text-sm">schema</span>
+                                <span className="text-[10px] text-slate-400 font-bold uppercase tracking-widest">Architecture Visualization</span>
+                              </div>
+                              <Mermaid chart={content} />
+                            </div>
+                          );
                         }
 
                         return language ? (
                           <CodeBlockWithLineNumbers code={content} language={language} />
                         ) : (
                           // 언어 미지정 코드블록 (ASCII 아트, 다이어그램 등) - 라이트 배경
-                          <div className="rounded-lg overflow-x-auto my-6 bg-gray-100 border border-gray-200 p-6">
-                             <pre className="whitespace-pre font-mono text-sm text-gray-800 leading-relaxed">{content}</pre>
+                          <div className="rounded-xl overflow-x-auto my-8 bg-slate-50 border border-slate-200 p-8 shadow-inner">
+                             <pre className="whitespace-pre font-mono text-sm text-slate-800 leading-relaxed">{content}</pre>
                           </div>
                         );
                       }
@@ -150,7 +169,7 @@ export const ModuleDetail: React.FC<Props> = ({ module }) => {
                   h1: ({children, ...props}) => <h1 {...props} className="text-3xl font-extrabold text-gray-900 mt-12 mb-6 pb-4 border-b border-gray-200 scroll-mt-28">{children}</h1>,
                   h2: ({children, ...props}) => (
                     <div className="flex items-center gap-3 mb-6 mt-16">
-                      <div className="w-1 h-8 bg-blue-500 rounded-full"></div>
+                      <div className={`w-1 h-8 ${theme.primary} rounded-full`}></div>
                       <h2 className="text-2xl font-bold text-gray-900 scroll-mt-28" {...props}>{children}</h2>
                     </div>
                   ),
@@ -182,7 +201,84 @@ export const ModuleDetail: React.FC<Props> = ({ module }) => {
                   },
                   strong({children}) {
                     return <strong className="font-bold text-gray-900">{children}</strong>;
-                  }
+                  },
+                  blockquote({children}) {
+                    // GitHub Alerts support ([!NOTE], [!TIP], [!IMPORTANT], [!WARNING], [!CAUTION])
+                    // ReactMarkdown typically wraps the content in a 'p' tag as the first child.
+                    const childrenArray = React.Children.toArray(children);
+                    
+                    // Helper to find the alert type and remaining content
+                    let alertType: string | null = null;
+                    let firstChildIdx = -1;
+                    let textNodeIdx = -1;
+                    
+                    for (let i = 0; i < childrenArray.length; i++) {
+                      const child: any = childrenArray[i];
+                      if (child && child.props && child.props.children) {
+                        const grandChildren = React.Children.toArray(child.props.children);
+                        for (let j = 0; j < grandChildren.length; j++) {
+                          const grandChild = grandChildren[j];
+                          if (typeof grandChild === 'string') {
+                            const match = grandChild.match(/^\s*\[!(NOTE|TIP|IMPORTANT|WARNING|CAUTION)\]\s*/i);
+                            if (match) {
+                              alertType = match[1].toUpperCase();
+                              firstChildIdx = i;
+                              textNodeIdx = j;
+                              break;
+                            }
+                          }
+                        }
+                      }
+                      if (alertType) break;
+                    }
+
+                    if (alertType) {
+                      const style = {
+                        NOTE: { bg: 'bg-blue-50', border: 'border-blue-500', text: 'text-blue-800', icon: 'info', iconColor: 'text-blue-500', titleColor: 'text-blue-500' },
+                        TIP: { bg: 'bg-emerald-50', border: 'border-emerald-500', text: 'text-emerald-800', icon: 'lightbulb', iconColor: 'text-emerald-500', titleColor: 'text-emerald-500' },
+                        IMPORTANT: { bg: 'bg-purple-50', border: 'border-purple-500', text: 'text-purple-800', icon: 'report_problem', iconColor: 'text-purple-500', titleColor: 'text-purple-500' },
+                        WARNING: { bg: 'bg-orange-50', border: 'border-orange-500', text: 'text-orange-800', icon: 'warning', iconColor: 'text-orange-500', titleColor: 'text-orange-500' },
+                        CAUTION: { bg: 'bg-red-50', border: 'border-red-500', text: 'text-red-800', icon: 'dangerous', iconColor: 'text-red-500', titleColor: 'text-red-500' }
+                      }[alertType] || { bg: 'bg-blue-50', border: 'border-blue-500', text: 'text-blue-800', icon: 'info', iconColor: 'text-blue-500', titleColor: 'text-blue-500' };
+
+                      // Create a modified first child with the marker removed
+                      const targetChild: any = childrenArray[firstChildIdx];
+                      const targetGrandChildren = React.Children.toArray(targetChild.props.children);
+                      const modifiedGrandChildren = [
+                        ...targetGrandChildren.slice(0, textNodeIdx),
+                        (targetGrandChildren[textNodeIdx] as string).replace(/^\s*\[!(NOTE|TIP|IMPORTANT|WARNING|CAUTION)\]\s*/i, ''),
+                        ...targetGrandChildren.slice(textNodeIdx + 1)
+                      ];
+
+                      const modifiedChild = React.cloneElement(targetChild, { 
+                        children: modifiedGrandChildren,
+                        className: (targetChild.props.className || '') + ' !m-0 line-relaxed'
+                      });
+
+                      const otherChildren = [
+                        ...childrenArray.slice(0, firstChildIdx),
+                        modifiedChild,
+                        ...childrenArray.slice(firstChildIdx + 1)
+                      ];
+
+                      return (
+                        <div className={`my-8 border-l-4 ${style.border} ${style.bg} p-5 rounded-r-xl shadow-sm border-y border-r border-opacity-10 transition-all hover:shadow-md`}>
+                          <div className="flex items-center gap-2.5 mb-3">
+                            <span className={`material-icons ${style.iconColor} text-2xl`}>{style.icon}</span>
+                            <span className={`font-black uppercase text-xs tracking-widest ${style.titleColor}`}>{alertType}</span>
+                          </div>
+                          <div className={`text-base leading-relaxed ${style.text} font-medium`}>
+                            {otherChildren}
+                          </div>
+                        </div>
+                      );
+                    }
+                                        return (
+                        <blockquote className="border-l-4 border-slate-300 pl-8 my-10 italic text-slate-600 bg-slate-50/50 py-6 pr-8 rounded-r-2xl shadow-inner border-y border-r border-slate-100">
+                          {children}
+                        </blockquote>
+                      );
+                    }
                 }}
               >
                 {module.content}
@@ -214,7 +310,7 @@ export const ModuleDetail: React.FC<Props> = ({ module }) => {
           {module.codeExamples && module.codeExamples.length > 0 && (
             <section className="mt-16">
               <div className="flex items-center gap-3 mb-8">
-                <span className="material-icons text-blue-500">code</span>
+                <span className={`material-icons ${theme.text}`}>code</span>
                 <h2 className="text-xl font-bold text-gray-900">실전 코드 예제</h2>
               </div>
               <div className="space-y-8">
@@ -286,10 +382,10 @@ export const ModuleDetail: React.FC<Props> = ({ module }) => {
             <button
               onClick={handleComplete}
               className={`
-                flex items-center gap-2 px-8 py-3 rounded-full font-bold transition-colors shadow-lg
+                flex items-center gap-2 px-8 py-3 rounded-full font-bold transition-all shadow-lg hover:scale-105 active:scale-95
                 ${isCompleted 
                   ? 'bg-green-100 text-green-700 hover:bg-green-200 ring-2 ring-green-500 ring-offset-2' 
-                  : 'bg-gray-900 text-white hover:bg-gray-800'
+                  : `${theme.primary} text-white hover:opacity-90 ring-offset-2 hover:ring-2 ${theme.ring}`
                 }
               `}
             >
