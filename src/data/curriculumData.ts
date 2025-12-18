@@ -38,12 +38,12 @@ export interface Track {
 }
 
 // Import all phases
-import { javaBasicsPhase } from './java/phase0-basics';
-import { javaAdvancedPhase } from './java/phase1-advanced';
-import { kotlinBasicsPhase } from './kotlin/phase2-basics';
-import { kotlinAdvancedPhase } from './kotlin/phase3-advanced';
-import { springBasicsPhase } from './spring/phase4-basics';
-import { springAdvancedPhase } from './spring/phase5-advanced';
+import { javaBasicsPhase } from './java/phase1-basics';
+import { javaAdvancedPhase } from './java/phase2-advanced';
+import { kotlinBasicsPhase } from './kotlin/phase1-basics';
+import { kotlinAdvancedPhase } from './kotlin/phase2-advanced';
+import { springBasicsPhase } from './spring/phase1-basics';
+import { springAdvancedPhase } from './spring/phase2-advanced';
 
 
 // NEW: Track별로 Phase 그룹화

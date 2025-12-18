@@ -1,12 +1,12 @@
 import type { Phase } from '../curriculumData';
 
 export const javaBasicsPhase: Phase = {
-    id: "phase0",
-    title: "Phase 0: Java 완전 기초",
+    id: "java-phase1",
+    title: "Phase 1: Java 완전 기초",
     goal: "Java 문법을 처음부터 체계적으로 학습합니다. 변수, 조건문, 반복문, 클래스, 객체지향까지 공식 문서 수준으로 상세하게 다룹니다.",
     modules: [
         {
-            id: "p0-m1",
+            id: "java-introduction",
             title: "Chapter 1: Java란 무엇인가",
             topic: "Java의 역사, 특징, JDK/JRE/JVM의 차이, 첫 프로그램 작성",
             content: `
@@ -188,7 +188,7 @@ public static void main(String[] args)
             ]
         },
         {
-            id: "p0-m2",
+            id: "variables-and-datatypes",
             title: "Chapter 2: 변수와 자료형",
             topic: "변수 선언, 기본형 8가지, 참조형, 형변환, 리터럴, 상수",
             content: `
@@ -459,7 +459,7 @@ double result2 = (double) a / b; // 2.5 (원하는 결과)
             ]
         },
         {
-            id: "p0-m3",
+            id: "operators",
             title: "Chapter 3: 연산자",
             topic: "산술, 비교, 논리, 대입, 비트, 삼항 연산자와 연산자 우선순위",
             content: `
@@ -675,7 +675,7 @@ System.out.println(status);  // "성인"
             ]
         },
         {
-            id: "p0-m4",
+            id: "control-flow",
             title: "Chapter 4: 조건문",
             topic: "if-else, switch-case, switch expression (Java 14+)",
             content: `
@@ -960,7 +960,7 @@ System.out.println(month + "월은 " + days + "일");
             ]
         },
         {
-            id: "p0-m5",
+            id: "loops",
             title: "Chapter 5: 반복문",
             topic: "for, while, do-while, enhanced for, break/continue, 중첩 반복문",
             content: `
@@ -1252,7 +1252,7 @@ for (int dan = 2; dan <= 9; dan++) {
             ]
         },
         {
-            id: "p0-m6",
+            id: "arrays",
             title: "Chapter 6: 배열",
             topic: "1차원 배열, 다차원 배열, 배열 복사, Arrays 유틸리티",
             content: `
@@ -1540,7 +1540,7 @@ public class Array2DDemo {
             ]
         },
         {
-            id: "p0-m7",
+            id: "strings",
             title: "Chapter 7: 문자열 (String)",
             topic: "String 클래스, 불변성, StringBuilder, 주요 메서드, 문자열 비교",
             content: `
@@ -1823,7 +1823,7 @@ sb.toString();          // String으로 변환
             ]
         },
         {
-            id: "p0-m8",
+            id: "methods",
             title: "Chapter 8: 메서드 (Method)",
             topic: "메서드 정의, 매개변수, 반환값, 오버로딩, 가변인자, 재귀",
             content: `
@@ -2162,7 +2162,7 @@ public static int factorial(int n) {
             ]
         },
         {
-            id: "p0-m9",
+            id: "class-and-object",
             title: "Chapter 9: 클래스와 객체",
             topic: "클래스 정의, 필드, 생성자, this 키워드, 인스턴스 vs 클래스 변수",
             content: `
@@ -2531,7 +2531,7 @@ public class Main {
             ]
         },
         {
-            id: "p0-m10",
+            id: "variable-scope-and-static",
             title: "Chapter 10: 접근 제어자와 캡슐화",
             topic: "public/private/protected/default, getter/setter, 정보 은닉",
             content: `
@@ -2875,7 +2875,7 @@ public class OtherPackage {
             ]
         },
         {
-            id: "p0-m11",
+            id: "constructors",
             title: "Chapter 11: 상속 (Inheritance)",
             topic: "extends, 메서드 오버라이딩, super 키워드, Object 클래스",
             content: `
@@ -3251,7 +3251,7 @@ public class Main {
             ]
         },
         {
-            id: "p0-m12",
+            id: "packages-and-access-modifiers",
             title: "Chapter 12: 다형성 (Polymorphism)",
             topic: "업캐스팅/다운캐스팅, instanceof, 동적 바인딩",
             content: `
@@ -3606,7 +3606,7 @@ public class Main {
             ]
         },
         {
-            id: "p0-m13",
+            id: "inheritance",
             title: "Chapter 13: 추상 클래스와 인터페이스",
             topic: "abstract 클래스, interface, default 메서드, 다중 구현",
             content: `
@@ -3996,7 +3996,7 @@ public class Main {
             ]
         },
         {
-            id: "p0-m14",
+            id: "polymorphism",
             title: "Chapter 14: 예외 처리",
             topic: "try-catch-finally, throw/throws, 체크/언체크 예외, 사용자 정의 예외",
             content: `
@@ -4359,7 +4359,7 @@ public class Main {
             ]
         },
         {
-            id: "p0-m15",
+            id: "abstract-class",
             title: "Chapter 15: 컬렉션 프레임워크",
             topic: "List, Set, Map, Iterator, ArrayList vs LinkedList",
             content: `
@@ -4739,7 +4739,7 @@ public class MapDemo {
             ]
         },
         {
-            id: "p0-m16",
+            id: "interface",
             title: "Chapter 16: 제네릭 (Generics)",
             topic: "제네릭 클래스/메서드, 타입 파라미터, 와일드카드, 타입 소거",
             content: `
@@ -5118,7 +5118,7 @@ public class WildcardDemo {
             ]
         },
         {
-            id: "p0-m17",
+            id: "lambda-expressions",
             title: "Chapter 17: 람다 표현식",
             topic: "함수형 인터페이스, 람다 문법, 메서드 참조, 클로저",
             content: `
@@ -5402,7 +5402,7 @@ public class CustomFunctionalInterface {
             ]
         },
         {
-            id: "p0-m18",
+            id: "stream-api",
             title: "Chapter 18: 스트림 API",
             topic: "Stream 생성, 중간 연산, 최종 연산, 병렬 스트림",
             content: `

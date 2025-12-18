@@ -1,12 +1,12 @@
 import type { Phase } from '../curriculumData';
 
 export const javaAdvancedPhase: Phase = {
-  id: 'phase1',
-  title: 'Phase 1: Java 심화 (Deep Dive)',
+  id: 'java-phase2',
+  title: 'Phase 2: Java 심화 (Deep Dive)',
   goal: 'JVM의 내부 동작 원리와 메모리 모델, 동시성, 고성능 I/O까지 Java의 깊은 곳을 탐험합니다.',
   modules: [
     {
-      id: 'p1-m1',
+      id: 'jvm-architecture',
       title: 'Chapter 1: JVM 아키텍처와 바이트코드',
       topic: 'Class Loader, Runtime Data Areas, Execution Engine, Bytecode',
       content: `
@@ -106,7 +106,7 @@ public int add(int a, int b) {
       ]
     },
     {
-      id: 'p1-m2',
+      id: 'memory-model-and-gc',
       title: 'Chapter 2: 메모리 모델과 GC 튜닝',
       topic: 'Heap Structure, GC Algorithms (G1, ZGC), Reference Objects',
       content: `
@@ -179,7 +179,7 @@ Strong Reference 외에도 메모리 관리를 유연하게 할 수 있는 참�
       ]
     },
     {
-      id: 'p1-m3',
+      id: 'concurrency-and-multithreading',
       title: 'Chapter 3: 동시성 프로그래밍의 깊은 곳',
       topic: 'CPU Cache, JMM, Volatile, CAS, AQS',
       content: `
@@ -247,7 +247,7 @@ Java의 \`ReentrantLock\`, \`CountDownLatch\`, \`Semaphore\` 등의 기반이 �
       ]
     },
     {
-      id: 'p1-m4',
+      id: 'reflection-and-dynamic-proxy',
       title: 'Chapter 4: 리플렉션과 동적 프록시',
       topic: 'Reflection API, Dynamic Proxy, CGLIB, Annotation Processor',
       content: `
@@ -316,7 +316,7 @@ Lombok(\`@Getter\`, \`@Setter\`)은 어떻게 동작할까요?
       ]
     },
     {
-      id: 'p1-m5',
+      id: 'java-nio',
       title: 'Chapter 5: Java NIO와 고성능 I/O',
       topic: 'Blocking vs Non-Blocking, Buffer, Channel, Selector, Netty',
       content: `
@@ -379,7 +379,7 @@ NIO는 로우 레벨이고 복잡해서 직접 사용하기 어렵습니다. 보
       ]
     },
     {
-      id: "p1-m6",
+      id: 'modern-java-evolution',
       title: "Chapter 6: Modern Java Evolution",
       topic: "Java 21, Virtual Threads, Record, Pattern Matching",
       content: `

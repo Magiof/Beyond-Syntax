@@ -1,12 +1,12 @@
 import type { Phase } from '../curriculumData';
 
 export const kotlinBasicsPhase: Phase = {
-  id: "phase2",
-  title: "Phase 2: Kotlin 기초",
+  id: "kotlin-phase1",
+  title: "Phase 1: Kotlin 기초",
   goal: "Kotlin의 기본 문법과 특징을 학습합니다. Java와의 차이점, Null Safety, 함수형 프로그래밍 기초를 다룹니다.",
   modules: [
     {
-      id: "k0-m1",
+      id: "kotlin-introduction",
       title: "Chapter 1: Kotlin 시작하기",
       topic: "Kotlin이란, Java와의 비교, 기본 문법, Hello World",
       content: `
@@ -247,7 +247,7 @@ fun main() {
       ]
     },
     {
-      id: "k0-m2",
+      id: "variables-and-types",
       title: "Chapter 2: 변수와 타입",
       topic: "val/var, 기본 타입, Any/Unit/Nothing, 타입 변환",
       content: `
@@ -532,7 +532,7 @@ fun main() {
       ]
     },
     {
-      id: "k0-m3",
+      id: "null-safety",
       title: "Chapter 3: Null Safety",
       topic: "Nullable 타입, ?. ?:, !!, let, lateinit",
       content: `
@@ -814,7 +814,7 @@ fun main() {
       ]
     },
     {
-      id: "k0-m4",
+      id: "control-flow",
       title: "Chapter 4: 조건문과 반복문",
       topic: "if 표현식, when, for, while, 범위 연산자",
       content: `
@@ -1143,7 +1143,7 @@ println('m' in letters)  // true
       ]
     },
     {
-      id: "k0-m5",
+      id: "functions",
       title: "Chapter 5: 함수",
       topic: "함수 정의, 기본 인자, 이름 있는 인자, 확장 함수, 중위 함수",
       content: `
@@ -1467,7 +1467,7 @@ fun main() {
       ]
     },
     {
-      id: "k0-m6",
+      id: "classes-and-objects",
       title: "Chapter 6: 클래스와 객체",
       topic: "생성자, 프로퍼티, data class, object, companion object",
       content: `
@@ -1684,7 +1684,7 @@ fun main() {
       ]
     },
     {
-      id: "k0-m7",
+      id: "inheritance-and-interfaces",
       title: "Chapter 7: 상속과 인터페이스",
       topic: "open/final, 상속, override, 인터페이스, sealed class",
       content: `
@@ -1885,7 +1885,7 @@ fun main() {
       ]
     },
     {
-      id: "k0-m8",
+      id: "collections",
       title: "Chapter 8: 컬렉션",
       topic: "List, Set, Map, 불변/가변, 컬렉션 함수",
       content: `
@@ -2083,7 +2083,7 @@ fun main() {
       ]
     },
     {
-      id: "k0-m9",
+      id: "lambdas-and-higher-order-functions",
       title: "Chapter 9: 고차 함수와 람다",
       topic: "람다 표현식, 고차 함수, it, 함수 참조",
       content: `
@@ -2298,7 +2298,7 @@ fun main() {
       ]
     },
     {
-      id: "k0-m10",
+      id: "scope-functions",
       title: "Chapter 10: 스코프 함수",
       topic: "let, run, with, apply, also",
       content: `

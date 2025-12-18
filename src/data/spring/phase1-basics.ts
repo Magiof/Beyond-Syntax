@@ -1,12 +1,12 @@
 import type { Phase } from '../curriculumData';
 
 export const springBasicsPhase: Phase = {
-  id: "phase4",
-  title: "Phase 4: Spring 기초",
+  id: "spring-phase1",
+  title: "Phase 1: Spring 기초",
   goal: "Spring 프레임워크의 핵심 개념과 Spring Boot를 학습합니다. IoC/DI, MVC, REST API, JPA를 다룹니다.",
   modules: [
     {
-      id: "sp-m1",
+      id: "spring-introduction",
       title: "Chapter 1: Spring 프레임워크 소개",
       topic: "Spring이란, 핵심 모듈, Spring vs Spring Boot",
       content: `
@@ -93,7 +93,7 @@ class HelloController {
       ]
     },
     {
-      id: "sp-m2",
+      id: "ioc-and-di",
       title: "Chapter 2: IoC와 DI",
       topic: "빈(Bean), @Component, @Autowired, 생성자 주입",
       content: `
@@ -232,7 +232,7 @@ public class UserController {
       ]
     },
     {
-      id: "sp-m3",
+      id: "springboot-start",
       title: "Chapter 3: Spring Boot 시작하기",
       topic: "application.yml, 프로파일, 자동 설정, 로깅",
       content: `
@@ -335,7 +335,7 @@ public class AppService {
       ]
     },
     {
-      id: "sp-m4",
+      id: "spring-mvc-basics",
       title: "Chapter 4: Spring MVC 기초",
       topic: "@Controller, @RequestMapping, Model, View",
       content: `
@@ -443,7 +443,7 @@ public class ProductController {
       ]
     },
     {
-      id: "sp-m5",
+      id: "rest-api-development",
       title: "Chapter 5: REST API 개발",
       topic: "@RestController, ResponseEntity, DTO",
       content: `
@@ -564,7 +564,7 @@ public class PostController {
       ]
     },
     {
-      id: "sp-m6",
+      id: "spring-data-jpa",
       title: "Chapter 6: Spring Data JPA",
       topic: "@Entity, Repository, JPQL, 연관관계",
       content: `
@@ -687,7 +687,7 @@ public interface PostRepository extends JpaRepository<Post, Long> {
       ]
     },
     {
-      id: "sp-m7",
+      id: "exception-handling-and-validation",
       title: "Chapter 7: 예외 처리와 검증",
       topic: "@Valid, @ExceptionHandler, @ControllerAdvice",
       content: `
@@ -803,7 +803,7 @@ public class GlobalExceptionHandler {
       ]
     },
     {
-      id: "sp-m8",
+      id: "spring-testing",
       title: "Chapter 8: 테스트",
       topic: "@SpringBootTest, @WebMvcTest, MockMvc, @DataJpaTest",
       content: `

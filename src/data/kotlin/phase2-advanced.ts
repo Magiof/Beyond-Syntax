@@ -1,12 +1,12 @@
 import type { Phase } from '../curriculumData';
 
 export const kotlinAdvancedPhase: Phase = {
-  id: "phase3",
-  title: "Phase 3: Kotlin 심화 & 코루틴",
+  id: "kotlin-phase2",
+  title: "Phase 2: Kotlin 심화 & 코루틴",
   goal: "코틀린의 '마법'을 바이트코드 레벨에서 해부하고, 코루틴의 내부 상태 머신을 이해하며, 실전 패턴을 익힙니다.",
   modules: [
     {
-      id: "p3-m1",
+      id: "kotlin-bytecode-internals",
       title: "Chapter 1: Kotlin Bytecode Magic",
       topic: "Inline Functions, Reified, Value Class, Null Safety Internals",
       content: `
@@ -137,7 +137,7 @@ fun main() {
       ]
     },
     {
-      id: "p3-m2",
+      id: "advanced-generics-and-delegation",
       title: "Chapter 2: Advanced Generics & Delegation",
       topic: "Variance (in/out), Star Projection, Delegation Pattern (by)",
       content: `
@@ -285,7 +285,7 @@ Kotlin User
       ]
     },
     {
-      id: "p3-m3",
+      id: "coroutine-internals",
       title: "Chapter 3: Coroutine Internals",
       topic: "CPS (Continuation-Passing Style), State Machine, Suspend Functions",
       content: `
@@ -388,7 +388,7 @@ sequenceDiagram
       ]
     },
     {
-      id: "p3-m4",
+      id: "structured-concurrency",
       title: "Chapter 4: Structured Concurrency & Patterns",
       topic: "Job Hierarchy, Cancellation Propagation, Exception Handling, SupervisorJob",
       content: `
@@ -488,7 +488,7 @@ suspend fun safeParallel() = supervisorScope {
       ]
     },
     {
-      id: "p3-m5",
+      id: "kotlin-flow",
       title: "Chapter 5: Reactive Programming with Flow",
       topic: "Cold/Hot Streams, Backpressure, StateFlow vs SharedFlow",
       content: `
@@ -557,7 +557,7 @@ graph LR
       ]
     },
     {
-      id: "p3-m6",
+      id: "kotlin-dsl",
       title: "Chapter 6: Kotlin DSL & Meta-programming",
       topic: "Type-Safe Builders, Lambda with Receiver, KSP",
       content: `

@@ -1,12 +1,12 @@
 import type { Phase } from '../curriculumData';
 
 export const springAdvancedPhase: Phase = {
-  id: "phase5",
-  title: "Phase 5: Spring Boot 심화 & 성능 튜닝",
+  id: "spring-phase2",
+  title: "Phase 2: Spring Boot 심화 & 성능 튜닝",
   goal: "애플리케이션의 시동 원리부터 대용량 트래픽 처리를 위한 아키텍처와 성능 튜닝 기법을 마스터합니다.",
   modules: [
     {
-      id: "p5-m1",
+      id: "springboot-autoconfiguration",
       title: "Chapter 1: Spring Boot AutoConfiguration 원리",
       topic: "EnableAutoConfiguration, Condition, Starter",
       content: `
@@ -62,7 +62,7 @@ graph TD
       ]
     },
     {
-      id: "p5-m2",
+      id: "aop-and-transactional",
       title: "Chapter 2: AOP와 Transactional의 비밀",
       topic: "Proxy Pattern, CGLIB, Transaction Propagation, Isolation",
       content: `
@@ -173,7 +173,7 @@ Spring AOP는 **프록시 패턴**을 기반으로 동작합니다. 클라이언
       ]
     },
     {
-      id: "p5-m3",
+      id: "jpa-internals-and-tuning",
       title: "Chapter 3: JPA Internals & Query Tuning",
       topic: "Persistence Context, Dirty Checking, N+1 Problem, Fetch Join, OSIV",
       content: `
@@ -299,7 +299,7 @@ public List<PostDto> getPostsOptimized() {
       ]
     },
     {
-      id: "p5-m4",
+      id: "spring-security-architecture",
       title: "Chapter 4: Spring Security Architecture",
       topic: "FilterChainProxy, SecurityContext, Authentication vs Authorization",
       content: `
@@ -377,7 +377,7 @@ ThreadLocal은 **현재 스레드**에만 데이터를 저장합니다. \`@Async
       ]
     },
     {
-      id: "p5-m5",
+      id: "high-traffic-and-performance",
       title: "Chapter 5: 대용량 트래픽 처리 & 성능 튜닝",
       topic: "Thread Pool, Connection Pool, Caching, Bulkhead",
       content: `
@@ -458,7 +458,7 @@ DB 부하를 줄이는 가장 효과적인 방법입니다.
       ]
     },
     {
-      id: "p5-m6",
+      id: "spring-webflux",
       title: "Chapter 6: Spring WebFlux & Reactor",
       topic: "Non-blocking I/O, Netty, Mono, Flux, Backpressure",
       content: `
