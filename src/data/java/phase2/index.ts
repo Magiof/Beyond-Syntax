@@ -1,21 +1,17 @@
 import type { Phase } from '../../curriculumData';
-import { jvmArchitecture } from './jvm-architecture';
-import { memoryModelAndGc } from './memory-model-and-gc';
-import { concurrencyAndMultithreading } from './concurrency-and-multithreading';
-import { reflectionAndDynamicProxy } from './reflection-and-dynamic-proxy';
-import { javaNio } from './java-nio';
-import { modernJavaEvolution } from './modern-java-evolution';
+import { exceptionHandling } from './exception-handling';
+import { genericsAndEnums } from './generics-and-enums';
+import { collectionsFramework } from './collections-framework';
+import { javaIoAndNio } from './java-io-and-nio';
 
 export const javaPhase2: Phase = {
     id: "java-phase2",
-    title: "Phase 2: Java 심화 (Deep Dive)",
-    goal: "JVM의 내부 동작 원리와 메모리 모델, 동시성, 고성능 I/O까지 Java의 깊은 곳을 탐험합니다.",
+    title: "Phase 2: 자바 마스터리 - 타입 시스템과 컬렉션",
+    goal: "자바의 견고함을 지탱하는 예외 처리 전략과 타입 안전한 제네릭, 그리고 핵심 자료구조인 컬렉션 프레임워크를 완벽히 이해합니다.",
     modules: [
-        jvmArchitecture,
-        memoryModelAndGc,
-        concurrencyAndMultithreading,
-        reflectionAndDynamicProxy,
-        javaNio,
-        modernJavaEvolution
+        exceptionHandling,
+        genericsAndEnums,
+        collectionsFramework,
+        javaIoAndNio
     ]
 };

@@ -9,8 +9,8 @@ import { exceptionHandlingAndValidation } from './exception-handling-and-validat
 
 export const springPhase1: Phase = {
     id: "spring-phase1",
-    title: "Phase 1: Spring 기초",
-    goal: "Spring 프레임워크의 핵심 개념과 Spring Boot를 학습합니다. IoC/DI, MVC, REST API, JPA를 다룹니다.",
+    title: "Phase 1: 오브젝트와 의존관계 (IoC/DI의 본질)",
+    goal: "전형적인 DAO 리팩토링 과정을 통해 관심사를 분리하고, 제어의 역전(IoC)과 의존관계 주입(DI)이 왜 필요한지 본질적으로 이해합니다.",
     modules: [
         springIntroduction,
         iocAndDi,

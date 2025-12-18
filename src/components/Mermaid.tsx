@@ -17,6 +17,7 @@ const Mermaid: React.FC<MermaidProps> = ({ chart }) => {
       theme: 'dark',
       securityLevel: 'loose',
       fontFamily: 'ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace',
+      fontSize: 18,
       themeVariables: {
         darkMode: true,
         background: '#1e1e1e',

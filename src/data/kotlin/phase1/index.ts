@@ -1,29 +1,21 @@
 import type { Phase } from '../../curriculumData';
-import { kotlinIntroduction } from './kotlin-introduction';
+import { atomicFundamentals } from './atomic-fundamentals';
 import { variablesAndTypes } from './variables-and-types';
-import { nullSafety } from './null-safety';
 import { controlFlow } from './control-flow';
 import { functions } from './functions';
-import { classesAndObjects } from './classes-and-objects';
-import { inheritanceAndInterfaces } from './inheritance-and-interfaces';
 import { collections } from './collections';
 import { lambdasAndHigherOrderFunctions } from './lambdas-and-higher-order-functions';
-import { scopeFunctions } from './scope-functions';
 
 export const kotlinPhase1: Phase = {
     id: "kotlin-phase1",
-    title: "Phase 1: Kotlin 기초",
-    goal: "Kotlin의 기본 문법과 특징을 학습합니다. Java와의 차이점, Null Safety, 함수형 프로그래밍 기초를 다룹니다.",
+    title: "Phase 1: 아토믹 코틀린 - 기초와 함수형 사고의 시작",
+    goal: "아토믹 학습법을 통해 코틀린의 기초를 다지고, 함수형 프로그래밍의 핵심인 람다와 콜렉션을 깊게 이해합니다.",
     modules: [
-        kotlinIntroduction,
+        atomicFundamentals,
         variablesAndTypes,
-        nullSafety,
         controlFlow,
         functions,
-        classesAndObjects,
-        inheritanceAndInterfaces,
-        collections,
         lambdasAndHigherOrderFunctions,
-        scopeFunctions
+        collections
     ]
 };

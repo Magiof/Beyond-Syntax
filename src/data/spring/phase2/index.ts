@@ -8,8 +8,8 @@ import { springWebflux } from './spring-webflux';
 
 export const springPhase2: Phase = {
     id: "spring-phase2",
-    title: "Phase 2: Spring Boot 심화 & 성능 튜닝",
-    goal: "애플리케이션의 시동 원리부터 대용량 트래픽 처리를 위한 아키텍처와 성능 튜닝 기법을 마스터합니다.",
+    title: "Phase 2: 서비스 추상화와 전략적 설계 (PSA와 예외 전략)",
+    goal: "테스트 가능한 설계를 바탕으로 서비스 추상화(PSA)의 강력함을 체험하고, 일관된 예외 처리 및 JPA 내부 동작 원리를 심층 학습합니다.",
     modules: [
         springbootAutoconfiguration,
         aopAndTransactional,
