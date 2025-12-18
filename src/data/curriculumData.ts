@@ -38,12 +38,12 @@ export interface Track {
 }
 
 // Import all phases
-import { javaBasicsPhase } from './java/phase1-basics';
-import { javaAdvancedPhase } from './java/phase2-advanced';
-import { kotlinBasicsPhase } from './kotlin/phase1-basics';
-import { kotlinAdvancedPhase } from './kotlin/phase2-advanced';
-import { springBasicsPhase } from './spring/phase1-basics';
-import { springAdvancedPhase } from './spring/phase2-advanced';
+import { javaPhase1 } from './java/phase1';
+import { javaPhase2 } from './java/phase2';
+import { kotlinPhase1 } from './kotlin/phase1';
+import { kotlinPhase2 } from './kotlin/phase2';
+import { springPhase1 } from './spring/phase1';
+import { springPhase2 } from './spring/phase2';
 
 
 // NEW: Track별로 Phase 그룹화
@@ -51,10 +51,10 @@ export const trackData: Track[] = [
   {
     id: "java",
     title: "Java",
-    description: "자바 기초부터 JVM 심화까지",
     icon: "coffee",
     color: "orange",
-    phases: [javaBasicsPhase, javaAdvancedPhase]
+    description: "기초부터 심화까지, 자바 백엔드 개발자의 길",
+    phases: [javaPhase1, javaPhase2]
   },
   {
     id: "kotlin",
@@ -62,7 +62,7 @@ export const trackData: Track[] = [
     description: "코틀린 기초부터 코루틴까지",
     icon: "bolt",
     color: "purple",
-    phases: [kotlinBasicsPhase, kotlinAdvancedPhase]
+    phases: [kotlinPhase1, kotlinPhase2]
   },
   {
     id: "spring",
@@ -70,16 +70,16 @@ export const trackData: Track[] = [
     description: "스프링 부트와 백엔드 개발",
     icon: "eco",
     color: "green",
-    phases: [springBasicsPhase, springAdvancedPhase]
+    phases: [springPhase1, springPhase2]
   }
 ];
 
 // 기존 curriculumData도 유지 (하위 호환성)
 export const curriculumData: Phase[] = [
-  javaBasicsPhase,
-  javaAdvancedPhase,
-  kotlinBasicsPhase,
-  kotlinAdvancedPhase,
-  springBasicsPhase,
-  springAdvancedPhase,
+  javaPhase1,
+  javaPhase2,
+  kotlinPhase1,
+  kotlinPhase2,
+  springPhase1,
+  springPhase2,
 ];
