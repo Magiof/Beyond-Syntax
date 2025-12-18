@@ -2,11 +2,13 @@ import { redirect } from 'next/navigation';
 import { trackData } from '@/data/curriculumData';
 
 export default function Home() {
-  // Find the first available module
-  const firstModuleId = trackData[0]?.phases[0]?.modules[0]?.id;
+  // Find the first available track and module
+  const firstTrack = trackData[0];
+  const firstModule = firstTrack?.phases[0]?.modules[0];
   
-  if (firstModuleId) {
-    redirect(`/learn/${firstModuleId}`);
+  if (firstTrack && firstModule) {
+    const url = `/learn/${firstTrack.id}/${firstModule.id}`;
+    redirect(url);
   }
 
   return (

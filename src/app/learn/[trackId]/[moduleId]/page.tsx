@@ -4,14 +4,17 @@ import { ModuleDetail } from '@/components/ModuleDetail';
 import React from 'react';
 
 // Use standard params type for Next.js 15
-type Params = Promise<{ moduleId: string }>;
+type Params = Promise<{ trackId: string; moduleId: string }>;
 
 export async function generateStaticParams() {
   const params = [];
   for (const track of trackData) {
     for (const phase of track.phases) {
       for (const module of phase.modules) {
-        params.push({ moduleId: module.id });
+        params.push({ 
+          trackId: track.id,
+          moduleId: module.id 
+        });
       }
     }
   }
@@ -19,19 +22,21 @@ export async function generateStaticParams() {
 }
 
 export default async function LearnPage({ params }: { params: Params }) {
-  const { moduleId } = await params;
+  const { trackId, moduleId } = await params;
 
-  // Find module data
+  // Find module data within the specific track
+  const track = trackData.find(t => t.id === trackId);
   let moduleData;
-  for (const track of trackData) {
+
+  if (track) {
     for (const phase of track.phases) {
+      if (!phase) continue;
       const found = phase.modules.find(m => m.id === moduleId);
       if (found) {
         moduleData = found;
         break;
       }
     }
-    if (moduleData) break;
   }
 
   if (!moduleData) {
