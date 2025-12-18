@@ -204,13 +204,29 @@ export const Sidebar: React.FC<Props> = ({ tracks }) => {
       </nav>
 
       {/* User Footer */}
-      <div className="p-4 border-t border-gray-200 flex items-center gap-3">
-        <div className="w-8 h-8 rounded-full bg-yellow-400 flex items-center justify-center text-white text-sm font-bold shadow-sm">
-          🔥
-        </div>
-        <div className="flex-1 min-w-0">
-          <p className="text-sm font-medium text-gray-900 truncate">Made by <Link href="https://about.magiof.com" className="text-blue-600 hover:underline font-bold">황성원</Link></p>
-          {/* <p className="text-xs text-gray-500 truncate">Keep going! 🔥</p> */}
+      <div className="p-6 border-t border-gray-100 bg-gray-50/30">
+        <div className="flex items-center gap-4 group">
+          <div className="relative">
+            <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-blue-600 to-purple-600 flex items-center justify-center text-white shadow-md group-hover:shadow-lg transition-all duration-300 overflow-hidden">
+               <span className="material-icons text-lg">person</span>
+            </div>
+            <div className="absolute -bottom-0.5 -right-0.5 w-3.5 h-3.5 bg-green-500 border-2 border-white rounded-full shadow-sm"></div>
+          </div>
+          <div className="flex-1 min-w-0">
+            <p className="text-[10px] uppercase tracking-widest text-gray-400 font-bold mb-0.5">Architect</p>
+            <p className="text-sm font-bold text-gray-900 truncate">
+               <Link href="https://about.magiof.com" target="_blank" className="hover:text-blue-600 transition-colors">
+                 황성원
+               </Link>
+            </p>
+          </div>
+          <Link 
+            href="https://github.com/magiof" 
+            target="_blank"
+            className="w-8 h-8 flex items-center justify-center rounded-full text-gray-400 hover:bg-white hover:text-gray-900 hover:shadow-sm transition-all"
+          >
+            <span className="material-icons text-xl">code</span>
+          </Link>
         </div>
       </div>
     </aside>
