@@ -61,22 +61,31 @@ const CodeBlockWithLineNumbers: React.FC<{ code: string; language: string; title
   );
 };
 
+import { usePathname } from 'next/navigation';
+
 export const ModuleDetail: React.FC<Props> = ({ module }) => {
   const [isCompleted, setIsCompleted] = useState(false);
+  const pathname = usePathname();
+  // Extract trackId from URL /learn/[trackId]/[moduleId]
+  const trackId = pathname?.split('/')[2] || 'unknown-track';
 
   useEffect(() => {
     // Check localStorage
-    const saved = localStorage.getItem(`completed-${module.id}`);
+    // New key format: completed-[trackId]-[moduleId]
+    // Legacy fallback: completed-[moduleId] (optional, but good for transition if needed, though we are doing a hard break)
+    const saved = localStorage.getItem(`completed-${trackId}-${module.id}`);
     setIsCompleted(saved === 'true');
     
     // Scroll to top on module change
     window.scrollTo({ top: 0, behavior: 'smooth' });
-  }, [module.id]);
+  }, [module.id, trackId]);
 
   const handleComplete = () => {
     const newState = !isCompleted;
     setIsCompleted(newState);
-    localStorage.setItem(`completed-${module.id}`, String(newState));
+    if (trackId) {
+        localStorage.setItem(`completed-${trackId}-${module.id}`, String(newState));
+    }
   };
 
   return (

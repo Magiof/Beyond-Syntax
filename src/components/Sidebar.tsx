@@ -11,27 +11,29 @@ interface Props {
 
 export const Sidebar: React.FC<Props> = ({ tracks }) => {
   const pathname = usePathname();
-  // Extract currentModuleId from pathname e.g. /learn/java-setup -> java-setup
-  const currentModuleId = pathname?.startsWith('/learn/')
-    ? pathname.split('/').pop() || ''
-    : '';
+  // Extract trackId and moduleId from pathname e.g. /learn/java/java-setup
+  const pathParts = pathname?.split('/') || [];
+  const currentTrackId = pathParts[2] || '';
+  const currentModuleId = pathParts[3] || '';
 
   // 현재 모듈이 속한 Track과 Phase 찾기
   const findCurrentLocation = () => {
-    if (!currentModuleId) {
+    if (!currentModuleId || !currentTrackId) {
       return {
         trackId: tracks[0]?.id || '',
         phaseId: tracks[0]?.phases[0]?.id || ''
       };
     }
-
-    for (const track of tracks) {
-      for (const phase of track.phases) {
-        if (phase.modules.some(m => m.id === currentModuleId)) {
-          return { trackId: track.id, phaseId: phase.id };
+    // Trust URL first
+    const track = tracks.find(t => t.id === currentTrackId);
+    if (track) {
+        for (const phase of track.phases) {
+             if (phase.modules.some(m => m.id === currentModuleId)) {
+                  return { trackId: track.id, phaseId: phase.id };
+             }
         }
-      }
     }
+
     return {
       trackId: tracks[0]?.id || '',
       phaseId: tracks[0]?.phases[0]?.id || ''
@@ -43,10 +45,10 @@ export const Sidebar: React.FC<Props> = ({ tracks }) => {
   const [activeTrackId, setActiveTrackId] = useState(initialTrackId);
   const [openPhases, setOpenPhases] = useState<string[]>([initialPhaseId]);
 
-  // Update active state when URL changes (e.g. user navigates directly or back/forward)
+  // Update active state when URL changes
   useEffect(() => {
     const loc = findCurrentLocation();
-    if (currentModuleId) {
+    if (currentModuleId && currentTrackId) {
       setActiveTrackId(loc.trackId);
       setOpenPhases(prev => {
         if (!prev.includes(loc.phaseId)) {
@@ -55,7 +57,7 @@ export const Sidebar: React.FC<Props> = ({ tracks }) => {
         return prev;
       });
     }
-  }, [currentModuleId]);
+  }, [currentModuleId, currentTrackId]);
 
   const togglePhase = (phaseId: string) => {
     setOpenPhases(prev =>
@@ -179,7 +181,7 @@ export const Sidebar: React.FC<Props> = ({ tracks }) => {
                   return (
                     <Link
                       key={module.id}
-                      href={`/learn/${module.id}`}
+                      href={`/learn/${activeTrack.id}/${module.id}`}
                       className={`
                         w-full text-left flex items-center justify-between px-3 py-2 text-sm rounded-md transition-colors block
                         ${isActive
