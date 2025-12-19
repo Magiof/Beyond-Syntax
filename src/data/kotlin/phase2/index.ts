@@ -1,4 +1,4 @@
-import type { Phase } from '../../curriculumData';
+import type { Phase } from '../../types';
 import { nullSafety } from './null-safety';
 import { classesAndObjects } from './classes-and-objects';
 import { inheritanceAndInterfaces } from './inheritance-and-interfaces';

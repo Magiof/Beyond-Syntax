@@ -1,4 +1,4 @@
-import type { Phase } from '../curriculumData';
+import type { Phase } from '../types';
 
 export const springBasicsPhase: Phase = {
   id: "spring-phase1",

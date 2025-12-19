@@ -1,4 +1,4 @@
-import type { Module } from '../../curriculumData';
+import type { Module } from '../../types';
 
 export const javaIoAndNio: Module = {
     id: "java-io-and-nio",

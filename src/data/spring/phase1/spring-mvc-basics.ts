@@ -1,4 +1,4 @@
-import type { Module } from '../../curriculumData';
+import type { Module } from '../../types';
 
 export const springMvcBasics: Module = {
     id: "spring-mvc-basics",

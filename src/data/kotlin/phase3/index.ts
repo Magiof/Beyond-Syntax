@@ -1,4 +1,4 @@
-import type { Phase } from '../../curriculumData';
+import type { Phase } from '../../types';
 import { coroutineInternals } from './coroutine-internals';
 import { structuredConcurrency } from './structured-concurrency';
 import { kotlinFlow } from './kotlin-flow';

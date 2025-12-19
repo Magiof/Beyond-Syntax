@@ -1,4 +1,4 @@
-import type { Phase } from '../../curriculumData';
+import type { Phase } from '../../types';
 import { springIntroduction } from './spring-introduction';
 import { iocAndDi } from './ioc-and-di';
 import { springbootStart } from './springboot-start';

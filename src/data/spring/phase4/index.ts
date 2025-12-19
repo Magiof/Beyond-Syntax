@@ -1,4 +1,4 @@
-import type { Phase } from '../../curriculumData';
+import type { Phase } from '../../types';
 import { msaArchitecture } from './msa-architecture';
 import { messageQueueKafka } from './message-queue-kafka';
 import { redisCaching } from './redis-caching';

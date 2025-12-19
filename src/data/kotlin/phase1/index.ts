@@ -1,4 +1,4 @@
-import type { Phase } from '../../curriculumData';
+import type { Phase } from '../../types';
 import { atomicFundamentals } from './atomic-fundamentals';
 import { variablesAndTypes } from './variables-and-types';
 import { controlFlow } from './control-flow';

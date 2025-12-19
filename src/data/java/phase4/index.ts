@@ -1,4 +1,4 @@
-import type { Phase } from '../../curriculumData';
+import type { Phase } from '../../types';
 import { jvmInternals } from './jvm-internals';
 import { gcTuningAndOptimization } from './gc-tuning-and-optimization';
 import { reflectionAndProxies } from './reflection-and-proxies';

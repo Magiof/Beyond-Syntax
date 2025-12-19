@@ -1,4 +1,4 @@
-import type { Phase } from '../../curriculumData';
+import type { Phase } from '../../types';
 import { springbootAutoconfiguration } from './springboot-autoconfiguration';
 import { aopAndTransactional } from './aop-and-transactional';
 import { jpaInternalsAndTuning } from './jpa-internals-and-tuning';

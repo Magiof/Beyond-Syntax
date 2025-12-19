@@ -1,4 +1,4 @@
-import type { Phase } from '../../curriculumData';
+import type { Phase } from '../../types';
 import { javaQuickStart } from './java-quick-start';
 import { javaFundamentals } from './java-fundamentals';
 import { arraysAndStrings } from './arrays-and-strings';

@@ -1,4 +1,4 @@
-import type { Module } from '../../curriculumData';
+import type { Module } from '../../types';
 
 export const kotlinDsl: Module = {
     id: "kotlin-dsl",

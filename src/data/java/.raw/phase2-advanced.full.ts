@@ -1,4 +1,4 @@
-import type { Phase } from '../curriculumData';
+import type { Phase } from '../types';
 
 export const javaAdvancedPhase: Phase = {
   id: 'java-phase2',

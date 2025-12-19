@@ -1,4 +1,4 @@
-import type { Phase } from '../../curriculumData';
+import type { Phase } from '../../types';
 import { lambdasAndOptionals } from './lambdas-and-optionals';
 import { streamApi } from './stream-api';
 import { concurrencyMastery } from './concurrency-mastery';

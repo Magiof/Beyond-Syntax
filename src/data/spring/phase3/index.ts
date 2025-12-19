@@ -1,4 +1,4 @@
-import type { Phase } from '../../curriculumData';
+import type { Phase } from '../../types';
 import { springBeanLifecycle } from './spring-bean-lifecycle';
 import { transactionDeepDive } from './transaction-deep-dive';
 import { springSecurityInternal } from './spring-security-internal';

@@ -1,4 +1,4 @@
-import type { Phase } from '../../curriculumData';
+import type { Phase } from '../../types';
 import { dockerKubernetes } from './docker-kubernetes';
 import { monitoringObservability } from './monitoring-observability';
 

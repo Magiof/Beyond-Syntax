@@ -1,4 +1,4 @@
-import type { Phase } from '../../curriculumData';
+import type { Phase } from '../../types';
 import { exceptionHandling } from './exception-handling';
 import { genericsAndEnums } from './generics-and-enums';
 import { collectionsFramework } from './collections-framework';

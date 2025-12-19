@@ -1,4 +1,4 @@
-import type { Phase } from '../../curriculumData';
+import type { Phase } from '../../types';
 import { kotlinDsl } from './kotlin-dsl';
 import { kotlinBytecodeInternals } from './kotlin-bytecode-internals';
 import { advancedMetaprogramming } from './advanced-metaprogramming';
