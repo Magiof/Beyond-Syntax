@@ -7,9 +7,11 @@ import type { Track } from '@/data/curriculumData';
 
 interface Props {
   tracks: Track[];
+  isCollapsed: boolean;
+  onToggle: () => void;
 }
 
-export const Sidebar: React.FC<Props> = ({ tracks }) => {
+export const Sidebar: React.FC<Props> = ({ tracks, isCollapsed, onToggle }) => {
   const pathname = usePathname();
   // Extract trackId and moduleId from pathname e.g. /learn/java/java-setup
   const pathParts = pathname?.split('/') || [];
@@ -78,11 +80,27 @@ export const Sidebar: React.FC<Props> = ({ tracks }) => {
   const activeTrack = tracks.find(t => t.id === activeTrackId);
 
   return (
-    <aside className="w-72 flex-shrink-0 flex flex-col border-r border-gray-200 bg-white h-screen">
+    <aside className={`
+      relative flex-shrink-0 flex flex-col border-r border-gray-200 bg-white h-screen transition-all duration-300 ease-in-out
+      ${isCollapsed ? 'w-20' : 'w-72'}
+    `}>
+      {/* Sidebar Toggle Button */}
+      <button
+        onClick={onToggle}
+        className="absolute -right-3 top-20 w-6 h-6 bg-white border border-gray-200 rounded-full flex items-center justify-center text-gray-400 hover:text-gray-600 hover:border-gray-300 shadow-sm z-50 transition-all"
+      >
+        <span className="material-icons text-sm">
+          {isCollapsed ? 'chevron_right' : 'chevron_left'}
+        </span>
+      </button>
+
       {/* Brand Logo Area */}
-      <div className="h-16 flex items-center px-4 border-b border-gray-100 bg-white/50 backdrop-blur-sm sticky top-0 z-10">
-        <Link href="/" className="flex items-center gap-3 group cursor-pointer w-full">
-          <div className="relative w-10 h-10 flex items-center justify-center rounded-xl shadow-lg transition-all duration-300 overflow-hidden bg-black">
+      <div className={`
+        h-16 flex items-center border-b border-gray-100 bg-white/50 backdrop-blur-sm sticky top-0 z-10 transition-all
+        ${isCollapsed ? 'px-0 justify-center' : 'px-4'}
+      `}>
+        <Link href="/" className={`flex items-center gap-3 group cursor-pointer ${isCollapsed ? '' : 'w-full'}`}>
+          <div className="relative w-10 h-10 flex-shrink-0 flex items-center justify-center rounded-xl shadow-lg transition-all duration-300 overflow-hidden bg-black">
             <img
               src="/brand/logo.png"
               alt="Beyond Syntax"
@@ -90,22 +108,24 @@ export const Sidebar: React.FC<Props> = ({ tracks }) => {
               draggable={false}
             />
           </div>
-          <div className="flex flex-col">
-            <h1 className="text-lg font-bold tracking-tight text-gray-900 leading-none group-hover:text-blue-600 transition-colors font-display">
-              Beyond
-              <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent ml-1">
-                Syntax
+          {!isCollapsed && (
+            <div className="flex flex-col overflow-hidden">
+              <h1 className="text-lg font-bold tracking-tight text-gray-900 leading-none group-hover:text-blue-600 transition-colors font-display truncate">
+                Beyond
+                <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent ml-1">
+                  Syntax
+                </span>
+              </h1>
+              <span className="text-[10px] uppercase tracking-widest text-gray-400 font-medium mt-1 group-hover:text-purple-500 transition-colors truncate">
+                Depth First Learning
               </span>
-            </h1>
-            <span className="text-[10px] uppercase tracking-widest text-gray-400 font-medium mt-1 group-hover:text-purple-500 transition-colors">
-              Depth First Learning
-            </span>
-          </div>
+            </div>
+          )}
         </Link>
       </div>
 
       {/* Track Tabs */}
-      <div className="flex border-b border-gray-200 px-2 pt-2">
+      <div className={`flex border-b border-gray-200 pt-2 ${isCollapsed ? 'flex-col px-2 pb-2 gap-2' : 'px-2'}`}>
         {tracks.map((track) => {
           const isActive = activeTrackId === track.id;
           const colors = trackColors[track.color] || trackColors.blue;
@@ -121,32 +141,44 @@ export const Sidebar: React.FC<Props> = ({ tracks }) => {
                 }
               }}
               className={`
-                flex-1 flex flex-col items-center gap-1 py-2.5 px-2 rounded-t-lg transition-all text-sm font-medium
+                flex flex-col items-center justify-center gap-1 transition-all text-sm font-medium
+                ${isCollapsed ? 'w-full py-3 rounded-xl' : 'flex-1 py-2.5 px-2 rounded-t-lg'}
                 ${isActive
-                  ? `${colors.bg} text-white`
-                  : `text-gray-500 hover:bg-gray-100`
+                  ? `${colors.bg} text-white shadow-md`
+                  : `text-gray-400 hover:text-gray-600 hover:bg-gray-100`
                 }
               `}
+              title={isCollapsed ? track.title : ''}
             >
-              <span className="material-icons text-lg">{track.icon}</span>
-              <span className="text-xs">{track.title}</span>
+              <span className="material-icons text-xl">{track.icon}</span>
+              {!isCollapsed && <span className="text-xs">{track.title}</span>}
             </button>
           );
         })}
       </div>
 
       {/* Track Description */}
-      {activeTrack && (
+      {!isCollapsed && activeTrack && (
         <div className="px-4 py-3 bg-gray-50 border-b border-gray-200">
           <p className="text-xs text-gray-600">{activeTrack.description}</p>
         </div>
       )}
 
       {/* Phase & Chapter List */}
-      <nav className="flex-1 overflow-y-auto custom-scrollbar py-3 px-3 space-y-2">
+      <nav className={`flex-1 overflow-y-auto custom-scrollbar py-3 space-y-2 ${isCollapsed ? 'px-2' : 'px-3'}`}>
         {activeTrack?.phases.map((phase) => {
           const isOpen = openPhases.includes(phase.id);
           const colors = trackColors[activeTrack.color] || trackColors.blue;
+
+          if (isCollapsed) {
+            return (
+              <div 
+                key={phase.id} 
+                className={`w-full h-1 my-2 rounded-full ${colors.bg} opacity-20`}
+                title={phase.title}
+              />
+            );
+          }
 
           return (
             <details
@@ -160,7 +192,6 @@ export const Sidebar: React.FC<Props> = ({ tracks }) => {
                 }
               }}
             >
-              {/* Phase Header */}
               <summary className={`flex items-center justify-between px-3 py-2.5 cursor-pointer rounded-lg transition-all select-none border-l-4 ${colors.border} bg-gray-50 hover:bg-gray-100`}>
                 <div className="flex items-center gap-2">
                   <span className={`text-xs font-bold ${colors.text} uppercase tracking-wide`}>
@@ -172,7 +203,6 @@ export const Sidebar: React.FC<Props> = ({ tracks }) => {
                 </span>
               </summary>
 
-              {/* Chapter List */}
               <div className="space-y-0.5 ml-3 mt-1 pl-3 border-l border-gray-200">
                 {phase.modules.map((module) => {
                   const isActive = currentModuleId === module.id;
@@ -204,29 +234,41 @@ export const Sidebar: React.FC<Props> = ({ tracks }) => {
       </nav>
 
       {/* User Footer */}
-      <div className="p-6 border-t border-gray-100 bg-gray-50/30">
-        <div className="flex items-center gap-4 group">
+      <div className={`border-t border-gray-100 bg-gray-50/30 transition-all ${isCollapsed ? 'p-0 py-4' : 'p-6'}`}>
+        <div className={`flex items-center group ${isCollapsed ? 'flex-col gap-4' : 'gap-4'}`}>
           <div className="relative">
             <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-blue-600 to-purple-600 flex items-center justify-center text-white shadow-md group-hover:shadow-lg transition-all duration-300 overflow-hidden">
                <span className="material-icons text-lg">person</span>
             </div>
-            <div className="absolute -bottom-0.5 -right-0.5 w-3.5 h-3.5 bg-green-500 border-2 border-white rounded-full shadow-sm"></div>
+            {!isCollapsed && <div className="absolute -bottom-0.5 -right-0.5 w-3.5 h-3.5 bg-green-500 border-2 border-white rounded-full shadow-sm"></div>}
           </div>
-          <div className="flex-1 min-w-0">
-            <p className="text-[10px] uppercase tracking-widest text-gray-400 font-bold mb-0.5">Architect</p>
-            <p className="text-sm font-bold text-gray-900 truncate">
-               <Link href="https://about.magiof.com" target="_blank" className="hover:text-blue-600 transition-colors">
-                 황성원
-               </Link>
-            </p>
-          </div>
-          <Link 
-            href="https://github.com/magiof" 
-            target="_blank"
-            className="w-8 h-8 flex items-center justify-center rounded-full text-gray-400 hover:bg-white hover:text-gray-900 hover:shadow-sm transition-all"
-          >
-            <span className="material-icons text-xl">code</span>
-          </Link>
+          {!isCollapsed ? (
+            <>
+              <div className="flex-1 min-w-0">
+                <p className="text-[10px] uppercase tracking-widest text-gray-400 font-bold mb-0.5">Architect</p>
+                <p className="text-sm font-bold text-gray-900 truncate">
+                   <Link href="https://about.magiof.com" target="_blank" className="hover:text-blue-600 transition-colors">
+                     황성원
+                   </Link>
+                </p>
+              </div>
+              <Link 
+                href="https://github.com/magiof" 
+                target="_blank"
+                className="w-8 h-8 flex items-center justify-center rounded-full text-gray-400 hover:bg-white hover:text-gray-900 hover:shadow-sm transition-all"
+              >
+                <span className="material-icons text-xl">code</span>
+              </Link>
+            </>
+          ) : (
+            <Link 
+              href="https://github.com/magiof" 
+              target="_blank"
+              className="w-10 h-10 flex items-center justify-center rounded-xl text-gray-400 hover:bg-white hover:text-gray-900 hover:shadow-md transition-all"
+            >
+              <span className="material-icons text-2xl">code</span>
+            </Link>
+          )}
         </div>
       </div>
     </aside>
