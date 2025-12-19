@@ -2,7 +2,7 @@ import type { Module } from '../../types';
 
 export const advancedMetaprogramming: Module = {
     id: "advanced-metaprogramming",
-    title: "Chapter 18: 고급 메타 프로그래밍 - 프레임워크 설계의 정수",
+    title: "Chapter 17: 고급 메타 프로그래밍 - 프레임워크 설계의 정수",
     topic: "Context Receivers, Reflection, KSP vs Kapt, 비정형 데이터 처리",
     content: `
 ## 1. 다중 컨텍스트의 시대: Context Receivers
