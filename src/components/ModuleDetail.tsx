@@ -62,6 +62,8 @@ const CodeBlockWithLineNumbers: React.FC<{ code: string; language: string; title
 };
 
 import { usePathname } from 'next/navigation';
+import { trackData } from '@/data/curriculumData';
+import Link from 'next/link';
 
 export const ModuleDetail: React.FC<Props> = ({ module }) => {
   const [isCompleted, setIsCompleted] = useState(false);
@@ -69,25 +71,27 @@ export const ModuleDetail: React.FC<Props> = ({ module }) => {
   // Extract trackId from URL /learn/[trackId]/[moduleId]
   const trackId = pathname?.split('/')[2] || 'java';
 
+  // Find current track and flat modules
+  const currentTrack = trackData.find(t => t.id === trackId);
+  const flatModules = currentTrack?.phases.flatMap(p => p.modules) || [];
+  const currentIndex = flatModules.findIndex(m => m.id === module.id);
+  
+  const prevModule = currentIndex > 0 ? flatModules[currentIndex - 1] : null;
+  const nextModule = currentIndex < flatModules.length - 1 ? flatModules[currentIndex + 1] : null;
+
   // Track별 테마 컬러 매핑
-  const themeColors: Record<string, { primary: string, text: string, bg: string, ring: string, border: string }> = {
-    java: { primary: 'bg-orange-500', text: 'text-orange-500', bg: 'bg-orange-50', ring: 'ring-orange-500', border: 'border-orange-500' },
-    kotlin: { primary: 'bg-purple-600', text: 'text-purple-600', bg: 'bg-purple-50', ring: 'ring-purple-600', border: 'border-purple-600' },
-    spring: { primary: 'bg-emerald-600', text: 'text-emerald-600', bg: 'bg-emerald-50', ring: 'ring-emerald-600', border: 'border-emerald-600' },
-    // Default fallback
-    unknown: { primary: 'bg-blue-500', text: 'text-blue-500', bg: 'bg-blue-50', ring: 'ring-blue-500', border: 'border-blue-500' }
+  const themeColors: Record<string, { primary: string, text: string, bg: string, ring: string, border: string, hover: string }> = {
+    java: { primary: 'bg-orange-500', text: 'text-orange-500', bg: 'bg-orange-50', ring: 'ring-orange-500', border: 'border-orange-500', hover: 'hover:bg-orange-100' },
+    kotlin: { primary: 'bg-purple-600', text: 'text-purple-600', bg: 'bg-purple-50', ring: 'ring-purple-600', border: 'border-purple-600', hover: 'hover:bg-purple-100' },
+    spring: { primary: 'bg-emerald-600', text: 'text-emerald-600', bg: 'bg-emerald-50', ring: 'ring-emerald-600', border: 'border-emerald-600', hover: 'hover:bg-emerald-100' },
+    unknown: { primary: 'bg-blue-500', text: 'text-blue-500', bg: 'bg-blue-50', ring: 'ring-blue-500', border: 'border-blue-500', hover: 'hover:bg-blue-100' }
   };
 
   const theme = themeColors[trackId] || themeColors.unknown;
 
   useEffect(() => {
-    // Check localStorage
-    // New key format: completed-[trackId]-[moduleId]
-    // Legacy fallback: completed-[moduleId] (optional, but good for transition if needed, though we are doing a hard break)
     const saved = localStorage.getItem(`completed-${trackId}-${module.id}`);
     setIsCompleted(saved === 'true');
-    
-    // Scroll to top on module change
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [module.id, trackId]);
 
@@ -102,7 +106,7 @@ export const ModuleDetail: React.FC<Props> = ({ module }) => {
   return (
     <div className="max-w-6xl mx-auto pb-20">
       {/* Header Section */}
-      <header className="mb-12 border-b border-gray-200 pb-8 pt-8">
+      <header className="mb-12 border-b border-gray-200 pb-8 pt-8 px-4 md:px-0">
         <div className="flex items-center gap-2 mb-6">
           <span className={`material-icons ${theme.text} text-sm`}>book</span>
           <span className={`text-xs font-bold ${theme.text} tracking-wide uppercase`}>Learning Module</span>
@@ -115,7 +119,7 @@ export const ModuleDetail: React.FC<Props> = ({ module }) => {
         </p>
       </header>
 
-      <div className="xl:flex gap-12 relative items-start">
+      <div className="xl:flex gap-12 relative items-start px-4 md:px-0">
         {/* Main Content Column */}
         <div className="flex-1 min-w-0">
           <div className="prose prose-lg prose-slate max-w-none text-gray-700 leading-loose">
@@ -131,13 +135,11 @@ export const ModuleDetail: React.FC<Props> = ({ module }) => {
 
                       let language = match ? match[1] : '';
 
-                      // Fallback: className이 없어도 내용이 Mermaid 키워드로 시작하면 Mermaid로 처리
                       if (!language && (content.trim().startsWith('graph ') || content.trim().startsWith('sequenceDiagram') || content.trim().startsWith('classDiagram') || content.trim().startsWith('flowchart'))) {
                         language = 'mermaid';
                       }
 
                       if (!inline && (match || isMultiLine || language === 'mermaid')) {
-                        // Handle Mermaid diagrams
                         if (language === 'mermaid') {
                           return (
                             <div className="mermaid-container my-10 p-8 bg-[#0f172a] rounded-2xl shadow-xl border border-slate-800 overflow-hidden group transition-all hover:shadow-2xl hover:border-slate-700">
@@ -153,13 +155,11 @@ export const ModuleDetail: React.FC<Props> = ({ module }) => {
                         return language ? (
                           <CodeBlockWithLineNumbers code={content} language={language} />
                         ) : (
-                          // 언어 미지정 코드블록 (ASCII 아트, 다이어그램 등) - 라이트 배경
                           <div className="rounded-xl overflow-x-auto my-8 bg-slate-50 border border-slate-200 p-8 shadow-inner">
                              <pre className="whitespace-pre font-mono text-sm text-slate-800 leading-relaxed">{content}</pre>
                           </div>
                         );
                       }
-                    // 인라인 코드
                     return (
                       <code className="bg-red-50 text-red-600 px-1.5 py-0.5 rounded-md font-mono text-sm border border-red-100 not-prose" {...props}>
                         {children}
@@ -203,11 +203,8 @@ export const ModuleDetail: React.FC<Props> = ({ module }) => {
                     return <strong className="font-bold text-gray-900">{children}</strong>;
                   },
                   blockquote({children}) {
-                    // GitHub Alerts support ([!NOTE], [!TIP], [!IMPORTANT], [!WARNING], [!CAUTION])
-                    // ReactMarkdown typically wraps the content in a 'p' tag as the first child.
                     const childrenArray = React.Children.toArray(children);
                     
-                    // Helper to find the alert type and remaining content
                     let alertType: string | null = null;
                     let firstChildIdx = -1;
                     let textNodeIdx = -1;
@@ -241,7 +238,6 @@ export const ModuleDetail: React.FC<Props> = ({ module }) => {
                         CAUTION: { bg: 'bg-red-50', border: 'border-red-500', text: 'text-red-800', icon: 'dangerous', iconColor: 'text-red-500', titleColor: 'text-red-500' }
                       }[alertType] || { bg: 'bg-blue-50', border: 'border-blue-500', text: 'text-blue-800', icon: 'info', iconColor: 'text-blue-500', titleColor: 'text-blue-500' };
 
-                      // Create a modified first child with the marker removed
                       const targetChild: any = childrenArray[firstChildIdx];
                       const targetGrandChildren = React.Children.toArray(targetChild.props.children);
                       const modifiedGrandChildren = [
@@ -264,7 +260,7 @@ export const ModuleDetail: React.FC<Props> = ({ module }) => {
                       return (
                         <div className={`my-8 border-l-4 ${style.border} ${style.bg} p-5 rounded-r-xl shadow-sm border-y border-r border-opacity-10 transition-all hover:shadow-md`}>
                           <div className="flex items-center gap-2.5 mb-3">
-                            <span className={`material-icons ${style.iconColor} text-2xl`}>{style.icon}</span>
+                            <span className="material-icons ${style.iconColor} text-2xl">{style.icon}</span>
                             <span className={`font-black uppercase text-xs tracking-widest ${style.titleColor}`}>{alertType}</span>
                           </div>
                           <div className={`text-base leading-relaxed ${style.text} font-medium`}>
@@ -376,6 +372,39 @@ export const ModuleDetail: React.FC<Props> = ({ module }) => {
               </div>
             </section>
           )}
+
+          {/* Module Navigation Buttons */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-20 pt-10 border-t border-gray-100">
+            {prevModule ? (
+              <Link
+                href={`/learn/${trackId}/${prevModule.id}`}
+                className="group flex flex-col p-6 rounded-2xl border border-gray-100 bg-gray-50/50 hover:bg-white hover:border-blue-200 transition-all shadow-sm hover:shadow-md"
+              >
+                <div className="flex items-center gap-2 mb-2 text-xs font-bold text-gray-400 uppercase tracking-widest">
+                  <span className="material-icons text-sm">arrow_back</span>
+                  Previous
+                </div>
+                <div className="text-base font-bold text-gray-900 group-hover:text-blue-600 transition-colors">
+                  {prevModule.title}
+                </div>
+              </Link>
+            ) : <div className="hidden md:block" />}
+            
+            {nextModule && (
+              <Link
+                href={`/learn/${trackId}/${nextModule.id}`}
+                className="group flex flex-col items-end p-6 rounded-2xl border border-gray-100 bg-gray-50/50 hover:bg-white hover:border-blue-200 transition-all shadow-sm hover:shadow-md text-right"
+              >
+                <div className="flex items-center gap-2 mb-2 text-xs font-bold text-gray-400 uppercase tracking-widest">
+                  Next
+                  <span className="material-icons text-sm">arrow_forward</span>
+                </div>
+                <div className="text-base font-bold text-gray-900 group-hover:text-blue-600 transition-colors">
+                  {nextModule.title}
+                </div>
+              </Link>
+            )}
+          </div>
 
           {/* Completion Footer */}
           <div className="flex justify-center mt-12 pb-12">
