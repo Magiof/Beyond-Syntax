@@ -82,12 +82,13 @@ export const Sidebar: React.FC<Props> = ({ tracks, isCollapsed, onToggle }) => {
   return (
     <aside className={`
       relative flex-shrink-0 flex flex-col border-r border-gray-200 bg-white h-screen transition-all duration-300 ease-in-out
-      ${isCollapsed ? 'w-20' : 'w-72'}
+      ${isCollapsed ? 'lg:w-20' : 'lg:w-72'}
+      w-72 lg:flex
     `}>
-      {/* Sidebar Toggle Button */}
+      {/* Sidebar Toggle Button - Desktop Only */}
       <button
         onClick={onToggle}
-        className="absolute -right-3 top-20 w-6 h-6 bg-white border border-gray-200 rounded-full flex items-center justify-center text-gray-400 hover:text-gray-600 hover:border-gray-300 shadow-sm z-50 transition-all"
+        className="hidden lg:flex absolute -right-3 top-20 w-6 h-6 bg-white border border-gray-200 rounded-full items-center justify-center text-gray-400 hover:text-gray-600 hover:border-gray-300 shadow-sm z-50 transition-all"
       >
         <span className="material-icons text-sm">
           {isCollapsed ? 'chevron_right' : 'chevron_left'}
@@ -97,9 +98,10 @@ export const Sidebar: React.FC<Props> = ({ tracks, isCollapsed, onToggle }) => {
       {/* Brand Logo Area */}
       <div className={`
         h-16 flex items-center border-b border-gray-100 bg-white/50 backdrop-blur-sm sticky top-0 z-10 transition-all
-        ${isCollapsed ? 'px-0 justify-center' : 'px-4'}
+        ${isCollapsed ? 'lg:px-0 lg:justify-center' : 'px-4'}
+        px-4
       `}>
-        <Link href="/" className={`flex items-center gap-3 group cursor-pointer ${isCollapsed ? '' : 'w-full'}`}>
+        <Link href="/" className={`flex items-center gap-3 group cursor-pointer ${isCollapsed ? 'lg:w-auto' : 'w-full'} w-full`}>
           <div className="relative w-10 h-10 flex-shrink-0 flex items-center justify-center rounded-xl shadow-lg transition-all duration-300 overflow-hidden bg-black">
             <img
               src="/brand/logo.png"
@@ -108,24 +110,22 @@ export const Sidebar: React.FC<Props> = ({ tracks, isCollapsed, onToggle }) => {
               draggable={false}
             />
           </div>
-          {!isCollapsed && (
-            <div className="flex flex-col overflow-hidden">
-              <h1 className="text-lg font-bold tracking-tight text-gray-900 leading-none group-hover:text-blue-600 transition-colors font-display truncate">
-                Beyond
-                <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent ml-1">
-                  Syntax
-                </span>
-              </h1>
-              <span className="text-[10px] uppercase tracking-widest text-gray-400 font-medium mt-1 group-hover:text-purple-500 transition-colors truncate">
-                Depth First Learning
+          <div className={`flex flex-col overflow-hidden ${isCollapsed ? 'lg:hidden' : 'block'}`}>
+            <h1 className="text-lg font-bold tracking-tight text-gray-900 leading-none group-hover:text-blue-600 transition-colors font-display truncate">
+              Beyond
+              <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent ml-1">
+                Syntax
               </span>
-            </div>
-          )}
+            </h1>
+            <span className="text-[10px] uppercase tracking-widest text-gray-400 font-medium mt-1 group-hover:text-purple-500 transition-colors truncate">
+              Depth First Learning
+            </span>
+          </div>
         </Link>
       </div>
 
       {/* Track Tabs */}
-      <div className={`flex border-b border-gray-200 pt-2 ${isCollapsed ? 'flex-col px-2 pb-2 gap-2' : 'px-2'}`}>
+      <div className={`flex border-b border-gray-200 pt-2 ${isCollapsed ? 'lg:flex-col lg:px-2 lg:pb-2 lg:gap-2' : 'px-2'}`}>
         {tracks.map((track) => {
           const isActive = activeTrackId === track.id;
           const colors = trackColors[track.color] || trackColors.blue;
@@ -142,7 +142,8 @@ export const Sidebar: React.FC<Props> = ({ tracks, isCollapsed, onToggle }) => {
               }}
               className={`
                 flex flex-col items-center justify-center gap-1 transition-all text-sm font-medium
-                ${isCollapsed ? 'w-full py-3 rounded-xl' : 'flex-1 py-2.5 px-2 rounded-t-lg'}
+                ${isCollapsed ? 'lg:w-full lg:py-3 lg:rounded-xl' : 'flex-1 py-2.5 px-2 rounded-t-lg'}
+                ${!isCollapsed ? 'flex-1 py-2.5 px-2 rounded-t-lg' : 'lg:w-full w-auto flex-1 py-2.5 px-2 lg:rounded-xl rounded-t-lg'}
                 ${isActive
                   ? `${colors.bg} text-white shadow-md`
                   : `text-gray-400 hover:text-gray-600 hover:bg-gray-100`
@@ -151,84 +152,83 @@ export const Sidebar: React.FC<Props> = ({ tracks, isCollapsed, onToggle }) => {
               title={isCollapsed ? track.title : ''}
             >
               <span className="material-icons text-xl">{track.icon}</span>
-              {!isCollapsed && <span className="text-xs">{track.title}</span>}
+              <span className={`text-xs ${isCollapsed ? 'lg:hidden' : 'block'}`}>{track.title}</span>
             </button>
           );
         })}
       </div>
 
       {/* Track Description */}
-      {!isCollapsed && activeTrack && (
-        <div className="px-4 py-3 bg-gray-50 border-b border-gray-200">
-          <p className="text-xs text-gray-600">{activeTrack.description}</p>
-        </div>
-      )}
+      <div className={`px-4 py-3 bg-gray-50 border-b border-gray-200 ${isCollapsed ? 'lg:hidden' : 'block'}`}>
+        {activeTrack && <p className="text-xs text-gray-600">{activeTrack.description}</p>}
+      </div>
 
       {/* Phase & Chapter List */}
-      <nav className={`flex-1 overflow-y-auto custom-scrollbar py-3 space-y-2 ${isCollapsed ? 'px-2' : 'px-3'}`}>
+      <nav className={`flex-1 overflow-y-auto custom-scrollbar py-3 space-y-2 ${isCollapsed ? 'lg:px-2 px-3' : 'px-3'}`}>
         {activeTrack?.phases.map((phase) => {
           const isOpen = openPhases.includes(phase.id);
           const colors = trackColors[activeTrack.color] || trackColors.blue;
 
-          if (isCollapsed) {
-            return (
-              <div 
-                key={phase.id} 
-                className={`w-full h-1 my-2 rounded-full ${colors.bg} opacity-20`}
-                title={phase.title}
-              />
-            );
-          }
-
           return (
-            <details
-              key={phase.id}
-              className="group"
-              open={isOpen}
-              onToggle={(e) => {
-                const target = e.target as HTMLDetailsElement;
-                if (target.open !== isOpen) {
-                  togglePhase(phase.id);
-                }
-              }}
-            >
-              <summary className={`flex items-center justify-between px-3 py-2.5 cursor-pointer rounded-lg transition-all select-none border-l-4 ${colors.border} bg-gray-50 hover:bg-gray-100`}>
-                <div className="flex items-center gap-2">
-                  <span className={`text-xs font-bold ${colors.text} uppercase tracking-wide`}>
-                    {phase.title}
+            <React.Fragment key={phase.id}>
+              {/* Desktop Collapsed Indicator */}
+              {isCollapsed && (
+                <div
+                  className={`hidden lg:block w-full h-1 my-2 rounded-full ${colors.bg} opacity-20`}
+                  title={phase.title}
+                />
+              )}
+              
+              {/* Desktop Collapsed - No details, just small marks above. 
+                  Mobile or Expanded - Show full details. */}
+              <details
+                className={`group ${isCollapsed ? 'lg:hidden' : 'block'}`}
+                open={isOpen}
+                onToggle={(e) => {
+                  const target = e.target as HTMLDetailsElement;
+                  if (target.open !== isOpen) {
+                    togglePhase(phase.id);
+                  }
+                }}
+              >
+                <summary className={`flex items-center justify-between px-3 py-2.5 cursor-pointer rounded-lg transition-all select-none border-l-4 ${colors.border} bg-gray-50 hover:bg-gray-100`}>
+                  <div className="flex items-center gap-2">
+                    <span className={`text-xs font-bold ${colors.text} uppercase tracking-wide`}>
+                      {phase.title}
+                    </span>
+                  </div>
+                  <span className={`material-icons text-base transition-transform duration-200 text-gray-400 ${isOpen ? 'rotate-180' : ''}`}>
+                    expand_more
                   </span>
+                </summary>
+
+                <div className="space-y-0.5 ml-3 mt-1 pl-3 border-l border-gray-200">
+                  {phase.modules.map((module) => {
+                    const isActive = currentModuleId === module.id;
+                    const modColors = trackColors[activeTrack.color] || trackColors.blue;
+
+                    return (
+                      <Link
+                        key={module.id}
+                        href={`/learn/${activeTrack.id}/${module.id}`}
+                        className={`
+                          w-full text-left flex items-center justify-between px-3 py-2 text-sm rounded-md transition-colors block
+                          ${isActive
+                            ? `${modColors.bg} text-white font-medium shadow-sm`
+                            : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900'
+                          }
+                        `}
+                      >
+                        <span className="truncate">{module.title}</span>
+                        {isActive && (
+                          <span className="material-icons text-sm">chevron_right</span>
+                        )}
+                      </Link>
+                    );
+                  })}
                 </div>
-                <span className={`material-icons text-base transition-transform duration-200 text-gray-400 ${isOpen ? 'rotate-180' : ''}`}>
-                  expand_more
-                </span>
-              </summary>
-
-              <div className="space-y-0.5 ml-3 mt-1 pl-3 border-l border-gray-200">
-                {phase.modules.map((module) => {
-                  const isActive = currentModuleId === module.id;
-                  const colors = trackColors[activeTrack.color] || trackColors.blue;
-
-                  return (
-                    <Link
-                      key={module.id}
-                      href={`/learn/${activeTrack.id}/${module.id}`}
-                      className={`
-                        w-full text-left flex items-center justify-between px-3 py-2 text-sm rounded-md transition-colors block
-                        ${isActive
-                          ? `${colors.bg} text-white font-medium shadow-sm`
-                          : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900'
-                        }
-                      `}
-                    >
-                      <span className="truncate">{module.title}</span>
-                      {isActive && (
-                        <span className="material-icons text-sm">chevron_right</span>
-                      )}
-                    </Link>
-                  );
-                })}
-              </div>
-            </details>
+              </details>
+            </React.Fragment>
           );
         })}
       </nav>
